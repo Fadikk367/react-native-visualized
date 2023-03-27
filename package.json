@@ -78,7 +78,10 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "@shopify/react-native-skia": "^0.1.172",
+    "react-native-gesture-handler": "^2.9.0",
+    "react-native-reanimated": "^2.14.4"
   },
   "engines": {
     "node": ">= 16.0.0"
