@@ -1,0 +1,18 @@
+{
+  "quoteProps": "consistent",
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "trailingComma": "all",
+  "bracketSameLine": true,
+  "arrowParens": "avoid",
+  "useTabs": false,
+  "importOrder": [
+    "^(react|react-native)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@core/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
