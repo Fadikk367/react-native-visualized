@@ -2,5 +2,10 @@
   "extends": "../tsconfig",
   "compilerOptions": {
     // Avoid expo-cli auto-generating a tsconfig
+    "baseUrl": ".",
+    "paths": {
+      "react-native-visualized": ["../src/index"],
+      "@/*": ["src/*"]
+    }
   }
 }
