@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "extends": [
+    "@react-native-community",
+    "prettier"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "quoteProps": "consistent",
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "all",
+        "useTabs": false
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "lib/"
+  ]
+}
