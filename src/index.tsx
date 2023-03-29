@@ -1,3 +1,4 @@
+import BarChart from './BarChart';
 import LineChart from './charts/LineChart';
 
 export function multiply(a: number, b: number): Promise<number> {
@@ -6,4 +7,5 @@ export function multiply(a: number, b: number): Promise<number> {
 
 export const Chart = {
   Line: LineChart,
+  Bar: BarChart,
 };
