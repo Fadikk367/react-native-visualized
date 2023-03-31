@@ -9,6 +9,8 @@ export interface BarChartProps extends ChartBaseProps {
   data: BarData[];
   yDomain: [number, number];
   barRatio?: number;
+  yLabels: number[];
+  yLabelsWidth?: number;
 }
 
 export interface BarProps {
@@ -23,4 +25,14 @@ export interface BarLabelProps {
   label: string;
   space: number;
   height: number;
+  fontSize?: number;
+}
+
+export interface YLabelsProps {
+  labels: number[];
+  width?: number;
+  fontSize?: number;
+  height: number;
+  showDash?: boolean;
+  mapDomainToCanvas(v: number): number;
 }

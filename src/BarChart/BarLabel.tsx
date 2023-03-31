@@ -1,21 +1,20 @@
 import React from 'react';
 
-import { RoundedRect } from '@shopify/react-native-skia';
+import { Text, useFont } from '@shopify/react-native-skia';
 
+import RobotoMono from '../../assets/fonts/RobotoMono.ttf';
 import type { BarLabelProps } from './types';
 
-const BarLabel = ({ label, space, height }: BarLabelProps) => {
+const BarLabel = ({ label, space, height, fontSize = 20 }: BarLabelProps) => {
+  const font = useFont(RobotoMono, fontSize);
+
+  if (!font) return null;
+
+  const textWidth = font?.getTextWidth(label);
+  const paddingX = (space - textWidth) / 2;
+
   return (
-    // Placeholder, will be some Text
-    <RoundedRect
-      x={0}
-      y={0}
-      width={space - 2}
-      height={height}
-      r={label.length}
-      color="green"
-      opacity={0.5}
-    />
+    <Text font={font} text={label} x={paddingX} y={height - fontSize / 3} />
   );
 };
 

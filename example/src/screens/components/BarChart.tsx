@@ -7,12 +7,12 @@ import ScreenContainer from '@/components/ScreenContainer';
 const BarChart = () => {
   const data = [
     { value: 3, label: 'MON' },
-    { value: 7, label: 'TUE' },
-    { value: 12, label: 'WED' },
-    { value: 8, label: 'THU' },
-    { value: 10, label: 'FRI' },
-    { value: 11, label: 'SAT' },
-    { value: 2, label: 'SUN' },
+    { value: 9, label: 'TUE' },
+    { value: 19, label: 'WED' },
+    { value: 10, label: 'THU' },
+    { value: 12, label: 'FRI' },
+    { value: 16, label: 'SAT' },
+    { value: 7, label: 'SUN' },
   ];
 
   return (
@@ -21,8 +21,9 @@ const BarChart = () => {
         width={394}
         height={300}
         data={data}
-        yDomain={[0, 14]}
-        barRatio={0.9}
+        yDomain={[0, 22]}
+        yLabels={[0, 4, 8, 12, 16, 20]}
+        barRatio={0.8}
       />
     </ScreenContainer>
   );

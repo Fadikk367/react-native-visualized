@@ -5,6 +5,7 @@ import { Canvas, Group, Line } from '@shopify/react-native-skia';
 
 import Bar from './Bar';
 import BarLabel from './BarLabel';
+import YLabels from './YLabels';
 import type { BarChartProps } from './types';
 
 const BarChart = ({
@@ -12,10 +13,12 @@ const BarChart = ({
   height,
   data,
   yDomain,
+  yLabels,
   barRatio = 0.9,
+  yLabelsWidth = 40,
 }: BarChartProps) => {
   // TODO: Take into account y axis labels width
-  const barSpace = width / data.length;
+  const barSpace = (width - yLabelsWidth) / data.length;
   // TODO: when y domain is missing / set to auto determine based on data extremums
   const yDomainSize = yDomain[1] - yDomain[0];
   const labelsBarHeight = 30;
@@ -28,6 +31,7 @@ const BarChart = ({
 
   const bars = data.map(({ value }, index) => (
     <Group
+      key={`${index}-${value}`}
       transform={[
         { translateX: barSpace * index },
         { translateY: height - chartContentHeight },
@@ -52,17 +56,27 @@ const BarChart = ({
 
   return (
     <Canvas style={[{ width, height }, styles.canvas]}>
+      <YLabels
+        labels={yLabels}
+        width={yLabelsWidth}
+        height={chartContentHeight}
+        mapDomainToCanvas={mapDomainToCanvas}
+      />
       <Group
-        transform={[{ rotate: Math.PI }]}
-        origin={{ x: width / 2, y: height / 2 }}>
+        transform={[{ translateX: yLabelsWidth }, { rotate: Math.PI }]}
+        origin={{ x: (width - yLabelsWidth) / 2, y: height / 2 }}>
         {bars}
       </Group>
       <Line
-        p1={{ x: 0, y: chartContentHeight }}
+        p1={{ x: yLabelsWidth, y: chartContentHeight }}
         p2={{ x: width, y: chartContentHeight }}
         strokeWidth={1}
       />
-      <Group transform={[{ translateY: chartContentHeight }]}>
+      <Group
+        transform={[
+          { translateX: yLabelsWidth },
+          { translateY: chartContentHeight },
+        ]}>
         {barLabels}
       </Group>
     </Canvas>
