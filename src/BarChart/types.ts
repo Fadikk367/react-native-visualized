@@ -12,6 +12,7 @@ export interface BarChartProps extends ChartBaseProps {
   yLabels: number[];
   yLabelsWidth?: number;
   showLines?: boolean;
+  animated?: boolean;
 }
 
 export interface BarProps {

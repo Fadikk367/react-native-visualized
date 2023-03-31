@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Canvas, Group, Line } from '@shopify/react-native-skia';
 
+import AnimatedBar from './AnimatedBar';
 import Bar from './Bar';
 import BarLabel from './BarLabel';
 import LabelsLines from './LabelsLines';
@@ -15,6 +16,7 @@ const BarChart = ({
   data,
   yDomain,
   yLabels,
+  animated = false,
   barRatio = 0.9,
   yLabelsWidth = 40,
   showLines = false,
@@ -31,14 +33,16 @@ const BarChart = ({
     return (chartContentHeight / yDomainSize) * domainValue;
   };
 
+  const BarComponent = animated ? AnimatedBar : Bar;
+
   const bars = data.map(({ value }, index) => (
     <Group
-      key={`${index}-${value}`}
+      key={index}
       transform={[
         { translateX: barSpace * index },
         { translateY: height - chartContentHeight },
       ]}>
-      <Bar
+      <BarComponent
         value={value}
         space={barSpace}
         ratio={barRatio}
