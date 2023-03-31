@@ -24,6 +24,7 @@ const BarChart = () => {
         yDomain={[0, 22]}
         yLabels={[0, 4, 8, 12, 16, 20]}
         barRatio={0.8}
+        showLines
       />
     </ScreenContainer>
   );

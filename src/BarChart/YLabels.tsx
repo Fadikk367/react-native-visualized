@@ -23,8 +23,8 @@ const YLabels = ({
             <Line
               strokeWidth={1}
               strokeCap="round"
-              p1={{ x: width - 1 - 3, y: 270 - mapDomainToCanvas(value) }}
-              p2={{ x: width - 1 + 3, y: 270 - mapDomainToCanvas(value) }}
+              p1={{ x: width - 1 - 3, y: height - mapDomainToCanvas(value) }}
+              p2={{ x: width - 1 + 3, y: height - mapDomainToCanvas(value) }}
             />
           )}
           {font && (
