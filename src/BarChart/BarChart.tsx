@@ -20,6 +20,7 @@ const BarChart = ({
   barRatio = 0.9,
   yLabelsWidth = 40,
   showLines = false,
+  renderBar,
 }: BarChartProps) => {
   const chartContentWidth = width - yLabelsWidth;
   const barSpace = chartContentWidth / data.length;
@@ -33,7 +34,10 @@ const BarChart = ({
     return (chartContentHeight / yDomainSize) * domainValue;
   };
 
-  const BarComponent = animated ? AnimatedBar : Bar;
+  let BarComponent = animated ? AnimatedBar : Bar;
+  if (renderBar) {
+    BarComponent = renderBar;
+  }
 
   const bars = data.map(({ value }, index) => (
     <Group

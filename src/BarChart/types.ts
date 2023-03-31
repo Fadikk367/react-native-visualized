@@ -13,6 +13,7 @@ export interface BarChartProps extends ChartBaseProps {
   yLabelsWidth?: number;
   showLines?: boolean;
   animated?: boolean;
+  renderBar?(props: BarProps): React.ReactElement;
 }
 
 export interface BarProps {

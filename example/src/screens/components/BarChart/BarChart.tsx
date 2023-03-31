@@ -5,11 +5,13 @@ import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 
+import CustomBar from './CustomBar';
 import { dataset1, dataset2 } from './data';
 
 const BarChart = () => {
   const [data, setData] = useState(dataset1);
   const [isAnimated, setIsAnimated] = useState(false);
+  const [isCustomComponent, setIsCustomComponent] = useState(false);
 
   const toggleData = () => {
     const newData = data === dataset1 ? dataset2 : dataset1;
@@ -18,6 +20,10 @@ const BarChart = () => {
 
   const toggleAnimated = () => {
     setIsAnimated(!isAnimated);
+  };
+
+  const toggleCustomComponent = () => {
+    setIsCustomComponent(!isCustomComponent);
   };
 
   return (
@@ -31,11 +37,16 @@ const BarChart = () => {
         barRatio={0.8}
         showLines
         animated={isAnimated}
+        renderBar={isCustomComponent ? CustomBar : undefined}
       />
       <Button title="Change dataset" onPress={toggleData} />
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Animated:</Text>
         <Switch value={isAnimated} onChange={toggleAnimated} />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.animatedLabel}>Custom Bar component:</Text>
+        <Switch value={isCustomComponent} onChange={toggleCustomComponent} />
       </View>
     </ScreenContainer>
   );
