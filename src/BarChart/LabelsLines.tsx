@@ -14,6 +14,7 @@ const LabelsLines = ({
 }: LabelsLinesProps) => {
   const lines = labels.map(label => (
     <Line
+      key={label}
       p1={{ x: 0, y: height - mapDomainToCanvas(label) }}
       p2={{ x: width, y: height - mapDomainToCanvas(label) }}
       strokeWidth={strokeWidth}

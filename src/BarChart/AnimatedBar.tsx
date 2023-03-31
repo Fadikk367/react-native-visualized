@@ -16,7 +16,6 @@ const AnimatedBar = ({
   mapDomainToCanvas,
 }: BarProps) => {
   const prevValueRef = useRef(value);
-  console.log({ from: prevValueRef.current, to: value });
   const progress = useTiming(
     { from: prevValueRef.current, to: value },
     { duration: 300 },

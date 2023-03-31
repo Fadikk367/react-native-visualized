@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import BarChart from '@/screens/components/BarChart';
+import BarChart from '@/screens/components/BarChart/BarChart';
 import Catalogue from '@/screens/components/Catalogue';
 import LineChart from '@/screens/components/LineChart';
 
