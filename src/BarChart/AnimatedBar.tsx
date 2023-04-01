@@ -13,6 +13,7 @@ const AnimatedBar = ({
   space,
   ratio,
   padding,
+  base,
   mapDomainToCanvas,
 }: BarProps) => {
   const prevValueRef = useRef(value);
@@ -33,7 +34,7 @@ const AnimatedBar = ({
   return (
     <RoundedRect
       x={padding}
-      y={0}
+      y={mapDomainToCanvas(base)}
       width={space * ratio}
       height={barTransform}
       r={16}

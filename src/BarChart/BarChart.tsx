@@ -51,6 +51,7 @@ const BarChart = ({
         space={barSpace}
         ratio={barRatio}
         padding={barPadding}
+        base={yDomain[0]}
         mapDomainToCanvas={mapDomainToCanvas}
       />
     </Group>
@@ -66,13 +67,20 @@ const BarChart = ({
 
   return (
     <Canvas style={[{ width, height }, styles.canvas]}>
-      <YLabels
-        labels={yLabels}
-        width={yLabelsWidth}
-        height={chartContentHeight}
-        mapDomainToCanvas={mapDomainToCanvas}
-      />
-      <Group transform={[{ translateX: yLabelsWidth }]}>
+      <Group transform={[{ translateY: mapDomainToCanvas(yDomain[0]) }]}>
+        <YLabels
+          labels={yLabels}
+          width={yLabelsWidth}
+          height={chartContentHeight}
+          base={yDomain[0]}
+          mapDomainToCanvas={mapDomainToCanvas}
+        />
+      </Group>
+      <Group
+        transform={[
+          { translateX: yLabelsWidth },
+          { translateY: mapDomainToCanvas(yDomain[0]) },
+        ]}>
         {showLines && (
           <LabelsLines
             labels={yLabels}

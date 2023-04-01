@@ -21,6 +21,7 @@ export interface BarProps {
   space: number;
   ratio: number;
   padding: number;
+  base: number;
   mapDomainToCanvas(v: number): number;
 }
 
@@ -37,6 +38,7 @@ export interface YLabelsProps {
   fontSize?: number;
   height: number;
   showDash?: boolean;
+  base: number;
   mapDomainToCanvas(v: number): number;
 }
 

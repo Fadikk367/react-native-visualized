@@ -32,8 +32,8 @@ const BarChart = () => {
         width={394}
         height={300}
         data={data}
-        yDomain={[0, 22]}
-        yLabels={[0, 4, 8, 12, 16, 20]}
+        yDomain={[-4, 22]}
+        yLabels={[-4, 0, 4, 8, 12, 16, 20]}
         barRatio={0.8}
         showLines
         animated={isAnimated}

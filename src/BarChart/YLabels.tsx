@@ -10,6 +10,7 @@ const YLabels = ({
   fontSize = 18,
   width = 30,
   height,
+  base,
   showDash = true,
   mapDomainToCanvas,
 }: YLabelsProps) => {
@@ -45,7 +46,7 @@ const YLabels = ({
       <Line
         strokeWidth={1}
         p1={{ x: width - 1, y: 0 }}
-        p2={{ x: width - 1, y: height }}
+        p2={{ x: width - 1, y: height - mapDomainToCanvas(base) }}
       />
       {labelsElements}
     </Group>
