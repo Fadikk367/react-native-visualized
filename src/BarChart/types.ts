@@ -38,7 +38,7 @@ export interface YLabelsProps {
   fontSize?: number;
   height: number;
   showDash?: boolean;
-  base: number;
+  domain: [number, number];
   mapDomainToCanvas(v: number): number;
 }
 

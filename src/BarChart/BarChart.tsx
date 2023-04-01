@@ -79,7 +79,7 @@ const BarChart = ({
           labels={yLabels}
           width={yLabelsWidth}
           height={chartContentHeight}
-          base={yDomain[0]}
+          domain={yDomain}
           mapDomainToCanvas={mapDomainToCanvas}
         />
       </Group>
