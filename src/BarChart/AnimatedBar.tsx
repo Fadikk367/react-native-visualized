@@ -27,8 +27,12 @@ const AnimatedBar = ({
   }, [value]);
 
   const barTransform = useComputedValue(
-    () => mapDomainToCanvas(progress.current),
-    [progress],
+    () =>
+      Math.max(
+        mapDomainToCanvas(progress.current) - mapDomainToCanvas(base),
+        0,
+      ),
+    [progress, mapDomainToCanvas],
   );
 
   return (

@@ -42,18 +42,25 @@ const BarChart = ({
   const bars = data.map(({ value }, index) => (
     <Group
       key={index}
-      transform={[
-        { translateX: barSpace * index },
-        { translateY: height - chartContentHeight },
-      ]}>
-      <BarComponent
-        value={value}
-        space={barSpace}
-        ratio={barRatio}
-        padding={barPadding}
-        base={yDomain[0]}
-        mapDomainToCanvas={mapDomainToCanvas}
-      />
+      origin={{
+        x: barSpace * index + barSpace / 2,
+        y: height / 2,
+      }}
+      transform={[{ rotate: Math.PI }]}>
+      <Group
+        transform={[
+          { translateX: barSpace * index },
+          { translateY: height - chartContentHeight },
+        ]}>
+        <BarComponent
+          value={value}
+          space={barSpace}
+          ratio={barRatio}
+          padding={barPadding}
+          base={yDomain[0]}
+          mapDomainToCanvas={mapDomainToCanvas}
+        />
+      </Group>
     </Group>
   ));
 
@@ -89,11 +96,7 @@ const BarChart = ({
             width={chartContentWidth}
           />
         )}
-        <Group
-          transform={[{ rotate: Math.PI }]}
-          origin={{ x: chartContentWidth / 2, y: height / 2 }}>
-          {bars}
-        </Group>
+        {bars}
       </Group>
       <Line
         p1={{ x: yLabelsWidth, y: chartContentHeight }}

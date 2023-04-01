@@ -17,7 +17,7 @@ const Bar = ({
       x={padding}
       y={mapDomainToCanvas(base)}
       width={space * ratio}
-      height={mapDomainToCanvas(value)}
+      height={Math.max(mapDomainToCanvas(value) - mapDomainToCanvas(base), 0)}
       r={16}
       color="blue"
     />
