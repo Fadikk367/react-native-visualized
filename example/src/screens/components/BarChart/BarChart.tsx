@@ -30,7 +30,7 @@ const BarChart = () => {
     <ScreenContainer>
       <Chart.Bar
         width={394}
-        height={300}
+        height={420}
         data={data}
         yDomain={[-4, 22]}
         yLabels={[-4, 0, 4, 8, 12, 16, 20]}
