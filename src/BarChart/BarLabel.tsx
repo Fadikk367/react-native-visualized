@@ -2,11 +2,16 @@ import React from 'react';
 
 import { Text, useFont } from '@shopify/react-native-skia';
 
-import RobotoMono from '../../assets/fonts/RobotoMono.ttf';
 import type { BarLabelProps } from './types';
 
-const BarLabel = ({ label, space, height, fontSize = 20 }: BarLabelProps) => {
-  const font = useFont(RobotoMono, fontSize);
+const BarLabel = ({
+  label,
+  space,
+  height,
+  font: fontSource,
+  fontSize = 20,
+}: BarLabelProps) => {
+  const font = useFont(fontSource, fontSize);
 
   if (!font) return null;
 

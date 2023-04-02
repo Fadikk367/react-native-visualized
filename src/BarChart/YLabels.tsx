@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Group, Line, Text, useFont } from '@shopify/react-native-skia';
 
-import RobotoMono from '../../assets/fonts/RobotoMono.ttf';
 import type { YLabelsProps } from './types';
 import { getIsWithinDomain } from './utils';
 
@@ -12,10 +11,11 @@ const YLabels = ({
   width = 30,
   height,
   domain,
+  font: fontSource,
   showDash = true,
   mapDomainToCanvas,
 }: YLabelsProps) => {
-  const font = useFont(RobotoMono, fontSize);
+  const font = useFont(fontSource, fontSize);
 
   const labelsWithinDomain = labels.filter(getIsWithinDomain(domain));
 

@@ -5,6 +5,8 @@ import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 
+// TODO: Find a way to correctly set an alias like @/assets
+import RobotoMono from '../../../../assets/fonts/RobotoMono.ttf';
 import CustomBar from './CustomBar';
 import { dataset1, dataset2 } from './data';
 
@@ -40,6 +42,7 @@ const BarChart = () => {
         renderBar={isCustomComponent ? CustomBar : undefined}
         padding={{ top: 20, right: 20, bottom: 10 }}
         backgroundColor="#e6e6e6"
+        font={RobotoMono}
       />
       <Button title="Change dataset" onPress={toggleData} />
       <View style={styles.row}>

@@ -1,3 +1,5 @@
+import type { DataSourceParam } from '@shopify/react-native-skia';
+
 import type { ChartBaseProps } from '../types';
 
 export interface BarData {
@@ -30,6 +32,7 @@ export interface BarLabelProps {
   space: number;
   height: number;
   fontSize?: number;
+  font: DataSourceParam;
 }
 
 export interface YLabelsProps {
@@ -39,6 +42,7 @@ export interface YLabelsProps {
   height: number;
   showDash?: boolean;
   domain: [number, number];
+  font: DataSourceParam;
   mapDomainToCanvas(v: number): number;
 }
 

@@ -23,6 +23,7 @@ const BarChart = ({
   showLines = false,
   padding: customPadding = {},
   backgroundColor = 'transparent',
+  font,
   renderBar,
 }: BarChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -72,7 +73,7 @@ const BarChart = ({
   const barLabels = data.map(({ label }, index) => {
     return (
       <Group key={label} transform={[{ translateX: barSpace * index }]}>
-        <BarLabel label={label} space={barSpace} height={29} />
+        <BarLabel label={label} space={barSpace} height={29} font={font} />
       </Group>
     );
   });
@@ -87,6 +88,7 @@ const BarChart = ({
             width={yLabelsWidth}
             height={chartContentHeight}
             domain={yDomain}
+            font={font}
             mapDomainToCanvas={mapDomainToCanvas}
           />
         </Group>

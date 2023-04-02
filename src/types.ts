@@ -1,5 +1,7 @@
 import type { ViewStyle } from 'react-native';
 
+import type { DataSourceParam } from '@shopify/react-native-skia';
+
 export interface ChartPadding {
   top: number;
   right: number;
@@ -11,4 +13,5 @@ export interface ChartBaseProps {
   height: number;
   padding?: Partial<ChartPadding>;
   backgroundColor?: ViewStyle['backgroundColor'];
+  font: DataSourceParam;
 }
