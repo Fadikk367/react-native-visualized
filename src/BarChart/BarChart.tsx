@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Canvas, Group, Line } from '@shopify/react-native-skia';
+import { Group, Line } from '@shopify/react-native-skia';
 
 import { ensureDefaults } from '../core//utils';
+import ChartContainer from '../core/ChartContainer/ChartContainer';
 import { defaultPadding } from '../core/constants';
 import AnimatedBar from './AnimatedBar';
 import Bar from './Bar';
@@ -21,8 +22,8 @@ const BarChart = ({
   barRatio = 0.9,
   yLabelsWidth = 40,
   showLines = false,
-  padding: customPadding = {},
-  backgroundColor = 'transparent',
+  padding: customPadding,
+  backgroundColor,
   font,
   fontSize = 18,
   barColor,
@@ -89,49 +90,50 @@ const BarChart = ({
   });
 
   return (
-    <Canvas style={{ width, height, backgroundColor }}>
-      <Group
-        transform={[{ translateX: padding.left }, { translateY: padding.top }]}>
-        <Group transform={[{ translateY: mapDomainToCanvas(yDomain[0]) }]}>
-          <YLabels
-            labels={yLabels}
-            width={yLabelsWidth}
-            height={chartContentHeight}
-            domain={yDomain}
-            font={font}
-            fontSize={fontSize}
-            mapDomainToCanvas={mapDomainToCanvas}
-          />
-        </Group>
-        <Group
-          transform={[
-            { translateX: yLabelsWidth },
-            { translateY: mapDomainToCanvas(yDomain[0]) },
-          ]}>
-          {showLines && (
-            <LabelsLines
-              labels={yLabels}
-              height={chartContentHeight}
-              mapDomainToCanvas={mapDomainToCanvas}
-              width={chartContentWidth}
-            />
-          )}
-          {bars}
-        </Group>
-        <Line
-          p1={{ x: yLabelsWidth, y: chartContentHeight }}
-          p2={{ x: chartContentWidth + yLabelsWidth, y: chartContentHeight }}
-          strokeWidth={1}
+    <ChartContainer
+      width={width}
+      height={height}
+      backgroundColor={backgroundColor}
+      padding={padding}>
+      <Group transform={[{ translateY: mapDomainToCanvas(yDomain[0]) }]}>
+        <YLabels
+          labels={yLabels}
+          width={yLabelsWidth}
+          height={chartContentHeight}
+          domain={yDomain}
+          font={font}
+          fontSize={fontSize}
+          mapDomainToCanvas={mapDomainToCanvas}
         />
-        <Group
-          transform={[
-            { translateX: yLabelsWidth },
-            { translateY: chartContentHeight },
-          ]}>
-          {barLabels}
-        </Group>
       </Group>
-    </Canvas>
+      <Group
+        transform={[
+          { translateX: yLabelsWidth },
+          { translateY: mapDomainToCanvas(yDomain[0]) },
+        ]}>
+        {showLines && (
+          <LabelsLines
+            labels={yLabels}
+            height={chartContentHeight}
+            mapDomainToCanvas={mapDomainToCanvas}
+            width={chartContentWidth}
+          />
+        )}
+        {bars}
+      </Group>
+      <Line
+        p1={{ x: yLabelsWidth, y: chartContentHeight }}
+        p2={{ x: chartContentWidth + yLabelsWidth, y: chartContentHeight }}
+        strokeWidth={1}
+      />
+      <Group
+        transform={[
+          { translateX: yLabelsWidth },
+          { translateY: chartContentHeight },
+        ]}>
+        {barLabels}
+      </Group>
+    </ChartContainer>
   );
 };
 
