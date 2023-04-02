@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Canvas, Group, Line } from '@shopify/react-native-skia';
 
+import { ensureDefaults } from '../core//utils';
+import { defaultPadding } from '../core/constants';
 import AnimatedBar from './AnimatedBar';
 import Bar from './Bar';
 import BarLabel from './BarLabel';
 import LabelsLines from './LabelsLines';
 import YLabels from './YLabels';
-import { defaultPadding } from './constants';
 import type { BarChartProps } from './types';
-import { ensureDefaults } from './utils';
 
 const BarChart = ({
   width,
