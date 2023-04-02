@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 
 import { Canvas, Group, Line } from '@shopify/react-native-skia';
 
@@ -23,6 +22,7 @@ const BarChart = ({
   yLabelsWidth = 40,
   showLines = false,
   padding: customPadding = {},
+  backgroundColor = 'transparent',
   renderBar,
 }: BarChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -78,7 +78,7 @@ const BarChart = ({
   });
 
   return (
-    <Canvas style={[{ width, height }, styles.canvas]}>
+    <Canvas style={{ width, height, backgroundColor }}>
       <Group
         transform={[{ translateX: padding.left }, { translateY: padding.top }]}>
         <Group transform={[{ translateY: mapDomainToCanvas(yDomain[0]) }]}>
@@ -121,11 +121,5 @@ const BarChart = ({
     </Canvas>
   );
 };
-
-const styles = StyleSheet.create({
-  canvas: {
-    backgroundColor: 'lightgray',
-  },
-});
 
 export default BarChart;
