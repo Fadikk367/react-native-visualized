@@ -14,4 +14,5 @@ export interface ChartBaseProps {
   padding?: Partial<ChartPadding>;
   backgroundColor?: ViewStyle['backgroundColor'];
   font: DataSourceParam;
+  fontSize?: number;
 }

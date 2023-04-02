@@ -12,10 +12,12 @@ const AnimatedBar = ({
   value,
   space,
   ratio,
-  padding,
   base,
+  color = 'blue',
+  radius = 5,
   mapDomainToCanvas,
 }: BarProps) => {
+  const padding = (space - space * ratio) / 2;
   const prevValueRef = useRef(value);
   const progress = useTiming(
     { from: prevValueRef.current, to: value },
@@ -41,8 +43,8 @@ const AnimatedBar = ({
       y={mapDomainToCanvas(base)}
       width={space * ratio}
       height={barTransform}
-      r={16}
-      color="blue"
+      r={radius}
+      color={color}
     />
   );
 };

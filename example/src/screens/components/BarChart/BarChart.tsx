@@ -40,16 +40,20 @@ const BarChart = () => {
       <Chart.Bar
         width={394}
         height={420}
+        padding={{ top: 20, right: 20, bottom: 10 }}
+        backgroundColor="#e6e6e6"
         data={data}
         yDomain={[-4, 22]}
         yLabels={[-4, 0, 4, 8, 12, 16, 20]}
-        barRatio={0.8}
         showLines
         animated={isAnimated}
-        renderBar={isCustomComponent ? CustomBar : undefined}
-        padding={{ top: 20, right: 20, bottom: 10 }}
-        backgroundColor="#e6e6e6"
         font={font}
+        fontSize={18}
+        // bars config
+        barRatio={0.8}
+        barColor="#2d74bf"
+        barRadius={7}
+        renderBar={isCustomComponent ? CustomBar : undefined}
       />
       <Button title="Change dataset" onPress={toggleData} />
       <Button title="Change font" onPress={toggleFont} />

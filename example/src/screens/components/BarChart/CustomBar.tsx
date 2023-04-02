@@ -15,7 +15,6 @@ export interface BarProps {
   value: number;
   space: number;
   ratio: number;
-  padding: number;
   base: number;
   font: DataSourceParam;
   mapDomainToCanvas(v: number): number;

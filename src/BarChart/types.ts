@@ -15,6 +15,8 @@ export interface BarChartProps extends ChartBaseProps {
   yLabelsWidth?: number;
   showLines?: boolean;
   animated?: boolean;
+  barColor?: string;
+  barRadius?: number;
   renderBar?(props: BarProps): React.ReactElement;
 }
 
@@ -22,8 +24,9 @@ export interface BarProps {
   value: number;
   space: number;
   ratio: number;
-  padding: number;
   base: number;
+  color?: string;
+  radius?: number;
   font: DataSourceParam;
   mapDomainToCanvas(v: number): number;
 }

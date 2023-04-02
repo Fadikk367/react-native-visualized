@@ -8,18 +8,21 @@ const Bar = ({
   value,
   space,
   ratio,
-  padding,
   base,
+  color = 'blue',
+  radius = 5,
   mapDomainToCanvas,
 }: BarProps) => {
+  const padding = (space - space * ratio) / 2;
+
   return (
     <RoundedRect
       x={padding}
       y={mapDomainToCanvas(base)}
       width={space * ratio}
       height={Math.max(mapDomainToCanvas(value) - mapDomainToCanvas(base), 0)}
-      r={16}
-      color="blue"
+      r={radius}
+      color={color}
     />
   );
 };
