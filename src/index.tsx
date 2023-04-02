@@ -1,5 +1,5 @@
 import BarChart from './BarChart';
-import LineChart from './charts/LineChart';
+import LineChart from './LineChart';
 
 export function multiply(a: number, b: number): Promise<number> {
   return Promise.resolve(a * b * 4);

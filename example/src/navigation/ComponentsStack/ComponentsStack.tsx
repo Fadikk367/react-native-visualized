@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import BarChart from '@/screens/components/BarChart/BarChart';
 import Catalogue from '@/screens/components/Catalogue';
-import LineChart from '@/screens/components/LineChart';
+import LineChart from '@/screens/components/LineChart/LineChart';
 
 import type { ComponentsStackParams } from './types';
 
