@@ -38,6 +38,7 @@ const BarChart = () => {
         showLines
         animated={isAnimated}
         renderBar={isCustomComponent ? CustomBar : undefined}
+        padding={{ top: 20, right: 20, bottom: 10 }}
       />
       <Button title="Change dataset" onPress={toggleData} />
       <View style={styles.row}>

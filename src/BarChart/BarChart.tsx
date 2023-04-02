@@ -8,7 +8,9 @@ import Bar from './Bar';
 import BarLabel from './BarLabel';
 import LabelsLines from './LabelsLines';
 import YLabels from './YLabels';
+import { defaultPadding } from './constants';
 import type { BarChartProps } from './types';
+import { ensureDefaults } from './utils';
 
 const BarChart = ({
   width,
@@ -20,14 +22,17 @@ const BarChart = ({
   barRatio = 0.9,
   yLabelsWidth = 40,
   showLines = false,
+  padding: customPadding = {},
   renderBar,
 }: BarChartProps) => {
-  const chartContentWidth = width - yLabelsWidth;
+  const padding = ensureDefaults(customPadding, defaultPadding);
+  const chartContentWidth = width - yLabelsWidth - padding.right - padding.left;
   const barSpace = chartContentWidth / data.length;
   // TODO: when y domain is missing / set to auto determine based on data extremums
   const yDomainSize = yDomain[1] - yDomain[0];
   const labelsBarHeight = 30;
-  const chartContentHeight = height - labelsBarHeight;
+  const chartContentHeight =
+    height - labelsBarHeight - padding.top - padding.bottom;
   const barPadding = (barSpace - barSpace * barRatio) / 2;
 
   const mapDomainToCanvas = (domainValue: number) => {
@@ -74,41 +79,44 @@ const BarChart = ({
 
   return (
     <Canvas style={[{ width, height }, styles.canvas]}>
-      <Group transform={[{ translateY: mapDomainToCanvas(yDomain[0]) }]}>
-        <YLabels
-          labels={yLabels}
-          width={yLabelsWidth}
-          height={chartContentHeight}
-          domain={yDomain}
-          mapDomainToCanvas={mapDomainToCanvas}
-        />
-      </Group>
       <Group
-        transform={[
-          { translateX: yLabelsWidth },
-          { translateY: mapDomainToCanvas(yDomain[0]) },
-        ]}>
-        {showLines && (
-          <LabelsLines
+        transform={[{ translateX: padding.left }, { translateY: padding.top }]}>
+        <Group transform={[{ translateY: mapDomainToCanvas(yDomain[0]) }]}>
+          <YLabels
             labels={yLabels}
+            width={yLabelsWidth}
             height={chartContentHeight}
+            domain={yDomain}
             mapDomainToCanvas={mapDomainToCanvas}
-            width={chartContentWidth}
           />
-        )}
-        {bars}
-      </Group>
-      <Line
-        p1={{ x: yLabelsWidth, y: chartContentHeight }}
-        p2={{ x: width, y: chartContentHeight }}
-        strokeWidth={1}
-      />
-      <Group
-        transform={[
-          { translateX: yLabelsWidth },
-          { translateY: chartContentHeight },
-        ]}>
-        {barLabels}
+        </Group>
+        <Group
+          transform={[
+            { translateX: yLabelsWidth },
+            { translateY: mapDomainToCanvas(yDomain[0]) },
+          ]}>
+          {showLines && (
+            <LabelsLines
+              labels={yLabels}
+              height={chartContentHeight}
+              mapDomainToCanvas={mapDomainToCanvas}
+              width={chartContentWidth}
+            />
+          )}
+          {bars}
+        </Group>
+        <Line
+          p1={{ x: yLabelsWidth, y: chartContentHeight }}
+          p2={{ x: chartContentWidth + yLabelsWidth, y: chartContentHeight }}
+          strokeWidth={1}
+        />
+        <Group
+          transform={[
+            { translateX: yLabelsWidth },
+            { translateY: chartContentHeight },
+          ]}>
+          {barLabels}
+        </Group>
       </Group>
     </Canvas>
   );
