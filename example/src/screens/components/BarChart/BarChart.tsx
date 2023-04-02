@@ -5,6 +5,7 @@ import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 
+import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 // TODO: Find a way to correctly set an alias like @/assets
 import RobotoMono from '../../../../assets/fonts/RobotoMono.ttf';
 import CustomBar from './CustomBar';
@@ -12,12 +13,18 @@ import { dataset1, dataset2 } from './data';
 
 const BarChart = () => {
   const [data, setData] = useState(dataset1);
+  const [font, setFont] = useState(RobotoMono);
   const [isAnimated, setIsAnimated] = useState(false);
   const [isCustomComponent, setIsCustomComponent] = useState(false);
 
   const toggleData = () => {
     const newData = data === dataset1 ? dataset2 : dataset1;
     setData(newData);
+  };
+
+  const toggleFont = () => {
+    const newFont = font === RobotoMono ? LatoRegular : RobotoMono;
+    setFont(newFont);
   };
 
   const toggleAnimated = () => {
@@ -42,9 +49,10 @@ const BarChart = () => {
         renderBar={isCustomComponent ? CustomBar : undefined}
         padding={{ top: 20, right: 20, bottom: 10 }}
         backgroundColor="#e6e6e6"
-        font={RobotoMono}
+        font={font}
       />
       <Button title="Change dataset" onPress={toggleData} />
+      <Button title="Change font" onPress={toggleFont} />
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Animated:</Text>
         <Switch value={isAnimated} onChange={toggleAnimated} />

@@ -9,7 +9,7 @@ const BarLabel = ({
   space,
   height,
   font: fontSource,
-  fontSize = 20,
+  fontSize = 18,
 }: BarLabelProps) => {
   const font = useFont(fontSource, fontSize);
 
