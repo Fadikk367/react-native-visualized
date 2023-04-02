@@ -11,3 +11,8 @@ export function ensureDefaults<T extends Record<string, number | string | any>>(
 
   return result as Required<T>;
 }
+
+export const linspace = (from: number, to: number, step: number): number[] => {
+  const numberOfPoints = Math.abs(to - from) / step + 1;
+  return Array.from({ length: numberOfPoints }, (_, i) => from + i * step);
+};
