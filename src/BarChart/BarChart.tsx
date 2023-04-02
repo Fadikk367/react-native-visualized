@@ -64,6 +64,7 @@ const BarChart = ({
           ratio={barRatio}
           padding={barPadding}
           base={yDomain[0]}
+          font={font}
           mapDomainToCanvas={mapDomainToCanvas}
         />
       </Group>
