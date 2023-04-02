@@ -6,6 +6,7 @@ import ChartContainer from '../core/ChartContainer';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
 import XLables from './XLables';
+import YLabels from './YLabels';
 import type { LineChartProps } from './types';
 import { buildPath } from './utils';
 
@@ -16,7 +17,7 @@ const LineChart = ({
   xDomain,
   yDomain,
   xLabels,
-  // yLabels,
+  yLabels,
   padding: customPadding,
   backgroundColor,
   font,
@@ -24,8 +25,9 @@ const LineChart = ({
 }: LineChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
   const yLabelsWidth = 30;
+  const xLabelsHeight = 30;
   const contentWidth = width - (padding.left + yLabelsWidth + padding.right);
-  const contentHeight = height - (padding.top + padding.bottom);
+  const contentHeight = height - (padding.top + xLabelsHeight + padding.bottom);
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
   const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
 
@@ -48,21 +50,31 @@ const LineChart = ({
         <Path
           path={path}
           color="lightskyblue"
-          strokeWidth={8}
+          strokeWidth={5}
           style="stroke"
           strokeCap="round"
           strokeJoin="round"
         />
       </Group>
+      <YLabels
+        labels={yLabels}
+        width={yLabelsWidth}
+        height={contentHeight}
+        font={font}
+        fontSize={fontSize}
+        mapDomainToCanvas={mapDomainToCanvas}
+      />
       <Group
         transform={[
           { translateX: yLabelsWidth },
-          { translateY: contentHeight - padding.bottom },
+          {
+            translateY: contentHeight,
+          },
         ]}>
         <XLables
           labels={xLabels}
           width={contentWidth}
-          height={30}
+          height={xLabelsHeight}
           font={font}
           fontSize={fontSize}
           mapDomainToCanvas={mapDomainToCanvas}
