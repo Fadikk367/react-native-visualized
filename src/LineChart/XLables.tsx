@@ -24,7 +24,7 @@ const XLables = ({
     const labelTextWidth = font.getTextWidth(formattedLabel);
 
     return (
-      <Group transform={[{ translateX: xOffset }]}>
+      <Group key={label} transform={[{ translateX: xOffset }]}>
         <Line
           p1={{ x: 0, y: -(dashSize + baseLineWidth / 2) }}
           p2={{ x: 0, y: dashSize + baseLineWidth / 2 }}

@@ -23,7 +23,7 @@ const YLabels = ({
     const labelTextWidth = font.getTextWidth(formattedLabel);
 
     return (
-      <Group transform={[{ translateY: yOffset }]}>
+      <Group key={label} transform={[{ translateY: yOffset }]}>
         <Line
           p1={{ x: width - (dashSize + baseLineWidth / 2), y: 0 }}
           p2={{ x: width + dashSize + baseLineWidth / 2, y: 0 }}
