@@ -2,12 +2,21 @@ import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
 
 import type { ChartBaseProps } from '../types';
 
-export interface LineChartProps extends ChartBaseProps {
+export interface LineProps {
   data: { x: number; y: number }[];
+  color?: string;
+  strokeWidth?: number;
+}
+
+export type LineChartChildren =
+  | React.ReactElement<LineProps>
+  | React.ReactElement<LineProps>[];
+export interface LineChartProps extends ChartBaseProps {
   yDomain: [number, number];
   xDomain: [number, number];
   yLabels: number[];
   xLabels: number[];
+  children?: LineChartChildren;
 }
 
 export interface XLabels {

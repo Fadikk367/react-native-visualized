@@ -1,5 +1,6 @@
 import BarChart from './BarChart';
 import LineChart from './LineChart';
+import Line from './LineChart/Line';
 import * as coreUtils from './core/utils';
 
 export function multiply(a: number, b: number): Promise<number> {
@@ -7,7 +8,8 @@ export function multiply(a: number, b: number): Promise<number> {
 }
 
 export const Chart = {
-  Line: LineChart,
+  Line,
+  LineChart,
   Bar: BarChart,
 };
 

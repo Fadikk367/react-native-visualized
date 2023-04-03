@@ -8,12 +8,11 @@ import { ensureDefaults } from '../core/utils';
 import XLables from './XLables';
 import YLabels from './YLabels';
 import type { LineChartProps } from './types';
-import { buildPath } from './utils';
+import { buildPath, extractProps } from './utils';
 
 const LineChart = ({
   width,
   height,
-  data,
   xDomain,
   yDomain,
   xLabels,
@@ -22,6 +21,7 @@ const LineChart = ({
   backgroundColor,
   font,
   fontSize,
+  children,
 }: LineChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
   const yLabelsWidth = 30;
@@ -38,7 +38,21 @@ const LineChart = ({
     };
   };
 
-  const path = buildPath(data, mapDomainToCanvas);
+  const dataSeries = extractProps(children);
+
+  const paths = dataSeries.map(({ data, color, strokeWidth }) => {
+    const path = buildPath(data, mapDomainToCanvas);
+    return (
+      <Path
+        path={path}
+        color={color}
+        strokeWidth={strokeWidth}
+        style="stroke"
+        strokeCap="round"
+        strokeJoin="round"
+      />
+    );
+  });
 
   return (
     <ChartContainer
@@ -46,16 +60,7 @@ const LineChart = ({
       height={height}
       backgroundColor={backgroundColor}
       padding={padding}>
-      <Group transform={[{ translateX: yLabelsWidth }]}>
-        <Path
-          path={path}
-          color="lightskyblue"
-          strokeWidth={5}
-          style="stroke"
-          strokeCap="round"
-          strokeJoin="round"
-        />
-      </Group>
+      <Group transform={[{ translateX: yLabelsWidth }]}>{paths}</Group>
       <YLabels
         labels={yLabels}
         width={yLabelsWidth}
