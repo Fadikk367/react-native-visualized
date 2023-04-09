@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Group, Line, Text, useFont } from '@shopify/react-native-skia';
 
-import AxisArrow from './AxisArrow';
+import AxisArrow from '../core/AxisArrow';
 import type { XLabels } from './types';
 
 const YLabels = ({
