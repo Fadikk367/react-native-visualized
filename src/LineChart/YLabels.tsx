@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Group, Line, Text, useFont } from '@shopify/react-native-skia';
 
+import AxisArrow from './AxisArrow';
 import type { XLabels } from './types';
 
 const YLabels = ({
@@ -47,6 +48,7 @@ const YLabels = ({
         strokeWidth={baseLineWidth}
       />
       {labelsElements}
+      <AxisArrow direction="up" anchor={{ x: width, y: 0 }} length={16} />
     </Group>
   );
 };
