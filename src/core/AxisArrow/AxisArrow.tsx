@@ -1,27 +1,19 @@
 import React from 'react';
 
-import { Group, Path, Skia } from '@shopify/react-native-skia';
+import { Group, Path } from '@shopify/react-native-skia';
 
+import { directionToRotation } from './constants';
 import type { AxisArrowProps } from './types';
-
-const directionToRotation = {
-  left: Math.PI,
-  right: 0,
-  up: -Math.PI / 2,
-  down: Math.PI / 2,
-};
+import { getArrowPathByVariant } from './utils';
 
 const AxisArrow = ({
   anchor,
   length = 16,
   width = 10,
   direction = 'down',
+  variant = 'classic',
 }: AxisArrowProps) => {
-  const path = Skia.Path.Make();
-  path.moveTo(0, width / 2);
-  path.lineTo(length, 0);
-  path.lineTo(0, -width / 2);
-  path.close();
+  const path = getArrowPathByVariant(variant, length, width);
 
   return (
     <Group

@@ -27,11 +27,3 @@ export interface XLabels {
   fontSize?: number;
   mapDomainToCanvas(point: SkPoint): SkPoint;
 }
-
-export interface AxisArrowProps {
-  direction?: 'left' | 'right' | 'up' | 'down';
-  variant?: 'classic' | 'diamond';
-  length?: number;
-  width?: number;
-  anchor: SkPoint;
-}

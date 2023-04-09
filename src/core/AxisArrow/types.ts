@@ -1,8 +1,11 @@
 import type { SkPoint } from '@shopify/react-native-skia';
 
+export type Direction = 'left' | 'right' | 'up' | 'down';
+
+export type ArrowVariant = 'classic' | 'diamond';
 export interface AxisArrowProps {
-  direction?: 'left' | 'right' | 'up' | 'down';
-  variant?: 'classic' | 'diamond';
+  direction?: Direction;
+  variant?: ArrowVariant;
   length?: number;
   width?: number;
   anchor: SkPoint;
