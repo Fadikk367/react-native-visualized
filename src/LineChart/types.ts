@@ -11,11 +11,20 @@ export interface LineProps {
 export type LineChartChildren =
   | React.ReactElement<LineProps>
   | React.ReactElement<LineProps>[];
+
+export interface GridlinesConfig {
+  vertical?: boolean;
+  horizontal?: boolean;
+  lineWidth?: number;
+  opacity?: number;
+  color?: string;
+}
 export interface LineChartProps extends ChartBaseProps {
   yDomain: [number, number];
   xDomain: [number, number];
   yLabels: number[];
   xLabels: number[];
+  gridlines?: GridlinesConfig;
   children?: LineChartChildren;
 }
 

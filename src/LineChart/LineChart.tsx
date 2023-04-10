@@ -3,6 +3,7 @@ import React from 'react';
 import { Group, Path, SkPoint } from '@shopify/react-native-skia';
 
 import ChartContainer from '../core/ChartContainer';
+import Gridlines from '../core/Gridlines';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
 import XLables from './XLables';
@@ -21,6 +22,7 @@ const LineChart = ({
   backgroundColor,
   font,
   fontSize,
+  gridlines: gridlinesConfig,
   children,
 }: LineChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -60,7 +62,17 @@ const LineChart = ({
       height={height}
       backgroundColor={backgroundColor}
       padding={padding}>
-      <Group transform={[{ translateX: yLabelsWidth }]}>{paths}</Group>
+      <Group transform={[{ translateX: yLabelsWidth }]}>
+        <Gridlines
+          {...gridlinesConfig}
+          xTicks={xLabels}
+          yTicks={yLabels}
+          xDomain={xDomain}
+          yDomain={yDomain}
+          mapDomainToCanvas={mapDomainToCanvas}
+        />
+        {paths}
+      </Group>
       <YLabels
         labels={yLabels}
         width={yLabelsWidth}
