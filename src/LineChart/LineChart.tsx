@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Group, Path, SkPoint } from '@shopify/react-native-skia';
+import { Group, Path, SkPoint, rect } from '@shopify/react-native-skia';
 
 import ChartContainer from '../core/ChartContainer';
 import Gridlines from '../core/Gridlines';
@@ -75,7 +75,7 @@ const LineChart = ({
           yDomain={yDomain}
           mapDomainToCanvas={mapDomainToCanvas}
         />
-        {paths}
+        <Group clip={rect(0, 0, contentWidth, contentHeight)}>{paths}</Group>
       </Group>
       <YLabels
         labels={yTicksWithinDomain}
