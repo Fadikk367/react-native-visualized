@@ -1,4 +1,4 @@
-import type { ChartBaseProps, ChartPadding } from 'src/types';
+import type { ChartBaseProps, ChartPadding } from '../../types';
 
 export interface ChartContainerProps
   extends Pick<ChartBaseProps, 'width' | 'height' | 'backgroundColor'> {
