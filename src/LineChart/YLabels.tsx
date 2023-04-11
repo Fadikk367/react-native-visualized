@@ -16,6 +16,7 @@ const YLabels = ({
   const font = useFont(fontSource, fontSize);
   const dashSize = 3;
   const baseLineWidth = 1;
+
   const labelsElements = labels.map(label => {
     if (!font) return null;
 

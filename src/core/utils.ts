@@ -16,3 +16,8 @@ export const linspace = (from: number, to: number, step: number): number[] => {
   const numberOfPoints = Math.abs(to - from) / step + 1;
   return Array.from({ length: numberOfPoints }, (_, i) => from + i * step);
 };
+
+export const getIsWithinDomain =
+  (domain: [number, number]) => (value: number) => {
+    return domain[0] <= value && value <= domain[1];
+  };

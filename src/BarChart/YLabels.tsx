@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Group, Line, Text, useFont } from '@shopify/react-native-skia';
 
+import { getIsWithinDomain } from '../core/utils';
 import type { YLabelsProps } from './types';
-import { getIsWithinDomain } from './utils';
 
 const YLabels = ({
   labels,

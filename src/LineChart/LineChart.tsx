@@ -5,7 +5,7 @@ import { Group, Path, SkPoint } from '@shopify/react-native-skia';
 import ChartContainer from '../core/ChartContainer';
 import Gridlines from '../core/Gridlines';
 import { defaultPadding } from '../core/constants';
-import { ensureDefaults } from '../core/utils';
+import { ensureDefaults, getIsWithinDomain } from '../core/utils';
 import XLables from './XLables';
 import YLabels from './YLabels';
 import type { LineChartProps } from './types';
@@ -33,10 +33,13 @@ const LineChart = ({
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
   const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
 
+  const xTicksWithinDomain = xLabels.filter(getIsWithinDomain(xDomain));
+  const yTicksWithinDomain = yLabels.filter(getIsWithinDomain(yDomain));
+
   const mapDomainToCanvas = ({ x, y }: SkPoint): SkPoint => {
     return {
-      x: (contentWidth / xDomainSize) * x,
-      y: contentHeight - (contentHeight / yDomainSize) * y,
+      x: (contentWidth / xDomainSize) * (x - xDomain[0]),
+      y: contentHeight - (contentHeight / yDomainSize) * (y - yDomain[0]),
     };
   };
 
@@ -74,7 +77,7 @@ const LineChart = ({
         {paths}
       </Group>
       <YLabels
-        labels={yLabels}
+        labels={yTicksWithinDomain}
         width={yLabelsWidth}
         height={contentHeight}
         font={font}
@@ -89,7 +92,7 @@ const LineChart = ({
           },
         ]}>
         <XLables
-          labels={xLabels}
+          labels={xTicksWithinDomain}
           width={contentWidth}
           height={xLabelsHeight}
           font={font}
