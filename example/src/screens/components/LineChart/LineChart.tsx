@@ -30,6 +30,8 @@ const LineChartScreen = () => {
         gridlines={{
           horizontal: horizontalLinesShown,
           vertical: verticalLinesShown,
+          lineWidth: 1,
+          opacity: 0.2,
         }}
         font={LatoRegular}>
         <Line color="red" strokeWidth={3} data={dataset1} />
