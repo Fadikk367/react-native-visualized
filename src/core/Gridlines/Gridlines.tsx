@@ -20,6 +20,7 @@ const Gridlines = ({
     ? yTicks.map(tick => {
         return (
           <Line
+            key={tick}
             p1={mapDomainToCanvas({ x: xDomain[0], y: tick })}
             p2={mapDomainToCanvas({ x: xDomain[1], y: tick })}
             strokeWidth={lineWidth}
@@ -34,6 +35,7 @@ const Gridlines = ({
     ? xTicks.map(tick => {
         return (
           <Line
+            key={tick}
             p1={mapDomainToCanvas({ x: tick, y: yDomain[0] })}
             p2={mapDomainToCanvas({ x: tick, y: yDomain[1] })}
             strokeWidth={lineWidth}
