@@ -11,6 +11,7 @@ const XLables = ({
   height,
   font: fontSource,
   fontSize = 18,
+  arrows,
   mapDomainToCanvas,
 }: XLabels) => {
   const font = useFont(fontSource, fontSize);
@@ -49,7 +50,15 @@ const XLables = ({
         strokeWidth={baseLineWidth}
       />
       {labelsElements}
-      <AxisArrow direction="right" anchor={{ x: width, y: 0 }} length={16} />
+      {arrows && (
+        <AxisArrow
+          direction="right"
+          variant={arrows.variant}
+          anchor={{ x: width, y: 0 }}
+          length={arrows.length}
+          width={arrows.width}
+        />
+      )}
     </Group>
   );
 };

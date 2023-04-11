@@ -23,6 +23,7 @@ const LineChart = ({
   font,
   fontSize,
   gridlines: gridlinesConfig,
+  arrows: arrowsConfig,
   children,
 }: LineChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -82,6 +83,7 @@ const LineChart = ({
         height={contentHeight}
         font={font}
         fontSize={fontSize}
+        arrows={arrowsConfig}
         mapDomainToCanvas={mapDomainToCanvas}
       />
       <Group
@@ -97,6 +99,7 @@ const LineChart = ({
           height={xLabelsHeight}
           font={font}
           fontSize={fontSize}
+          arrows={arrowsConfig}
           mapDomainToCanvas={mapDomainToCanvas}
         />
       </Group>

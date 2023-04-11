@@ -13,6 +13,7 @@ const { LineChart, Line } = Chart;
 const LineChartScreen = () => {
   const [horizontalLinesShown, setHorizontalLinesShown] = useState(false);
   const [verticalLinesShown, setVerticalLinesShown] = useState(false);
+  const [showArrows, setShowArrows] = useState(false);
 
   const xLabels = utils.linspace(0, 100, 10);
   const yLabels = utils.linspace(0, 100, 20);
@@ -33,6 +34,9 @@ const LineChartScreen = () => {
           lineWidth: 1,
           opacity: 0.2,
         }}
+        arrows={
+          showArrows ? { variant: 'classic', length: 16, width: 10 } : undefined
+        }
         font={LatoRegular}>
         <Line color="red" strokeWidth={3} data={dataset1} />
         <Line color="blue" strokeWidth={5} data={dataset2} />
@@ -49,6 +53,13 @@ const LineChartScreen = () => {
         <Switch
           value={verticalLinesShown}
           onChange={() => setVerticalLinesShown(prev => !prev)}
+        />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.switchLabel}>Show axes arrows:</Text>
+        <Switch
+          value={showArrows}
+          onChange={() => setShowArrows(prev => !prev)}
         />
       </View>
     </ScreenContainer>
