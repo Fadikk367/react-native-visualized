@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Circle, SkPoint } from '@shopify/react-native-skia';
+import type { SkPoint } from '@shopify/react-native-skia';
 
 import XAxis from '../core/Axes/XAxis';
 import YAxis from '../core/Axes/YAxis';
@@ -8,6 +8,7 @@ import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate/Translate';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults, getIsWithinDomain } from '../core/utils';
+import Marker from './Marker';
 import type { ScatterProps } from './types';
 
 const Scatter = ({
@@ -20,6 +21,7 @@ const Scatter = ({
   data,
   font,
   padding: customPadding,
+  marker: markerConfig,
   backgroundColor,
 }: ScatterProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -40,17 +42,13 @@ const Scatter = ({
     };
   };
 
-  const points = data.map(point => {
-    const { x, y } = mapDomainToCanvas(point);
-    return (
-      <Circle
-        cx={x}
-        cy={y}
-        r={point.size || 5}
-        color={point.color || 'black'}
-      />
-    );
-  });
+  const markers = data.map(point => (
+    <Marker
+      {...point}
+      {...markerConfig}
+      mapDomainToCanvas={mapDomainToCanvas}
+    />
+  ));
 
   return (
     <ChartContainer
@@ -66,7 +64,7 @@ const Scatter = ({
         fontSize={18}
         mapDomainToCanvas={mapDomainToCanvas}
       />
-      <Translate x={yAxisWidth}>{points}</Translate>
+      <Translate x={yAxisWidth}>{markers}</Translate>
       <Translate x={yAxisWidth} y={contentHeight}>
         <XAxis
           ticks={xTicksWithinDomain}

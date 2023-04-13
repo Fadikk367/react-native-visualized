@@ -10,7 +10,7 @@ import { datasetA } from './data';
 const { Scatter } = Chart;
 
 const ScatterScreen = () => {
-  const xTicks = utils.linspace(0, 100, 10);
+  const xTicks = utils.linspace(0, 100, 20);
   const yTicks = utils.linspace(0, 100, 20);
 
   return (
@@ -25,6 +25,11 @@ const ScatterScreen = () => {
         backgroundColor="white"
         data={datasetA}
         padding={{ top: 20, right: 20, bottom: 20, left: 20 }}
+        marker={{
+          variant: 'dot',
+          color: 'red',
+          size: 7,
+        }}
         font={LatoRegular}
       />
     </ScreenContainer>

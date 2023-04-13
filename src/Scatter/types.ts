@@ -1,10 +1,10 @@
 import type { ChartBaseProps } from '../types';
+import type { MarkerConfig } from './Marker/types';
 
 export interface ScatterPoint {
   x: number;
   y: number;
   color?: string;
-  size?: number;
 }
 export interface ScatterProps extends ChartBaseProps {
   xDomain: [number, number];
@@ -12,4 +12,5 @@ export interface ScatterProps extends ChartBaseProps {
   xTicks: number[];
   yTicks: number[];
   data: ScatterPoint[];
+  marker?: MarkerConfig;
 }
