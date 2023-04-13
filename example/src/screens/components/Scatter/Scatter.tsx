@@ -30,6 +30,12 @@ const ScatterScreen = () => {
           color: 'red',
           size: 7,
         }}
+        // gridlines={{
+        //   vertical: true,
+        //   color: 'blue',
+        //   lineWidth: 1,
+        //   opacity: 0.2,
+        // }}
         font={LatoRegular}
       />
     </ScreenContainer>

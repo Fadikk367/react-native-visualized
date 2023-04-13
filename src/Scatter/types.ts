@@ -1,3 +1,4 @@
+import type { GridlinesConfig } from '../core/Gridlines/types';
 import type { ChartBaseProps } from '../types';
 import type { MarkerConfig } from './Marker/types';
 
@@ -13,4 +14,5 @@ export interface ScatterProps extends ChartBaseProps {
   yTicks: number[];
   data: ScatterPoint[];
   marker?: MarkerConfig;
+  gridlines?: GridlinesConfig;
 }
