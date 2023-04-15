@@ -28,6 +28,8 @@ const ScatterScreen = () => {
         height={300}
         xDomain={[0, 100]}
         yDomain={[0, 100]}
+        valueDomain={[0, 50]}
+        valueDomainColors={['lightskyblue', 'blue']}
         xTicks={xTicks}
         yTicks={yTicks}
         backgroundColor="white"

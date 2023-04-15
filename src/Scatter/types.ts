@@ -7,19 +7,23 @@ import type { MarkerConfig } from './Marker/types';
 export interface ScatterPoint {
   x: number;
   y: number;
+  value?: number;
   color?: string;
 }
 
-export interface RenderMarkerParams extends ScatterPoint {
+export interface RenderMarkerParams {
   mapDomainToProps(point: SkPoint): SkPoint;
 }
-export interface ScatterProps extends ChartBaseProps {
+
+export interface ScatterProps<T extends ScatterPoint> extends ChartBaseProps {
   xDomain: [number, number];
   yDomain: [number, number];
+  valueDomain?: [number, number];
+  valueDomainColors?: string[];
   xTicks: number[];
   yTicks: number[];
-  data: ScatterPoint[];
+  data: T[];
   marker?: MarkerConfig;
-  renderMarker?: React.FC<RenderMarkerParams>;
+  renderMarker?: React.FC<T & RenderMarkerParams>;
   gridlines?: GridlinesConfig;
 }

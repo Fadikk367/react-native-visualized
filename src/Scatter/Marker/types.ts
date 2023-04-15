@@ -9,7 +9,7 @@ export interface MarkerProps extends MarkerConfig, ScatterPoint {
 }
 
 export type MarkerVariantProps = Required<
-  Omit<MarkerProps, 'mapDomainToCanvas' | 'variant'>
+  Omit<MarkerProps, 'mapDomainToCanvas' | 'variant' | 'value'>
 >;
 
 export interface MarkerConfig {
