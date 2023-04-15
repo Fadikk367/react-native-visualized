@@ -24,6 +24,7 @@ const Scatter = ({
   font,
   padding: customPadding,
   marker: markerConfig,
+  renderMarker: CustomMarker,
   gridlines: gridlinesConfig = gridlinesDefaults,
   backgroundColor,
 }: ScatterProps) => {
@@ -45,13 +46,17 @@ const Scatter = ({
     };
   };
 
-  const markers = data.map(point => (
-    <Marker
-      {...point}
-      {...markerConfig}
-      mapDomainToCanvas={mapDomainToCanvas}
-    />
-  ));
+  const markers = data.map(point => {
+    return CustomMarker ? (
+      <CustomMarker {...point} mapDomainToProps={mapDomainToCanvas} />
+    ) : (
+      <Marker
+        {...point}
+        {...markerConfig}
+        mapDomainToCanvas={mapDomainToCanvas}
+      />
+    );
+  });
 
   return (
     <ChartContainer
