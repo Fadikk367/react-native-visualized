@@ -13,12 +13,40 @@ const { Scatter } = Chart;
 
 const ScatterScreen = () => {
   const [isCustomComponent, setIsCustomComponent] = useState(false);
+  const [isLegendShown, setIsLegendShown] = useState(false);
+  const [showGridlines, setShowGridlines] = useState(true);
 
   const xTicks = utils.linspace(0, 100, 20);
   const yTicks = utils.linspace(0, 100, 20);
 
   const toggleCustomComponent = () => {
     setIsCustomComponent(prev => !prev);
+  };
+
+  const toggleLegend = () => {
+    setIsLegendShown(prev => !prev);
+  };
+
+  const toggleGridlines = () => {
+    setShowGridlines(prev => !prev);
+  };
+
+  const legendConfig = {
+    fontSize: 12,
+    height: 40,
+    items: [
+      { color: 'yellow', label: 'series A' },
+      { color: 'blue', label: 'series B' },
+      { color: 'red', label: 'series C' },
+      { color: 'green', label: 'series D' },
+    ],
+  };
+
+  const gridlinesConfig = {
+    vertical: true,
+    horizontal: true,
+    lineWidth: 1,
+    opacity: 0.2,
   };
 
   return (
@@ -34,24 +62,33 @@ const ScatterScreen = () => {
         yTicks={yTicks}
         backgroundColor="white"
         data={datasetA}
-        padding={{ top: 20, right: 20, bottom: 20, left: 20 }}
+        padding={{
+          top: isLegendShown ? 5 : 20,
+          right: 20,
+          bottom: 20,
+          left: 20,
+        }}
+        legend={isLegendShown ? legendConfig : undefined}
         marker={{
           variant: 'dot',
           color: 'red',
           size: 7,
         }}
         renderMarker={isCustomComponent ? CustomMarker : undefined}
-        // gridlines={{
-        //   vertical: true,
-        //   color: 'blue',
-        //   lineWidth: 1,
-        //   opacity: 0.2,
-        // }}
+        gridlines={showGridlines ? gridlinesConfig : null}
         font={LatoRegular}
       />
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Custom Bar component:</Text>
         <Switch value={isCustomComponent} onChange={toggleCustomComponent} />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.animatedLabel}>Show legend:</Text>
+        <Switch value={isLegendShown} onChange={toggleLegend} />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.animatedLabel}>Show gridlines:</Text>
+        <Switch value={showGridlines} onChange={toggleGridlines} />
       </View>
     </ScreenContainer>
   );
