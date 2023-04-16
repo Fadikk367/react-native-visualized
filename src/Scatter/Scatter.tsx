@@ -10,6 +10,7 @@ import Gridlines from '../core/Gridlines';
 import Translate from '../core/Translate/Translate';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults, getIsWithinDomain } from '../core/utils';
+import ContinuousColorLegend from './Legend/ContinuousColorLegend';
 import Legend from './Legend/Legend';
 import Marker from './Marker';
 import { gridlinesDefaults } from './constants';
@@ -36,8 +37,10 @@ const Scatter = <T extends ScatterPoint>({
   const padding = ensureDefaults(customPadding, defaultPadding);
   const yAxisWidth = 30;
   const xAxisHeight = 30;
+  const colorLegendWidth = 40;
   const legendHeight = legendsConfig ? legendsConfig.height || 30 : 0;
-  const contentWidth = width - (padding.left + yAxisWidth + padding.right);
+  const contentWidth =
+    width - (padding.left + yAxisWidth + colorLegendWidth + padding.right);
   const contentHeight =
     height - (padding.top + legendHeight + xAxisHeight + padding.bottom);
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
@@ -120,6 +123,16 @@ const Scatter = <T extends ScatterPoint>({
             font={font}
             fontSize={18}
             mapDomainToCanvas={mapDomainToCanvas}
+          />
+        </Translate>
+        <Translate x={contentWidth + yAxisWidth}>
+          <ContinuousColorLegend
+            colors={['lightskyblue', 'darkblue']}
+            domain={[0, 50]}
+            height={contentHeight}
+            width={colorLegendWidth}
+            ticks={[0, 10, 20, 30, 40, 50]}
+            font={font}
           />
         </Translate>
       </Translate>

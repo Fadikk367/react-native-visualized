@@ -15,3 +15,13 @@ export interface LegendConfig {
   items?: LegendItem[];
   fontSize?: number;
 }
+
+export interface ContinuousColorLegendProps {
+  width: number;
+  height: number;
+  colors: string[];
+  domain: [number, number];
+  ticks: number[];
+  font: DataSourceParam;
+  fontSize?: number;
+}
