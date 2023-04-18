@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Circle, Path, Skia } from '@shopify/react-native-skia';
+import { Circle, Line, Path, Skia } from '@shopify/react-native-skia';
 
 import ChartContainer from '../core/ChartContainer';
 import { defaultPadding } from '../core/constants';
@@ -13,6 +13,7 @@ const PieChart = ({
   data,
   startAngle = 0,
   cutoutRadius = 0,
+  spacing = 0,
   padding: customPadding,
   backgroundColor,
 }: PieChartProps) => {
@@ -33,6 +34,7 @@ const PieChart = ({
     height: boundingSquareSize,
   };
 
+  const startAngles: number[] = [];
   const total = data.reduce((acc, current) => acc + current.value, 0);
   const pieSlices = data.map(({ label, value, color }, index, arr) => {
     const sweepAngle = (value / total) * 360;
@@ -40,6 +42,7 @@ const PieChart = ({
     for (let i = 0; i < index; i++) {
       sliceStartAngle += (arr[i]?.value! / total) * 360;
     }
+    startAngles.push(sliceStartAngle);
     const path = Skia.Path.Make();
 
     path.moveTo(0, 0);
@@ -57,6 +60,27 @@ const PieChart = ({
     );
   });
 
+  const spacingLines =
+    spacing > 0
+      ? startAngles.map(angle => {
+          const x =
+            (Math.cos((angle * Math.PI) / 180) * boundingSquareSize) / 2 +
+            center.x;
+          const y =
+            (Math.sin((angle * Math.PI) / 180) * boundingSquareSize) / 2 +
+            center.y;
+
+          return (
+            <Line
+              p1={center}
+              p2={{ x, y }}
+              strokeWidth={spacing}
+              color="white"
+            />
+          );
+        })
+      : null;
+
   return (
     <ChartContainer
       width={width}
@@ -67,6 +91,7 @@ const PieChart = ({
       {cutoutRadius ? (
         <Circle cx={center.x} cy={center.y} r={cutoutRadius} color="white" />
       ) : null}
+      {spacingLines}
     </ChartContainer>
   );
 };

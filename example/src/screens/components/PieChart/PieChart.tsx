@@ -15,7 +15,8 @@ const PieChart = () => {
         height={300}
         data={dataset}
         startAngle={-90}
-        cutoutRadius={90}
+        cutoutRadius={80}
+        spacing={8}
         font={LatoRegular}
       />
     </ScreenContainer>

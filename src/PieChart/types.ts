@@ -10,4 +10,5 @@ export interface PieChartProps extends ChartBaseProps {
   data: PieChartPiece[];
   startAngle?: number;
   cutoutRadius?: number;
+  spacing?: number;
 }
