@@ -1,6 +1,7 @@
 import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
 
 import type { ArrowVariant } from '../core/AxisArrow/types';
+import type { GridlinesConfig } from '../core/Gridlines/types';
 import type { ChartBaseProps } from '../types';
 
 export interface LineProps {
@@ -12,14 +13,6 @@ export interface LineProps {
 export type LineChartChildren =
   | React.ReactElement<LineProps>
   | React.ReactElement<LineProps>[];
-
-export interface GridlinesConfig {
-  vertical?: boolean;
-  horizontal?: boolean;
-  lineWidth?: number;
-  opacity?: number;
-  color?: string;
-}
 
 export interface ArrowsConfig {
   variant?: ArrowVariant;

@@ -14,6 +14,7 @@ const Catalogue = ({ navigation }: CatalogueProps) => {
     <ScreenContainer>
       <Button title="LineChart" onPress={getNavigateTo('LineChart')} />
       <Button title="BarChart" onPress={getNavigateTo('BarChart')} />
+      <Button title="Scatter" onPress={getNavigateTo('Scatter')} />
     </ScreenContainer>
   );
 };
