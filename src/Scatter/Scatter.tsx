@@ -60,11 +60,11 @@ const Scatter = <T extends ScatterPoint>({
   const getMarkerColor = ({ color, value }: T): string | undefined => {
     if (color) return color;
 
+    if (markerConfig?.color) return markerConfig.color;
+
     if (value && valueDomain && valueDomainColors) {
       return interpolateColor(value, valueDomain, valueDomainColors);
     }
-
-    if (markerConfig?.color) return markerConfig.color;
 
     return undefined;
   };

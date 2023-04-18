@@ -76,7 +76,7 @@ const ScatterScreen = () => {
         legend={isLegendShown ? legendConfig : undefined}
         marker={{
           variant: 'dot',
-          color: 'red',
+          // color: 'red',
           size: 7,
         }}
         renderMarker={isCustomComponent ? CustomMarker : undefined}
