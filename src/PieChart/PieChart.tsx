@@ -1,17 +1,18 @@
 import React from 'react';
 
-import { Circle, Line, Path, Skia } from '@shopify/react-native-skia';
+import { Circle, Path, Skia } from '@shopify/react-native-skia';
 
 import ChartContainer from '../core/ChartContainer';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
+import SliceSpaces from './SliceSpaces';
 import type { PieChartProps } from './types';
 
 const PieChart = ({
   width,
   height,
   data,
-  startAngle = 0,
+  startAngle: customStartAngle = 0,
   cutoutRadius = 0,
   spacing = 0,
   padding: customPadding,
@@ -34,52 +35,43 @@ const PieChart = ({
     height: boundingSquareSize,
   };
 
-  const startAngles: number[] = [];
   const total = data.reduce((acc, current) => acc + current.value, 0);
-  const pieSlices = data.map(({ label, value, color }, index, arr) => {
-    const sweepAngle = (value / total) * 360;
-    let sliceStartAngle = startAngle;
+  const dataWithSweepAngles = data.map(slice => ({
+    ...slice,
+    sweepAngle: (slice.value / total) * 360,
+  }));
+  const dataWithAngles = dataWithSweepAngles.map((slice, index, arr) => {
+    let sliceStartAngle = customStartAngle;
     for (let i = 0; i < index; i++) {
       sliceStartAngle += (arr[i]?.value! / total) * 360;
     }
-    startAngles.push(sliceStartAngle);
-    const path = Skia.Path.Make();
-
-    path.moveTo(0, 0);
-    path.addArc(boundingSquare, sliceStartAngle, sweepAngle);
-    path.lineTo(center.x, center.y);
-
-    return (
-      <Path
-        key={label}
-        path={path}
-        style="fill"
-        color={color}
-        strokeWidth={0}
-      />
-    );
+    return {
+      ...slice,
+      startAngle: sliceStartAngle,
+    };
   });
 
-  const spacingLines =
-    spacing > 0
-      ? startAngles.map(angle => {
-          const x =
-            (Math.cos((angle * Math.PI) / 180) * boundingSquareSize) / 2 +
-            center.x;
-          const y =
-            (Math.sin((angle * Math.PI) / 180) * boundingSquareSize) / 2 +
-            center.y;
+  const slices = dataWithAngles.map(
+    ({ label, color, startAngle, sweepAngle }) => {
+      const path = Skia.Path.Make();
 
-          return (
-            <Line
-              p1={center}
-              p2={{ x, y }}
-              strokeWidth={spacing}
-              color="white"
-            />
-          );
-        })
-      : null;
+      path.moveTo(0, 0);
+      path.addArc(boundingSquare, startAngle, sweepAngle);
+      path.lineTo(center.x, center.y);
+
+      return (
+        <Path
+          key={label}
+          path={path}
+          style="fill"
+          color={color}
+          strokeWidth={0}
+        />
+      );
+    },
+  );
+
+  const startAngles = dataWithAngles.map(({ startAngle }) => startAngle);
 
   return (
     <ChartContainer
@@ -87,11 +79,18 @@ const PieChart = ({
       height={height}
       padding={padding}
       backgroundColor={backgroundColor}>
-      {pieSlices}
+      {slices}
       {cutoutRadius ? (
         <Circle cx={center.x} cy={center.y} r={cutoutRadius} color="white" />
       ) : null}
-      {spacingLines}
+      {spacing > 0 ? (
+        <SliceSpaces
+          angles={startAngles}
+          spacing={spacing}
+          center={center}
+          radius={boundingSquareSize / 2}
+        />
+      ) : null}
     </ChartContainer>
   );
 };
