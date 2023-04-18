@@ -2,10 +2,11 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import BarChart from '@/screens/components/BarChart/BarChart';
+import BarChart from '@/screens/components/BarChart';
 import Catalogue from '@/screens/components/Catalogue';
-import LineChart from '@/screens/components/LineChart/LineChart';
-import Scatter from '@/screens/components/Scatter/Scatter';
+import LineChart from '@/screens/components/LineChart';
+import PieChart from '@/screens/components/PieChart';
+import Scatter from '@/screens/components/Scatter';
 
 import type { ComponentsStackParams } from './types';
 
@@ -24,6 +25,7 @@ const ComponentsStack = () => {
       <Stack.Screen name="LineChart" component={LineChart} />
       <Stack.Screen name="BarChart" component={BarChart} />
       <Stack.Screen name="Scatter" component={Scatter} />
+      <Stack.Screen name="PieChart" component={PieChart} />
     </Stack.Navigator>
   );
 };
