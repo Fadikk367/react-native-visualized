@@ -69,10 +69,12 @@ const Scatter = <T extends ScatterPoint>({
   };
 
   const markers = data.map(point => {
+    const key = `${point.x}-${point.y}`;
     return CustomMarker ? (
-      <CustomMarker {...point} mapDomainToProps={mapDomainToCanvas} />
+      <CustomMarker key={key} {...point} mapDomainToProps={mapDomainToCanvas} />
     ) : (
       <Marker
+        key={key}
         {...point}
         {...markerConfig}
         color={getMarkerColor(point)}

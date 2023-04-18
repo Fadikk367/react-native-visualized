@@ -16,7 +16,7 @@ const Legend = ({
   const itemSize = width / items.length;
 
   const itemsElements = items.map(({ color, label }, i) => (
-    <Translate x={i * itemSize}>
+    <Translate key={label} x={i * itemSize}>
       <Circle cx={0} cy={height / 2} r={7} color={color} />
       {font && (
         <Text x={15} y={height / 2 + fontSize / 3} text={label} font={font} />

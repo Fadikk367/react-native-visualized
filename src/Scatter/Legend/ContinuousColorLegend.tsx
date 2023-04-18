@@ -33,6 +33,7 @@ const ContinuousColorLegend = ({
 
   const labels = ticks.map(tick => (
     <Translate
+      key={tick}
       x={gradientLeftPadding + gradientWith}
       y={mapDomainToCanvas(tick)}>
       <Line p1={{ x: 0, y: 0 }} p2={{ x: 5, y: 0 }} strokeWidth={1} />
