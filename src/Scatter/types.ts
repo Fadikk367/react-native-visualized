@@ -28,4 +28,6 @@ export interface ScatterProps<T extends ScatterPoint> extends ChartBaseProps {
   marker?: MarkerConfig;
   renderMarker?: React.FC<T & RenderMarkerParams>;
   gridlines?: GridlinesConfig | null;
+  // TODO: Remove when proper legend system will be implemented
+  showContinuousLegend?: boolean;
 }

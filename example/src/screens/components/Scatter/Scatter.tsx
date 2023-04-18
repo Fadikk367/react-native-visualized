@@ -15,6 +15,7 @@ const ScatterScreen = () => {
   const [isCustomComponent, setIsCustomComponent] = useState(false);
   const [isLegendShown, setIsLegendShown] = useState(false);
   const [showGridlines, setShowGridlines] = useState(true);
+  const [showContinuousLegend, setShowContinuousLegend] = useState(false);
 
   const xTicks = utils.linspace(0, 100, 20);
   const yTicks = utils.linspace(0, 100, 20);
@@ -29,6 +30,10 @@ const ScatterScreen = () => {
 
   const toggleGridlines = () => {
     setShowGridlines(prev => !prev);
+  };
+
+  const toggleShowContinuousLegend = () => {
+    setShowContinuousLegend(prev => !prev);
   };
 
   const legendConfig = {
@@ -76,6 +81,7 @@ const ScatterScreen = () => {
         }}
         renderMarker={isCustomComponent ? CustomMarker : undefined}
         gridlines={showGridlines ? gridlinesConfig : null}
+        showContinuousLegend={showContinuousLegend}
         font={LatoRegular}
       />
       <View style={styles.row}>
@@ -85,6 +91,13 @@ const ScatterScreen = () => {
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Show legend:</Text>
         <Switch value={isLegendShown} onChange={toggleLegend} />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.animatedLabel}>Show continuous legend:</Text>
+        <Switch
+          value={showContinuousLegend}
+          onChange={toggleShowContinuousLegend}
+        />
       </View>
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Show gridlines:</Text>

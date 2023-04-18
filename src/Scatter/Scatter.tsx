@@ -32,12 +32,13 @@ const Scatter = <T extends ScatterPoint>({
   marker: markerConfig,
   renderMarker: CustomMarker,
   gridlines: gridlinesConfig = gridlinesDefaults,
+  showContinuousLegend = false,
   backgroundColor,
 }: ScatterProps<T>) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
   const yAxisWidth = 30;
   const xAxisHeight = 30;
-  const colorLegendWidth = 40;
+  const colorLegendWidth = showContinuousLegend ? 40 : 0;
   const legendHeight = legendsConfig ? legendsConfig.height || 30 : 0;
   const contentWidth =
     width - (padding.left + yAxisWidth + colorLegendWidth + padding.right);
@@ -128,14 +129,16 @@ const Scatter = <T extends ScatterPoint>({
           />
         </Translate>
         <Translate x={contentWidth + yAxisWidth}>
-          <ContinuousColorLegend
-            colors={['lightskyblue', 'darkblue']}
-            domain={[0, 50]}
-            height={contentHeight}
-            width={colorLegendWidth}
-            ticks={[0, 10, 20, 30, 40, 50]}
-            font={font}
-          />
+          {showContinuousLegend && (
+            <ContinuousColorLegend
+              colors={['lightskyblue', 'darkblue']}
+              domain={[0, 50]}
+              height={contentHeight}
+              width={colorLegendWidth}
+              ticks={[0, 10, 20, 30, 40, 50]}
+              font={font}
+            />
+          )}
         </Translate>
       </Translate>
     </ChartContainer>
