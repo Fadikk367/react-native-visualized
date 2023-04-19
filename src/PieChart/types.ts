@@ -31,6 +31,7 @@ export interface SliceLabelsProps {
   data: PiePieceWithAngles[];
   total: number;
   center: SkPoint;
+  radius: number;
   font: DataSourceParam;
   fontSize?: number;
 }

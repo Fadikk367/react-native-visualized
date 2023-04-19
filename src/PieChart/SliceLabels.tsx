@@ -2,18 +2,18 @@ import React from 'react';
 
 import { Group, Text, useFont } from '@shopify/react-native-skia';
 
-import Translate from '../core/Translate/Translate';
+import Translate from '../core/Translate';
 import type { SliceLabelsProps } from './types';
 
 const SliceLabels = ({
   data,
   total,
   center,
+  radius,
   font: fontSource,
   fontSize = 16,
 }: SliceLabelsProps) => {
   const font = useFont(fontSource, fontSize);
-  const radius = 110;
   const fontColor = 'black';
   const precision = 1;
 
