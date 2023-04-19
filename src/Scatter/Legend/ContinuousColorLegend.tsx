@@ -10,7 +10,7 @@ import {
   vec,
 } from '@shopify/react-native-skia';
 
-import Translate from '../../core/Translate/Translate';
+import Translate from '../../core/Translate';
 import type { ContinuousColorLegendProps } from './types';
 
 const ContinuousColorLegend = ({
