@@ -5,6 +5,7 @@ import { Circle, Path, Skia } from '@shopify/react-native-skia';
 import ChartContainer from '../core/ChartContainer';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
+import SliceLabels from './SliceLabels';
 import SliceSpaces from './SliceSpaces';
 import type { PieChartProps } from './types';
 
@@ -16,6 +17,8 @@ const PieChart = ({
   cutoutRadius = 0,
   spacing = 0,
   padding: customPadding,
+  font,
+  fontSize,
   backgroundColor,
 }: PieChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -91,6 +94,13 @@ const PieChart = ({
           radius={boundingSquareSize / 2}
         />
       ) : null}
+      <SliceLabels
+        data={dataWithAngles}
+        total={total}
+        center={center}
+        font={font}
+        fontSize={fontSize}
+      />
     </ChartContainer>
   );
 };

@@ -10,7 +10,13 @@ const SliceSpaces = ({ angles, spacing, radius, center }: SliceSpacesProps) => {
     const y = Math.sin((angle * Math.PI) / 180) * radius + center.y;
 
     return (
-      <Line p1={center} p2={{ x, y }} strokeWidth={spacing} color="white" />
+      <Line
+        key={angle}
+        p1={center}
+        p2={{ x, y }}
+        strokeWidth={spacing}
+        color="white"
+      />
     );
   });
 

@@ -1,4 +1,4 @@
-import type { SkPoint } from '@shopify/react-native-skia';
+import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
 
 import type { ChartBaseProps } from '../types';
 
@@ -20,4 +20,17 @@ export interface SliceSpacesProps {
   spacing: number;
   radius: number;
   center: SkPoint;
+}
+
+export interface PiePieceWithAngles extends PieChartPiece {
+  startAngle: number;
+  sweepAngle: number;
+}
+
+export interface SliceLabelsProps {
+  data: PiePieceWithAngles[];
+  total: number;
+  center: SkPoint;
+  font: DataSourceParam;
+  fontSize?: number;
 }
