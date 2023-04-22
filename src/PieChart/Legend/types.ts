@@ -5,7 +5,7 @@ export interface LegendItem {
   label: string;
 }
 
-export interface LegendProps {
+export interface LegendProps extends Omit<LegendConfig, 'gap'> {
   width: number;
   height: number;
   items: LegendItem[];
@@ -20,3 +20,11 @@ export interface LegendItemProps extends LegendItem {
   font: SkFont | null;
   fontSize: number;
 }
+
+export interface LegendConfig {
+  width: number;
+  position?: LegendPosition;
+  gap?: number;
+}
+
+export type LegendPosition = 'left' | 'right';

@@ -4,13 +4,11 @@ export const calculatePieChartLayout: CalculatePieChartLayout = ({
   width,
   height,
   padding,
-  gap,
-  legendWidth,
-  legendPosition: customLegendPosition,
+  legend,
 }) => {
   // Content means space for chart itself, excluding extra elements like legend
   const contentWidth =
-    width - (padding.left + legendWidth + gap + padding.right);
+    width - (padding.left + legend.width + legend.gap + padding.right);
   const contentHeight = height - (padding.top + padding.bottom);
 
   const boundingSquareSize = Math.min(contentWidth, contentHeight);
@@ -33,12 +31,12 @@ export const calculatePieChartLayout: CalculatePieChartLayout = ({
   };
 
   const piePosition = {
-    x: customLegendPosition === 'left' ? legendWidth + gap : 0,
+    x: legend.position === 'left' ? legend.width + legend.gap : 0,
     y: 0,
   };
 
   const legendPosition = {
-    x: customLegendPosition === 'left' ? 0 : contentWidth + gap,
+    x: legend.position === 'left' ? 0 : contentWidth + legend.gap,
     y: 0,
   };
 

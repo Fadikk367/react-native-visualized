@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
@@ -13,6 +13,9 @@ const PieChart = () => {
   const [cutoutRadius, setCutoutRadius] = useState(80);
   const [spacing, setSpacing] = useState(8);
   const [startAngle, setStartAngle] = useState(0);
+  const [legendPosition, setLegendPosition] = useState<'left' | 'right'>(
+    'right',
+  );
 
   const handleCutoutRadiusChange = (v: number) => {
     setCutoutRadius(v);
@@ -36,6 +39,7 @@ const PieChart = () => {
         cutoutRadius={cutoutRadius}
         spacing={spacing}
         padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
+        legend={{ width: 80, gap: 20, position: legendPosition }}
         font={LatoRegular}
       />
       <View style={styles.setting}>
@@ -78,6 +82,13 @@ const PieChart = () => {
           step={5}
           onValueChange={handleStartAngleChange}
         />
+      </View>
+      <View style={styles.setting}>
+        <Text style={styles.label}>Legend position:</Text>
+        <View style={styles.row}>
+          <Button title="left" onPress={() => setLegendPosition('left')} />
+          <Button title="right" onPress={() => setLegendPosition('right')} />
+        </View>
       </View>
     </ScreenContainer>
   );

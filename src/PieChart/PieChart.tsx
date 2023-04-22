@@ -7,6 +7,7 @@ import Translate from '../core/Translate/';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
 import Legend from './Legend';
+import { defaultLegendConfig } from './Legend/constants';
 import PieSlice from './PieSlice';
 import SliceLabels from './SliceLabels';
 import SliceSpaces from './SliceSpaces';
@@ -24,19 +25,16 @@ const PieChart = ({
   font,
   fontSize,
   backgroundColor,
+  legend: customLegendConfig,
 }: PieChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
-  const legendWidth = 80;
-  const legendPosition: 'left' | 'right' = 'right';
-  const gapBetweenPieAndLegend = 20;
+  const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
 
   const { pie, legend } = calculatePieChartLayout({
     width,
     height,
     padding,
-    gap: gapBetweenPieAndLegend,
-    legendWidth,
-    legendPosition,
+    legend: legendConfig,
   });
 
   const total = data.reduce((acc, current) => acc + current.value, 0);
@@ -90,7 +88,7 @@ const PieChart = ({
         <Legend
           items={data}
           height={140}
-          width={legendWidth}
+          width={legendConfig.width}
           font={font}
           fontSize={12}
         />

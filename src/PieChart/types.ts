@@ -5,6 +5,7 @@ import type {
 } from '@shopify/react-native-skia';
 
 import type { ChartBaseProps, ChartPadding } from '../types';
+import type { LegendConfig, LegendPosition } from './Legend/types';
 
 export interface PieChartPiece {
   label: string;
@@ -17,6 +18,7 @@ export interface PieChartProps extends ChartBaseProps {
   startAngle?: number;
   cutoutRadius?: number;
   spacing?: number;
+  legend?: LegendConfig;
 }
 
 export interface SliceSpacesProps {
@@ -49,9 +51,11 @@ export type CalculatePieChartLayoutParams = {
   width: number;
   height: number;
   padding: ChartPadding;
-  gap: number;
-  legendWidth: number;
-  legendPosition: 'left' | 'right';
+  legend: {
+    gap: number;
+    width: number;
+    position: LegendPosition;
+  };
 };
 
 export type PieChartLayout = {
