@@ -6,6 +6,7 @@ import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate/';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
+import CenterLabel from './CenterLabel';
 import Legend from './Legend';
 import { defaultLegendConfig } from './Legend/constants';
 import PieSlice from './PieSlice';
@@ -26,6 +27,7 @@ const PieChart = ({
   fontSize,
   backgroundColor = 'white',
   legend: customLegendConfig,
+  centerLabel,
 }: PieChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
@@ -75,6 +77,9 @@ const PieChart = ({
             radius={pie.radius}
             color={backgroundColor}
           />
+        ) : null}
+        {centerLabel ? (
+          <CenterLabel {...centerLabel} center={pie.center} font={font} />
         ) : null}
         <SliceLabels
           data={dataWithAngles}

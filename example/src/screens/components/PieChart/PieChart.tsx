@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Switch, Text, View } from 'react-native';
 
 import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
@@ -13,6 +13,7 @@ const PieChart = () => {
   const [cutoutRadius, setCutoutRadius] = useState(80);
   const [spacing, setSpacing] = useState(8);
   const [startAngle, setStartAngle] = useState(0);
+  const [isCenterLabelShown, setIsCenterLabelShown] = useState(false);
   const [legendPosition, setLegendPosition] = useState<'left' | 'right'>(
     'right',
   );
@@ -29,6 +30,16 @@ const PieChart = () => {
     setStartAngle(v);
   };
 
+  const total = dataset.reduce((acc, { value }) => acc + value, 0);
+
+  const centerLabel = isCenterLabelShown
+    ? {
+        label: { text: `$${total.toFixed(2)}`, fontSize: 20 },
+        annotation: { text: 'Total:', fontSize: 16 },
+        gap: 10,
+      }
+    : undefined;
+
   return (
     <ScreenContainer>
       <Chart.Pie
@@ -40,6 +51,7 @@ const PieChart = () => {
         spacing={spacing}
         padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
         legend={{ width: 80, gap: 20, position: legendPosition }}
+        centerLabel={centerLabel}
         font={LatoRegular}
       />
       <View style={styles.setting}>
@@ -81,6 +93,13 @@ const PieChart = () => {
           maximumValue={360}
           step={5}
           onValueChange={handleStartAngleChange}
+        />
+      </View>
+      <View style={[styles.setting, styles.row]}>
+        <Text style={styles.label}>Center label:</Text>
+        <Switch
+          value={isCenterLabelShown}
+          onChange={() => setIsCenterLabelShown(prev => !prev)}
         />
       </View>
       <View style={styles.setting}>

@@ -19,6 +19,7 @@ export interface PieChartProps extends ChartBaseProps {
   cutoutRadius?: number;
   spacing?: number;
   legend?: LegendConfig;
+  centerLabel?: Omit<CenterLabelProps, 'center' | 'font'>;
 }
 
 export interface SliceSpacesProps {
@@ -46,6 +47,14 @@ export interface SliceLabelsProps {
   radius: number;
   font: DataSourceParam;
   fontSize?: number;
+}
+
+export interface CenterLabelProps {
+  label: { text: string; fontSize: number };
+  annotation?: { text: string; fontSize: number };
+  gap?: number;
+  center: SkPoint;
+  font: DataSourceParam;
 }
 
 export type CalculatePieChartLayoutParams = {
