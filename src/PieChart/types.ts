@@ -26,6 +26,11 @@ export interface SliceSpacesProps {
   center: SkPoint;
 }
 
+export interface PieSliceProps extends PiePieceWithAngles {
+  boundingSquare: SkRect;
+  center: SkPoint;
+}
+
 export interface PiePieceWithAngles extends PieChartPiece {
   startAngle: number;
   sweepAngle: number;
@@ -64,3 +69,14 @@ export type PieChartLayout = {
 export type CalculatePieChartLayout = (
   params: CalculatePieChartLayoutParams,
 ) => PieChartLayout;
+
+export interface PieChartPieceWithAngles extends PieChartPiece {
+  startAngle: number;
+  sweepAngle: number;
+}
+
+export type CalculateSlicesAngles = (
+  data: PieChartPiece[],
+  total: number,
+  startAngle: number,
+) => PieChartPieceWithAngles[];

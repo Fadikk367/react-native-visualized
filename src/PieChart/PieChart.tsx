@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { Circle, Path, Skia } from '@shopify/react-native-skia';
+import { Circle } from '@shopify/react-native-skia';
 
 import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate/';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
 import Legend from './Legend';
+import PieSlice from './PieSlice';
 import SliceLabels from './SliceLabels';
 import SliceSpaces from './SliceSpaces';
 import type { PieChartProps } from './types';
-import { calculatePieChartLayout } from './utils';
+import { calculatePieChartLayout, calculateSlicesAngles } from './utils';
 
 const PieChart = ({
   width,
@@ -40,42 +41,17 @@ const PieChart = ({
 
   const total = data.reduce((acc, current) => acc + current.value, 0);
 
-  const dataWithSweepAngles = data.map(slice => ({
-    ...slice,
-    sweepAngle: (slice.value / total) * 360,
-  }));
-
-  const dataWithAngles = dataWithSweepAngles.map((slice, index, arr) => {
-    let sliceStartAngle = customStartAngle;
-    for (let i = 0; i < index; i++) {
-      sliceStartAngle += arr[i]?.sweepAngle!;
-    }
-    return {
-      ...slice,
-      startAngle: sliceStartAngle,
-    };
-  });
-
-  const slices = dataWithAngles.map(
-    ({ label, color, startAngle, sweepAngle }) => {
-      const path = Skia.Path.Make();
-
-      path.addArc(pie.boundingSquare, startAngle, sweepAngle);
-      path.lineTo(pie.center.x, pie.center.y);
-
-      return (
-        <Path
-          key={label}
-          path={path}
-          style="fill"
-          color={color}
-          strokeWidth={0}
-        />
-      );
-    },
-  );
+  const dataWithAngles = calculateSlicesAngles(data, total, customStartAngle);
 
   const startAngles = dataWithAngles.map(({ startAngle }) => startAngle);
+
+  const slices = dataWithAngles.map(slice => (
+    <PieSlice
+      {...slice}
+      boundingSquare={pie.boundingSquare}
+      center={pie.center}
+    />
+  ));
 
   return (
     <ChartContainer

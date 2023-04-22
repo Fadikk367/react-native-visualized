@@ -1,4 +1,4 @@
-import type { CalculatePieChartLayout } from './types';
+import type { CalculatePieChartLayout, CalculateSlicesAngles } from './types';
 
 export const calculatePieChartLayout: CalculatePieChartLayout = ({
   width,
@@ -53,4 +53,29 @@ export const calculatePieChartLayout: CalculatePieChartLayout = ({
       position: legendPosition,
     },
   };
+};
+
+export const calculateSlicesAngles: CalculateSlicesAngles = (
+  data,
+  total,
+  startAngle,
+) => {
+  const dataWithSweepAngles = data.map(slice => ({
+    ...slice,
+    sweepAngle: (slice.value / total) * 360,
+  }));
+
+  const dataWithAngles = dataWithSweepAngles.map((slice, index, arr) => {
+    let sliceStartAngle = startAngle;
+    for (let i = 0; i < index; i++) {
+      sliceStartAngle += arr[i]?.sweepAngle!;
+    }
+
+    return {
+      ...slice,
+      startAngle: sliceStartAngle,
+    };
+  });
+
+  return dataWithAngles;
 };
