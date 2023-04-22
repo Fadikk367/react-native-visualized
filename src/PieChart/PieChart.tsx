@@ -10,6 +10,7 @@ import Legend from './Legend';
 import SliceLabels from './SliceLabels';
 import SliceSpaces from './SliceSpaces';
 import type { PieChartProps } from './types';
+import { calculatePieChartLayout } from './utils';
 
 const PieChart = ({
   width,
@@ -24,33 +25,30 @@ const PieChart = ({
   backgroundColor,
 }: PieChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
-  const legendWidth = 100;
-  const contentWidth = width - (padding.left + legendWidth + padding.right);
-  const contentHeight = height - (padding.top + padding.bottom);
+  const legendWidth = 80;
+  const legendPosition: 'left' | 'right' = 'right';
+  const gapBetweenPieAndLegend = 20;
 
-  const boundingSquareSize = Math.min(contentWidth, contentHeight);
-  const boundingSquareX = (contentWidth - boundingSquareSize) / 2;
-  const boundingSquareY = (contentHeight - boundingSquareSize) / 2;
-  const center = {
-    x: boundingSquareX + boundingSquareSize / 2,
-    y: boundingSquareY + boundingSquareSize / 2,
-  };
-  const boundingSquare = {
-    x: boundingSquareX,
-    y: boundingSquareY,
-    width: boundingSquareSize,
-    height: boundingSquareSize,
-  };
+  const { pie, legend } = calculatePieChartLayout({
+    width,
+    height,
+    padding,
+    gap: gapBetweenPieAndLegend,
+    legendWidth,
+    legendPosition,
+  });
 
   const total = data.reduce((acc, current) => acc + current.value, 0);
+
   const dataWithSweepAngles = data.map(slice => ({
     ...slice,
     sweepAngle: (slice.value / total) * 360,
   }));
+
   const dataWithAngles = dataWithSweepAngles.map((slice, index, arr) => {
     let sliceStartAngle = customStartAngle;
     for (let i = 0; i < index; i++) {
-      sliceStartAngle += (arr[i]?.value! / total) * 360;
+      sliceStartAngle += arr[i]?.sweepAngle!;
     }
     return {
       ...slice,
@@ -62,9 +60,8 @@ const PieChart = ({
     ({ label, color, startAngle, sweepAngle }) => {
       const path = Skia.Path.Make();
 
-      path.moveTo(0, 0);
-      path.addArc(boundingSquare, startAngle, sweepAngle);
-      path.lineTo(center.x, center.y);
+      path.addArc(pie.boundingSquare, startAngle, sweepAngle);
+      path.lineTo(pie.center.x, pie.center.y);
 
       return (
         <Path
@@ -86,27 +83,34 @@ const PieChart = ({
       height={height}
       padding={padding}
       backgroundColor={backgroundColor}>
-      {slices}
-      {cutoutRadius ? (
-        <Circle cx={center.x} cy={center.y} r={cutoutRadius} color="white" />
-      ) : null}
-      {spacing > 0 ? (
-        <SliceSpaces
-          angles={startAngles}
-          spacing={spacing}
-          center={center}
-          radius={boundingSquareSize / 2}
+      <Translate x={pie.position.x}>
+        {slices}
+        {cutoutRadius ? (
+          <Circle
+            cx={pie.center.x}
+            cy={pie.center.y}
+            r={cutoutRadius}
+            color="white"
+          />
+        ) : null}
+        {spacing > 0 ? (
+          <SliceSpaces
+            angles={startAngles}
+            spacing={spacing}
+            center={pie.center}
+            radius={pie.radius}
+          />
+        ) : null}
+        <SliceLabels
+          data={dataWithAngles}
+          total={total}
+          center={pie.center}
+          radius={cutoutRadius + (pie.radius - cutoutRadius) / 2}
+          font={font}
+          fontSize={fontSize}
         />
-      ) : null}
-      <SliceLabels
-        data={dataWithAngles}
-        total={total}
-        center={center}
-        radius={cutoutRadius + (boundingSquareSize / 2 - cutoutRadius) / 2}
-        font={font}
-        fontSize={fontSize}
-      />
-      <Translate x={contentWidth}>
+      </Translate>
+      <Translate x={legend.position.x}>
         <Legend
           items={data}
           height={140}

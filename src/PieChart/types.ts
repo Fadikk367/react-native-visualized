@@ -1,6 +1,10 @@
-import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
+import type {
+  DataSourceParam,
+  SkPoint,
+  SkRect,
+} from '@shopify/react-native-skia';
 
-import type { ChartBaseProps } from '../types';
+import type { ChartBaseProps, ChartPadding } from '../types';
 
 export interface PieChartPiece {
   label: string;
@@ -35,3 +39,28 @@ export interface SliceLabelsProps {
   font: DataSourceParam;
   fontSize?: number;
 }
+
+export type CalculatePieChartLayoutParams = {
+  width: number;
+  height: number;
+  padding: ChartPadding;
+  gap: number;
+  legendWidth: number;
+  legendPosition: 'left' | 'right';
+};
+
+export type PieChartLayout = {
+  pie: {
+    position: SkPoint;
+    center: SkPoint;
+    boundingSquare: SkRect;
+    radius: number;
+  };
+  legend: {
+    position: SkPoint;
+  };
+};
+
+export type CalculatePieChartLayout = (
+  params: CalculatePieChartLayoutParams,
+) => PieChartLayout;

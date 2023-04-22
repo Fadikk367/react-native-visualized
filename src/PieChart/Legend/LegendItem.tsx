@@ -14,13 +14,25 @@ const LegendItem = ({
   font,
   fontSize,
 }: LegendItemProps) => {
+  const circleRadius = 7;
+
   if (!font) return null;
 
   return (
     <Translate key={label} x={x} y={y}>
-      <Circle cx={0} cy={height / 2} r={7} color={color} />
+      <Circle
+        cx={circleRadius}
+        cy={height / 2}
+        r={circleRadius}
+        color={color}
+      />
       {font && (
-        <Text x={15} y={height / 2 + fontSize / 3} text={label} font={font} />
+        <Text
+          x={circleRadius + 15}
+          y={height / 2 + fontSize / 3}
+          text={label}
+          font={font}
+        />
       )}
     </Translate>
   );

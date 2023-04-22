@@ -18,7 +18,6 @@ const Legend = ({
   const itemsElementsVertical = items.map(({ color, label }, i) => (
     <LegendItem
       key={label}
-      x={30}
       y={i * itemSize}
       color={color}
       height={itemSize}
