@@ -26,6 +26,7 @@ export interface SliceSpacesProps {
   spacing: number;
   radius: number;
   center: SkPoint;
+  color: string;
 }
 
 export interface PieSliceProps extends PiePieceWithAngles {

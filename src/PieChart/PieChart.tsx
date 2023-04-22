@@ -24,7 +24,7 @@ const PieChart = ({
   padding: customPadding,
   font,
   fontSize,
-  backgroundColor,
+  backgroundColor = 'white',
   legend: customLegendConfig,
 }: PieChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -64,7 +64,7 @@ const PieChart = ({
             cx={pie.center.x}
             cy={pie.center.y}
             r={cutoutRadius}
-            color="white"
+            color={backgroundColor}
           />
         ) : null}
         {spacing > 0 ? (
@@ -73,6 +73,7 @@ const PieChart = ({
             spacing={spacing}
             center={pie.center}
             radius={pie.radius}
+            color={backgroundColor}
           />
         ) : null}
         <SliceLabels
