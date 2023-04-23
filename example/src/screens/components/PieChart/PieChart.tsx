@@ -34,8 +34,8 @@ const PieChart = () => {
 
   const centerLabel = isCenterLabelShown
     ? {
-        label: { text: `$${total.toFixed(2)}`, fontSize: 20 },
-        annotation: { text: 'Total:', fontSize: 16 },
+        label: { text: `$${total.toFixed(2)}`, fontSize: 18 },
+        annotation: { text: 'Total:', fontSize: 14 },
         gap: 10,
       }
     : undefined;

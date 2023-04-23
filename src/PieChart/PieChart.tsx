@@ -45,6 +45,10 @@ const PieChart = ({
 
   const startAngles = dataWithAngles.map(({ startAngle }) => startAngle);
 
+  const labelsRadius = cutoutRadius
+    ? cutoutRadius + (pie.radius - cutoutRadius) / 2
+    : 0.67 * pie.radius;
+
   const slices = dataWithAngles.map(slice => (
     <PieSlice
       key={slice.label}
@@ -86,7 +90,7 @@ const PieChart = ({
           data={dataWithAngles}
           total={total}
           center={pie.center}
-          radius={cutoutRadius + (pie.radius - cutoutRadius) / 2}
+          radius={labelsRadius}
           font={font}
           fontSize={fontSize}
         />
