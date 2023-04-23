@@ -1,20 +1,22 @@
-import type { ChartPadding } from '../types';
-import type { LegendConfig } from './Legend/types';
-import type { CalculatePieChartLayout, CalculateSlicesAngles } from './types';
+import type {
+  GetContentDimensions,
+  GetDataWithAngles,
+  GetPieChartLayout,
+} from './types';
 
-export const calculatePieChartLayout: CalculatePieChartLayout = ({
+export const getPieChartLayout: GetPieChartLayout = ({
   width,
   height,
   padding,
   legend,
 }) => {
   // Content means space for chart itself, excluding extra elements like legend
-  const { contentWidth, contentHeight } = getContentDimensions(
+  const { contentWidth, contentHeight } = getContentDimensions({
     width,
     height,
     padding,
     legend,
-  );
+  });
 
   const boundingSquareSize = Math.min(contentWidth, contentHeight);
   const boundingSquareX = (contentWidth - boundingSquareSize) / 2;
@@ -58,7 +60,7 @@ export const calculatePieChartLayout: CalculatePieChartLayout = ({
   };
 };
 
-export const calculateSlicesAngles: CalculateSlicesAngles = (
+export const getDataWithAngles: GetDataWithAngles = (
   data,
   total,
   startAngle,
@@ -83,12 +85,12 @@ export const calculateSlicesAngles: CalculateSlicesAngles = (
   return dataWithAngles;
 };
 
-const getContentDimensions = (
-  width: number,
-  height: number,
-  padding: ChartPadding,
-  legend: Required<LegendConfig>,
-): { contentWidth: number; contentHeight: number } => {
+const getContentDimensions: GetContentDimensions = ({
+  width,
+  height,
+  padding,
+  legend,
+}) => {
   const isHorizontalLayout =
     legend.position === 'left' || legend.position === 'right';
 

@@ -13,7 +13,7 @@ import PieSlice from './PieSlice';
 import SliceLabels from './SliceLabels';
 import SliceSpaces from './SliceSpaces';
 import type { PieChartProps } from './types';
-import { calculatePieChartLayout, calculateSlicesAngles } from './utils';
+import { getDataWithAngles, getPieChartLayout } from './utils';
 
 const PieChart = ({
   width,
@@ -32,7 +32,7 @@ const PieChart = ({
   const padding = ensureDefaults(customPadding, defaultPadding);
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
 
-  const { pie, legend } = calculatePieChartLayout({
+  const { pie, legend } = getPieChartLayout({
     width,
     height,
     padding,
@@ -41,7 +41,7 @@ const PieChart = ({
 
   const total = data.reduce((acc, current) => acc + current.value, 0);
 
-  const dataWithAngles = calculateSlicesAngles(data, total, customStartAngle);
+  const dataWithAngles = getDataWithAngles(data, total, customStartAngle);
 
   const startAngles = dataWithAngles.map(({ startAngle }) => startAngle);
 

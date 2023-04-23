@@ -57,7 +57,7 @@ export interface CenterLabelProps {
   font: DataSourceParam;
 }
 
-export type CalculatePieChartLayoutParams = {
+export type GetPieChartLayoutParams = {
   width: number;
   height: number;
   padding: ChartPadding;
@@ -76,8 +76,8 @@ export type PieChartLayout = {
   };
 };
 
-export type CalculatePieChartLayout = (
-  params: CalculatePieChartLayoutParams,
+export type GetPieChartLayout = (
+  params: GetPieChartLayoutParams,
 ) => PieChartLayout;
 
 export interface PieChartPieceWithAngles extends PieChartPiece {
@@ -85,8 +85,13 @@ export interface PieChartPieceWithAngles extends PieChartPiece {
   sweepAngle: number;
 }
 
-export type CalculateSlicesAngles = (
+export type GetDataWithAngles = (
   data: PieChartPiece[],
   total: number,
   startAngle: number,
 ) => PieChartPieceWithAngles[];
+
+export type GetContentDimensions = (params: GetPieChartLayoutParams) => {
+  contentWidth: number;
+  contentHeight: number;
+};
