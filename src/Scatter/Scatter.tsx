@@ -7,7 +7,7 @@ import XAxis from '../core/Axes/XAxis';
 import YAxis from '../core/Axes/YAxis';
 import ChartContainer from '../core/ChartContainer';
 import Gridlines from '../core/Gridlines';
-import Translate from '../core/Translate/Translate';
+import Translate from '../core/Translate';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults, getIsWithinDomain } from '../core/utils';
 import ContinuousColorLegend from './Legend/ContinuousColorLegend';
