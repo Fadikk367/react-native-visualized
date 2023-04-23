@@ -23,8 +23,28 @@ export interface LegendItemProps extends LegendItem {
 
 export interface LegendConfig {
   width: number;
+  height: number;
   position?: LegendPosition;
   gap?: number;
 }
 
-export type LegendPosition = 'left' | 'right';
+export type LegendPosition = 'left' | 'right' | 'top' | 'bottom';
+
+interface GetLegendItemLayoutParams {
+  width: number;
+  height: number;
+  itemsCount: number;
+  orientation: Orientation;
+}
+
+export type Orientation = 'horizontal' | 'vertical';
+
+interface LegendItemLayout {
+  x: number;
+  y: number;
+  height: number;
+}
+
+export type GetLegendItemLayout = (
+  params: GetLegendItemLayoutParams,
+) => (index: number) => LegendItemLayout;

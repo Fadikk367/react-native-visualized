@@ -1,3 +1,5 @@
+import type { ChartPadding } from '../types';
+import type { LegendConfig } from './Legend/types';
 import type { CalculatePieChartLayout, CalculateSlicesAngles } from './types';
 
 export const calculatePieChartLayout: CalculatePieChartLayout = ({
@@ -7,9 +9,12 @@ export const calculatePieChartLayout: CalculatePieChartLayout = ({
   legend,
 }) => {
   // Content means space for chart itself, excluding extra elements like legend
-  const contentWidth =
-    width - (padding.left + legend.width + legend.gap + padding.right);
-  const contentHeight = height - (padding.top + padding.bottom);
+  const { contentWidth, contentHeight } = getContentDimensions(
+    width,
+    height,
+    padding,
+    legend,
+  );
 
   const boundingSquareSize = Math.min(contentWidth, contentHeight);
   const boundingSquareX = (contentWidth - boundingSquareSize) / 2;
@@ -32,12 +37,12 @@ export const calculatePieChartLayout: CalculatePieChartLayout = ({
 
   const piePosition = {
     x: legend.position === 'left' ? legend.width + legend.gap : 0,
-    y: 0,
+    y: legend.position === 'top' ? legend.height + legend.gap : 0,
   };
 
   const legendPosition = {
-    x: legend.position === 'left' ? 0 : contentWidth + legend.gap,
-    y: 0,
+    x: legend.position === 'right' ? contentWidth + legend.gap : 0,
+    y: legend.position === 'bottom' ? contentHeight + legend.gap : 0,
   };
 
   return {
@@ -76,4 +81,25 @@ export const calculateSlicesAngles: CalculateSlicesAngles = (
   });
 
   return dataWithAngles;
+};
+
+const getContentDimensions = (
+  width: number,
+  height: number,
+  padding: ChartPadding,
+  legend: Required<LegendConfig>,
+): { contentWidth: number; contentHeight: number } => {
+  const isHorizontalLayout =
+    legend.position === 'left' || legend.position === 'right';
+
+  const totalHorizontalPadding = padding.left + padding.right;
+  const totalVerticalPadding = padding.top + padding.bottom;
+
+  const legendWidth = isHorizontalLayout ? legend.width + legend.gap : 0;
+  const legendHeight = isHorizontalLayout ? 0 : legend.height + legend.gap;
+
+  const contentWidth = width - (totalHorizontalPadding + legendWidth);
+  const contentHeight = height - (totalVerticalPadding + legendHeight);
+
+  return { contentWidth, contentHeight };
 };

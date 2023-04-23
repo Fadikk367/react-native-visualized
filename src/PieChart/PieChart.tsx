@@ -47,6 +47,7 @@ const PieChart = ({
 
   const slices = dataWithAngles.map(slice => (
     <PieSlice
+      key={slice.label}
       {...slice}
       boundingSquare={pie.boundingSquare}
       center={pie.center}
@@ -59,7 +60,7 @@ const PieChart = ({
       height={height}
       padding={padding}
       backgroundColor={backgroundColor}>
-      <Translate x={pie.position.x}>
+      <Translate x={pie.position.x} y={pie.position.y}>
         {slices}
         {cutoutRadius ? (
           <Circle
@@ -90,11 +91,12 @@ const PieChart = ({
           fontSize={fontSize}
         />
       </Translate>
-      <Translate x={legend.position.x}>
+      <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
           items={data}
-          height={140}
+          height={legendConfig.height}
           width={legendConfig.width}
+          position={legendConfig.position}
           font={font}
           fontSize={12}
         />

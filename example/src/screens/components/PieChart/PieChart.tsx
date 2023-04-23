@@ -9,14 +9,14 @@ import ScreenContainer from '@/components/ScreenContainer/ScreenContainer';
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { dataset } from './data';
 
+type LegendPosition = 'left' | 'right' | 'top' | 'bottom';
+
 const PieChart = () => {
   const [cutoutRadius, setCutoutRadius] = useState(80);
   const [spacing, setSpacing] = useState(8);
   const [startAngle, setStartAngle] = useState(0);
   const [isCenterLabelShown, setIsCenterLabelShown] = useState(false);
-  const [legendPosition, setLegendPosition] = useState<'left' | 'right'>(
-    'right',
-  );
+  const [legendPosition, setLegendPosition] = useState<LegendPosition>('right');
 
   const handleCutoutRadiusChange = (v: number) => {
     setCutoutRadius(v);
@@ -40,6 +40,19 @@ const PieChart = () => {
       }
     : undefined;
 
+  const legendSizeByPosition = {
+    left: { width: 70, height: 160 },
+    top: { width: 374, height: 30 },
+    right: { width: 70, height: 160 },
+    bottom: { width: 374, height: 30 },
+  };
+
+  const legendConfig = {
+    ...legendSizeByPosition[legendPosition],
+    gap: 10,
+    position: legendPosition,
+  };
+
   return (
     <ScreenContainer>
       <Chart.Pie
@@ -50,7 +63,7 @@ const PieChart = () => {
         cutoutRadius={cutoutRadius}
         spacing={spacing}
         padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
-        legend={{ width: 80, gap: 20, position: legendPosition }}
+        legend={legendConfig}
         centerLabel={centerLabel}
         font={LatoRegular}
       />
@@ -103,10 +116,15 @@ const PieChart = () => {
         />
       </View>
       <View style={styles.setting}>
-        <Text style={styles.label}>Legend position:</Text>
         <View style={styles.row}>
-          <Button title="left" onPress={() => setLegendPosition('left')} />
-          <Button title="right" onPress={() => setLegendPosition('right')} />
+          <Text style={styles.label}>Legend position:</Text>
+          <Text style={styles.value}>{legendPosition.toUpperCase()}</Text>
+        </View>
+        <View style={styles.row}>
+          <Button title="LEFT" onPress={() => setLegendPosition('left')} />
+          <Button title="TOP" onPress={() => setLegendPosition('top')} />
+          <Button title="RIGHT" onPress={() => setLegendPosition('right')} />
+          <Button title="BOTTOM" onPress={() => setLegendPosition('bottom')} />
         </View>
       </View>
     </ScreenContainer>
