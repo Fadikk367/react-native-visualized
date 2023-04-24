@@ -6,6 +6,7 @@ import BarChart from '@/screens/components/BarChart';
 import Catalogue from '@/screens/components/Catalogue';
 import LineChart from '@/screens/components/LineChart';
 import PieChart from '@/screens/components/PieChart';
+import ProgressRing from '@/screens/components/ProgressRing';
 import Scatter from '@/screens/components/Scatter';
 
 import type { ComponentsStackParams } from './types';
@@ -26,6 +27,7 @@ const ComponentsStack = () => {
       <Stack.Screen name="BarChart" component={BarChart} />
       <Stack.Screen name="Scatter" component={Scatter} />
       <Stack.Screen name="PieChart" component={PieChart} />
+      <Stack.Screen name="ProgressRing" component={ProgressRing} />
     </Stack.Navigator>
   );
 };
