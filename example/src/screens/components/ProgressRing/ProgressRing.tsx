@@ -9,7 +9,12 @@ import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 
 const ProgressRing = () => {
   const { width } = useWindowDimensions();
-  const rings = [{ color: 'red', value: 45, full: 100 }];
+  const rings = [
+    { color: 'red', value: 78, full: 100 },
+    { color: 'blue', value: 54, full: 100 },
+    { color: 'green ', value: 34, full: 100, start: 6 },
+    { color: 'orange ', value: 34, full: 100, start: 13 },
+  ];
 
   return (
     <ScreenContainer>
