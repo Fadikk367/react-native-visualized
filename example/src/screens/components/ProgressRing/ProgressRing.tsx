@@ -21,7 +21,7 @@ const ProgressRing = () => {
         width={width}
         height={320}
         data={rings}
-        padding={{ top: 20, left: 20, right: 20, bottom: 10 }}
+        padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
         legend={{
           height: 30,
           width,

@@ -47,16 +47,16 @@ const ProgressRing = ({
 
     path.addArc(
       {
-        x: boundingSquare.x + diameterDecrease / 2,
-        y: boundingSquare.y + diameterDecrease / 2,
-        width: ringRadius * 2,
-        height: ringRadius * 2,
+        x: boundingSquare.x + diameterDecrease / 2 + ringWidth / 2,
+        y: boundingSquare.y + diameterDecrease / 2 + ringWidth / 2,
+        width: ringRadius * 2 - ringWidth,
+        height: ringRadius * 2 - ringWidth,
       },
       startAngle - 90 + ringStartAngle,
       sweepAngle,
     );
 
-    backgroundPath.addCircle(center.x, center.y, ringRadius);
+    backgroundPath.addCircle(center.x, center.y, ringRadius - ringWidth / 2);
 
     return (
       <>
