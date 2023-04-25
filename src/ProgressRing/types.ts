@@ -1,3 +1,5 @@
+import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
+
 import type { LegendConfig } from '../PieChart/Legend/types';
 import type { ChartBaseProps } from '../types';
 
@@ -15,4 +17,17 @@ export interface ProgressRingProps extends ChartBaseProps {
   startAngle?: number;
   ringWidth?: number;
   legend?: LegendConfig;
+  centerLabel?: {
+    text: string;
+    fontSize?: number;
+    color?: string;
+  };
+}
+
+export interface CenterLabelProps {
+  text: string;
+  fontSize?: number;
+  color?: string;
+  font: DataSourceParam;
+  center: SkPoint;
 }

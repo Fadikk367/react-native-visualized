@@ -12,7 +12,7 @@ const ProgressRing = () => {
   const rings = [
     { label: 'Calories', color: '#d13b3b', value: 78, full: 100 },
     { label: 'Steps', color: '#31cd23', value: 54, full: 100 },
-    { label: 'Time', color: '#5165f8 ', value: 34, full: 100 },
+    { label: 'Time', color: '#5165f8', value: 34, full: 100 },
   ];
 
   return (
@@ -27,6 +27,11 @@ const ProgressRing = () => {
           width,
           position: 'bottom',
           gap: 20,
+        }}
+        centerLabel={{
+          text: '63%',
+          fontSize: 32,
+          color: '#5165f8',
         }}
         font={LatoRegular}
       />

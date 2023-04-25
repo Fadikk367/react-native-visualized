@@ -9,6 +9,7 @@ import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate/Translate';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
+import CenterLabel from './CenterLabel';
 import type { ProgressRingProps } from './types';
 
 const ProgressRing = ({
@@ -21,6 +22,7 @@ const ProgressRing = ({
   startAngle = 0,
   ringWidth = 20,
   legend: customLegendConfig,
+  centerLabel,
   font,
 }: ProgressRingProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -88,6 +90,9 @@ const ProgressRing = ({
       <Translate x={position.x} y={position.y}>
         {rings}
       </Translate>
+      {centerLabel && (
+        <CenterLabel {...centerLabel} font={font} center={center} />
+      )}
       <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
           items={data}
