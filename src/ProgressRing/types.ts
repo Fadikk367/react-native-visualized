@@ -41,6 +41,5 @@ export interface RingProps extends RingData {
   center: SkPoint;
   ringWidth: number;
   ringsSpacing: number;
-  startAngle: number;
   index: number;
 }

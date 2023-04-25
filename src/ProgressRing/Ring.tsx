@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
-import { Path, Skia } from '@shopify/react-native-skia';
+import { Path, Skia, useTiming } from '@shopify/react-native-skia';
 
 import type { RingProps } from './types';
 
@@ -12,30 +12,33 @@ const Ring = ({
   boundingSquare,
   start,
   center,
-  startAngle,
   index,
   color,
 }: RingProps) => {
-  const path = Skia.Path.Make();
-  const backgroundPath = Skia.Path.Make();
-
-  const sweepAngle = Math.min(value / full, 1) * 360;
-  const ringStartAngle = Math.min((start || 0) / full, 1) * 360;
-  const diameterDecrease = index * (2 * ringWidth + ringsSpacing);
-  const ringRadius = (boundingSquare.width - diameterDecrease) / 2;
-
-  path.addArc(
-    {
-      x: boundingSquare.x + diameterDecrease / 2 + ringWidth / 2,
-      y: boundingSquare.y + diameterDecrease / 2 + ringWidth / 2,
-      width: ringRadius * 2 - ringWidth,
-      height: ringRadius * 2 - ringWidth,
-    },
-    startAngle - 90 + ringStartAngle,
-    sweepAngle,
+  const prevValue = useRef(0);
+  const pathStart = Math.min((start || 0) / full, 1);
+  const pathEnd = useTiming(
+    { from: prevValue.current, to: value / full },
+    { duration: 1000 },
   );
 
-  backgroundPath.addCircle(center.x, center.y, ringRadius - ringWidth / 2);
+  useEffect(() => {
+    prevValue.current = value / full;
+  }, [value, full]);
+
+  const { fillPath, backgroundPath } = useMemo(() => {
+    const path = Skia.Path.Make();
+
+    const diameterDecrease = index * (2 * ringWidth + ringsSpacing);
+    const ringRadius = (boundingSquare.width - diameterDecrease) / 2;
+
+    path.addCircle(center.x, center.y, ringRadius - ringWidth / 2);
+
+    return {
+      fillPath: path,
+      backgroundPath: path.copy(),
+    };
+  }, [boundingSquare.width, center, index, ringWidth, ringsSpacing]);
 
   return (
     <>
@@ -48,7 +51,9 @@ const Ring = ({
         strokeCap="round"
       />
       <Path
-        path={path}
+        path={fillPath}
+        start={pathStart}
+        end={pathEnd}
         style="stroke"
         color={color}
         strokeWidth={ringWidth}

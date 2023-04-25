@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Group } from '@shopify/react-native-skia';
+
 import Legend from '../PieChart/Legend';
 import { defaultLegendConfig } from '../PieChart/Legend/constants';
 import { getPieChartLayout } from '../PieChart/utils';
@@ -45,7 +47,6 @@ const ProgressRing = ({
       center={center}
       ringWidth={ringWidth}
       ringsSpacing={ringsSpacing}
-      startAngle={startAngle}
       index={i}
     />
   ));
@@ -57,7 +58,12 @@ const ProgressRing = ({
       padding={padding}
       backgroundColor={backgroundColor}>
       <Translate x={position.x} y={position.y}>
-        {rings}
+        <Group
+          origin={center}
+          // -Math.PI / 2 to shift default angle
+          transform={[{ rotate: -Math.PI / 2 + startAngle }]}>
+          {rings}
+        </Group>
       </Translate>
       {centerLabel && (
         <CenterLabel {...centerLabel} font={font} center={center} />
