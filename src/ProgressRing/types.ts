@@ -1,4 +1,8 @@
-import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
+import type {
+  DataSourceParam,
+  SkPoint,
+  SkRect,
+} from '@shopify/react-native-skia';
 
 import type { LegendConfig } from '../PieChart/Legend/types';
 import type { ChartBaseProps } from '../types';
@@ -30,4 +34,13 @@ export interface CenterLabelProps {
   color?: string;
   font: DataSourceParam;
   center: SkPoint;
+}
+
+export interface RingProps extends RingData {
+  boundingSquare: SkRect;
+  center: SkPoint;
+  ringWidth: number;
+  ringsSpacing: number;
+  startAngle: number;
+  index: number;
 }
