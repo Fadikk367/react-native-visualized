@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Path, Skia } from '@shopify/react-native-skia';
 
+import Legend from '../PieChart/Legend';
 import { defaultLegendConfig } from '../PieChart/Legend/constants';
 import { getPieChartLayout } from '../PieChart/utils';
 import ChartContainer from '../core/ChartContainer';
@@ -19,15 +20,20 @@ const ProgressRing = ({
   ringsSpacing = 6,
   startAngle = 0,
   ringWidth = 20,
+  legend: customLegendConfig,
+  font,
 }: ProgressRingProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
+  const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
+
   const {
     pie: { boundingSquare, position, center },
+    legend,
   } = getPieChartLayout({
     width,
     height,
     padding,
-    legend: defaultLegendConfig,
+    legend: legendConfig,
   });
 
   const rings = data.map(({ value, full, color, start }, index) => {
@@ -81,6 +87,16 @@ const ProgressRing = ({
       backgroundColor={backgroundColor}>
       <Translate x={position.x} y={position.y}>
         {rings}
+      </Translate>
+      <Translate x={legend.position.x} y={legend.position.y}>
+        <Legend
+          items={data}
+          height={legendConfig.height}
+          width={legendConfig.width}
+          position={legendConfig.position}
+          font={font}
+          fontSize={12}
+        />
       </Translate>
     </ChartContainer>
   );

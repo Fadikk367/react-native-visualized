@@ -10,19 +10,24 @@ import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 const ProgressRing = () => {
   const { width } = useWindowDimensions();
   const rings = [
-    { color: 'red', value: 78, full: 100 },
-    { color: 'blue', value: 54, full: 100 },
-    { color: 'green ', value: 34, full: 100, start: 6 },
-    { color: 'orange ', value: 34, full: 100, start: 13 },
+    { label: 'Calories', color: '#d13b3b', value: 78, full: 100 },
+    { label: 'Steps', color: '#31cd23', value: 54, full: 100 },
+    { label: 'Time', color: '#5165f8 ', value: 34, full: 100 },
   ];
 
   return (
     <ScreenContainer>
       <Chart.ProgressRing
         width={width}
-        height={300}
+        height={320}
         data={rings}
-        padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
+        padding={{ top: 20, left: 20, right: 20, bottom: 10 }}
+        legend={{
+          height: 30,
+          width,
+          position: 'bottom',
+          gap: 20,
+        }}
         font={LatoRegular}
       />
     </ScreenContainer>
