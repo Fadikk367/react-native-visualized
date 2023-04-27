@@ -3,6 +3,7 @@ import React from 'react';
 import { Group, Text, useFont } from '@shopify/react-native-skia';
 
 import Translate from '../core/Translate';
+import { degreesToRadians } from '../core/utils';
 import type { SliceLabelsProps } from './types';
 
 const SliceLabels = ({
@@ -21,8 +22,8 @@ const SliceLabels = ({
 
   const labels = data.map(({ label, startAngle, sweepAngle, value }) => {
     const sliceCenterAngle = startAngle + sweepAngle / 2;
-    const x = Math.cos((sliceCenterAngle * Math.PI) / 180) * radius + center.x;
-    const y = Math.sin((sliceCenterAngle * Math.PI) / 180) * radius + center.y;
+    const x = Math.cos(degreesToRadians(sliceCenterAngle)) * radius + center.x;
+    const y = Math.sin(degreesToRadians(sliceCenterAngle)) * radius + center.y;
     const percent = (value / total) * 100;
     const percentText = `${percent.toFixed(precision)}%`;
     const textWidth = font.getTextWidth(percentText);

@@ -8,7 +8,7 @@ import { getPieChartLayout } from '../PieChart/utils';
 import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate/Translate';
 import { defaultPadding } from '../core/constants';
-import { ensureDefaults } from '../core/utils';
+import { degreesToRadians, ensureDefaults } from '../core/utils';
 import CenterLabel from './CenterLabel';
 import Ring from './Ring';
 import type { ProgressRingProps } from './types';
@@ -61,7 +61,7 @@ const ProgressRing = ({
         <Group
           origin={center}
           // -Math.PI / 2 to shift default angle
-          transform={[{ rotate: -Math.PI / 2 + startAngle }]}>
+          transform={[{ rotate: -Math.PI / 2 + degreesToRadians(startAngle) }]}>
           {rings}
         </Group>
       </Translate>
