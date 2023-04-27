@@ -2,6 +2,7 @@ import BarChart from './BarChart';
 import LineChart from './LineChart';
 import Line from './LineChart/Line';
 import PieChart from './PieChart';
+import ProgressRing from './ProgressRing';
 import Scatter from './Scatter';
 import * as coreUtils from './core/utils';
 
@@ -15,6 +16,7 @@ export const Chart = {
   Bar: BarChart,
   Scatter,
   Pie: PieChart,
+  ProgressRing,
 };
 
 export const utils = coreUtils;

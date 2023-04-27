@@ -4,4 +4,5 @@ export type ComponentsStackParams = {
   BarChart: undefined;
   Scatter: undefined;
   PieChart: undefined;
+  ProgressRing: undefined;
 };

@@ -21,3 +21,11 @@ export const getIsWithinDomain =
   (domain: [number, number]) => (value: number) => {
     return domain[0] <= value && value <= domain[1];
   };
+
+export const degreesToRadians = (degrees: number): number => {
+  return (degrees * Math.PI) / 180;
+};
+
+export const radiansToDegrees = (radians: number): number => {
+  return (radians * 180) / Math.PI;
+};
