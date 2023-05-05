@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Group, Path, SkPoint, rect } from '@shopify/react-native-skia';
 
+import XAxis from '../core/Axes/XAxis';
+import YAxis from '../core/Axes/YAxis';
 import ChartContainer from '../core/ChartContainer';
 import Gridlines from '../core/Gridlines';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults, getIsWithinDomain } from '../core/utils';
-import XLables from './XLables';
-import YLabels from './YLabels';
 import type { LineChartProps } from './types';
 import { buildPath, extractProps } from './utils';
 
@@ -16,8 +16,8 @@ const LineChart = ({
   height,
   xDomain,
   yDomain,
-  xLabels,
-  yLabels,
+  xTicks,
+  yTicks,
   padding: customPadding,
   backgroundColor,
   font,
@@ -34,8 +34,8 @@ const LineChart = ({
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
   const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
 
-  const xTicksWithinDomain = xLabels.filter(getIsWithinDomain(xDomain));
-  const yTicksWithinDomain = yLabels.filter(getIsWithinDomain(yDomain));
+  const xTicksWithinDomain = xTicks.filter(getIsWithinDomain(xDomain));
+  const yTicksWithinDomain = yTicks.filter(getIsWithinDomain(yDomain));
 
   const mapDomainToCanvas = ({ x, y }: SkPoint): SkPoint => {
     return {
@@ -77,8 +77,8 @@ const LineChart = ({
         />
         <Group clip={rect(0, 0, contentWidth, contentHeight)}>{paths}</Group>
       </Group>
-      <YLabels
-        labels={yTicksWithinDomain}
+      <YAxis
+        ticks={yTicksWithinDomain}
         width={yLabelsWidth}
         height={contentHeight}
         font={font}
@@ -93,8 +93,8 @@ const LineChart = ({
             translateY: contentHeight,
           },
         ]}>
-        <XLables
-          labels={xTicksWithinDomain}
+        <XAxis
+          ticks={xTicksWithinDomain}
           width={contentWidth}
           height={xLabelsHeight}
           font={font}

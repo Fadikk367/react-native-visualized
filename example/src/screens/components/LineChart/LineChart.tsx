@@ -25,8 +25,8 @@ const LineChartScreen = () => {
         height={320}
         xDomain={[0, 100]}
         yDomain={[0, 100]}
-        xLabels={xLabels}
-        yLabels={yLabels}
+        xTicks={xLabels}
+        yTicks={yLabels}
         padding={{ top: 20, bottom: 20, left: 20, right: 20 }}
         gridlines={{
           horizontal: horizontalLinesShown,
