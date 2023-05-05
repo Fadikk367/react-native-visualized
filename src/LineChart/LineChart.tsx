@@ -69,8 +69,8 @@ const LineChart = ({
       <Group transform={[{ translateX: yLabelsWidth }]}>
         <Gridlines
           {...gridlinesConfig}
-          xTicks={xLabels}
-          yTicks={yLabels}
+          xTicks={xTicks}
+          yTicks={yTicks}
           xDomain={xDomain}
           yDomain={yDomain}
           mapDomainToCanvas={mapDomainToCanvas}

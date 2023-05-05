@@ -11,8 +11,8 @@ export interface BarChartProps extends ChartBaseProps {
   data: BarData[];
   yDomain: [number, number];
   barRatio?: number;
-  yLabels: number[];
-  yLabelsWidth?: number;
+  yTicks: number[];
+  yAxisWidth?: number;
   showLines?: boolean;
   animated?: boolean;
   barColor?: string;
@@ -37,17 +37,6 @@ export interface BarLabelProps {
   height: number;
   fontSize?: number;
   font: DataSourceParam;
-}
-
-export interface YLabelsProps {
-  labels: number[];
-  width?: number;
-  fontSize?: number;
-  height: number;
-  showDash?: boolean;
-  domain: [number, number];
-  font: DataSourceParam;
-  mapDomainToCanvas(v: number): number;
 }
 
 export interface LabelsLinesProps {

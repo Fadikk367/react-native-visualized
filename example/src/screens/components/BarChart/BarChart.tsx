@@ -43,8 +43,8 @@ const BarChart = () => {
         padding={{ top: 20, right: 20, bottom: 10 }}
         backgroundColor="#e6e6e6"
         data={data}
-        yDomain={[-4, 22]}
-        yLabels={[-4, 0, 4, 8, 12, 16, 20]}
+        yDomain={[-4, 20]}
+        yTicks={[-4, 0, 4, 8, 12, 16, 20]}
         showLines
         animated={isAnimated}
         font={font}
