@@ -21,16 +21,16 @@ const LineChart = ({
   padding: customPadding,
   backgroundColor,
   font,
-  fontSize,
   gridlines: gridlinesConfig,
-  arrows: arrowsConfig,
+  xAxis,
+  yAxis,
   children,
 }: LineChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
-  const yLabelsWidth = 30;
-  const xLabelsHeight = 30;
-  const contentWidth = width - (padding.left + yLabelsWidth + padding.right);
-  const contentHeight = height - (padding.top + xLabelsHeight + padding.bottom);
+  const xAxisHeight = xAxis?.height || 30;
+  const yAxisWidth = yAxis?.width || 30;
+  const contentWidth = width - (padding.left + yAxisWidth + padding.right);
+  const contentHeight = height - (padding.top + xAxisHeight + padding.bottom);
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
   const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
 
@@ -66,7 +66,7 @@ const LineChart = ({
       height={height}
       backgroundColor={backgroundColor}
       padding={padding}>
-      <Group transform={[{ translateX: yLabelsWidth }]}>
+      <Group transform={[{ translateX: yAxisWidth }]}>
         <Gridlines
           {...gridlinesConfig}
           xTicks={xTicks}
@@ -79,16 +79,15 @@ const LineChart = ({
       </Group>
       <YAxis
         ticks={yTicksWithinDomain}
-        width={yLabelsWidth}
+        width={yAxisWidth}
         height={contentHeight}
         font={font}
-        fontSize={fontSize}
-        arrows={arrowsConfig}
+        {...yAxis}
         mapDomainToCanvas={mapDomainToCanvas}
       />
       <Group
         transform={[
-          { translateX: yLabelsWidth },
+          { translateX: yAxisWidth },
           {
             translateY: contentHeight,
           },
@@ -96,10 +95,9 @@ const LineChart = ({
         <XAxis
           ticks={xTicksWithinDomain}
           width={contentWidth}
-          height={xLabelsHeight}
+          height={xAxisHeight}
           font={font}
-          fontSize={fontSize}
-          arrows={arrowsConfig}
+          {...xAxis}
           mapDomainToCanvas={mapDomainToCanvas}
         />
       </Group>

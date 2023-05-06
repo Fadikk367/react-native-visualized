@@ -20,7 +20,6 @@ const BarChart = ({
   yTicks,
   animated = false,
   barRatio = 0.9,
-  yAxisWidth = 40,
   showLines = false,
   padding: customPadding,
   backgroundColor,
@@ -28,8 +27,10 @@ const BarChart = ({
   fontSize = 18,
   barColor,
   barRadius,
+  yAxis,
   renderBar,
 }: BarChartProps) => {
+  const yAxisWidth = yAxis?.width || 40;
   const padding = ensureDefaults(customPadding, defaultPadding);
   const chartContentWidth = width - yAxisWidth - padding.right - padding.left;
   const barSpace = chartContentWidth / data.length;
@@ -112,7 +113,7 @@ const BarChart = ({
         width={yAxisWidth}
         height={chartContentHeight}
         font={font}
-        fontSize={fontSize}
+        {...yAxis}
         mapDomainToCanvas={mapDomainToCanvas2D}
       />
       <Group

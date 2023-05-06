@@ -17,7 +17,7 @@ const XAxis = ({
   width,
   height,
   font: fontSource,
-  arrows,
+  arrow,
   showLine = true,
   showTicks = true,
   style = {},
@@ -53,7 +53,7 @@ const XAxis = ({
           <Text
             x={-labelTextWidth / 2}
             y={height / 2 + font.getSize() / 2}
-            text={formatLabel(tick)}
+            text={formattedLabel}
             color={labelStyles.color}
             font={font}
           />
@@ -72,16 +72,16 @@ const XAxis = ({
           color={lineStyles.color}
         />
       )}
-      {tickElements}
-      {arrows && (
+      {showLine && arrow && (
         <AxisArrow
           direction="right"
-          variant={arrows.variant}
+          variant={arrow.variant}
           anchor={{ x: width, y: 0 }}
-          length={arrows.length}
-          width={arrows.width}
+          length={arrow.length}
+          width={arrow.width}
         />
       )}
+      {tickElements}
     </Group>
   );
 };

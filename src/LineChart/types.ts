@@ -1,3 +1,4 @@
+import type { XAxisConfig, YAxisConfig } from '../core/Axes/types';
 import type { ArrowVariant } from '../core/AxisArrow/types';
 import type { GridlinesConfig } from '../core/Gridlines/types';
 import type { ChartBaseProps } from '../types';
@@ -12,7 +13,7 @@ export type LineChartChildren =
   | React.ReactElement<LineProps>
   | React.ReactElement<LineProps>[];
 
-export interface ArrowsConfig {
+export interface ArrowConfig {
   variant?: ArrowVariant;
   length?: number;
   width?: number;
@@ -23,6 +24,8 @@ export interface LineChartProps extends ChartBaseProps {
   yTicks: number[];
   xTicks: number[];
   gridlines?: GridlinesConfig;
-  arrows?: ArrowsConfig;
+  arrows?: ArrowConfig;
   children?: LineChartChildren;
+  xAxis?: XAxisConfig;
+  yAxis?: YAxisConfig;
 }

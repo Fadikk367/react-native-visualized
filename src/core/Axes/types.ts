@@ -2,24 +2,34 @@ import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
 
 import type { ArrowVariant } from '../AxisArrow/types';
 
-export interface ArrowsConfig {
-  variant?: ArrowVariant;
-  length?: number;
-  width?: number;
-}
-
-export interface AxisProps {
+export interface AxisProps extends AxisConfig {
   ticks: number[];
   width: number;
   height: number;
   font: DataSourceParam;
-  fontSize?: number;
-  arrows?: ArrowsConfig;
+  mapDomainToCanvas(point: SkPoint): SkPoint;
+}
+
+export interface AxisConfig {
+  style?: AxisStyle;
   showTicks?: boolean;
   showLine?: boolean;
-  style?: AxisStyle;
+  arrow?: ArrowConfig;
   formatLabel?(tick: number): string;
-  mapDomainToCanvas(point: SkPoint): SkPoint;
+}
+
+export interface XAxisConfig extends AxisConfig {
+  height?: number;
+}
+
+export interface YAxisConfig extends AxisConfig {
+  width?: number;
+}
+
+export interface ArrowConfig {
+  variant?: ArrowVariant;
+  length?: number;
+  width?: number;
 }
 
 export interface AxisStyle {

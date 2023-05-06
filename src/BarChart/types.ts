@@ -1,5 +1,6 @@
 import type { DataSourceParam } from '@shopify/react-native-skia';
 
+import type { YAxisConfig } from '../core/Axes/types';
 import type { ChartBaseProps } from '../types';
 
 export interface BarData {
@@ -12,11 +13,11 @@ export interface BarChartProps extends ChartBaseProps {
   yDomain: [number, number];
   barRatio?: number;
   yTicks: number[];
-  yAxisWidth?: number;
   showLines?: boolean;
   animated?: boolean;
   barColor?: string;
   barRadius?: number;
+  yAxis?: YAxisConfig;
   renderBar?(props: BarProps): React.ReactElement;
 }
 
