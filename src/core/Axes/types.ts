@@ -15,5 +15,26 @@ export interface AxisProps {
   font: DataSourceParam;
   fontSize?: number;
   arrows?: ArrowsConfig;
+  showTicks?: boolean;
+  showLine?: boolean;
+  style?: AxisStyle;
+  formatLabel?(tick: number): string;
   mapDomainToCanvas(point: SkPoint): SkPoint;
+}
+
+export interface AxisStyle {
+  line?: {
+    strokeWidth?: number;
+    color?: string;
+  };
+  ticks?: {
+    size?: number;
+    width?: number;
+    color?: string;
+  };
+  labels?: {
+    rotation?: number;
+    color?: string;
+    fontSize?: number;
+  };
 }
