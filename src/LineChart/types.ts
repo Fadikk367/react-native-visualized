@@ -1,5 +1,4 @@
-import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
-
+import type { XAxisConfig, YAxisConfig } from '../core/Axes/types';
 import type { ArrowVariant } from '../core/AxisArrow/types';
 import type { GridlinesConfig } from '../core/Gridlines/types';
 import type { ChartBaseProps } from '../types';
@@ -14,7 +13,7 @@ export type LineChartChildren =
   | React.ReactElement<LineProps>
   | React.ReactElement<LineProps>[];
 
-export interface ArrowsConfig {
+export interface ArrowConfig {
   variant?: ArrowVariant;
   length?: number;
   width?: number;
@@ -22,19 +21,11 @@ export interface ArrowsConfig {
 export interface LineChartProps extends ChartBaseProps {
   yDomain: [number, number];
   xDomain: [number, number];
-  yLabels: number[];
-  xLabels: number[];
+  yTicks: number[];
+  xTicks: number[];
   gridlines?: GridlinesConfig;
-  arrows?: ArrowsConfig;
+  arrows?: ArrowConfig;
   children?: LineChartChildren;
-}
-
-export interface XLabels {
-  labels: number[];
-  width: number;
-  height: number;
-  font: DataSourceParam;
-  fontSize?: number;
-  arrows?: ArrowsConfig;
-  mapDomainToCanvas(point: SkPoint): SkPoint;
+  xAxis?: XAxisConfig;
+  yAxis?: YAxisConfig;
 }

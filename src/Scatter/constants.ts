@@ -1,4 +1,4 @@
-import type { GridlinesConfig } from 'src/core/Gridlines/types';
+import type { GridlinesConfig } from '../core/Gridlines/types';
 
 export const gridlinesDefaults: Required<GridlinesConfig> = {
   horizontal: true,

@@ -25,8 +25,8 @@ const LineChartScreen = () => {
         height={320}
         xDomain={[0, 100]}
         yDomain={[0, 100]}
-        xLabels={xLabels}
-        yLabels={yLabels}
+        xTicks={xLabels}
+        yTicks={yLabels}
         padding={{ top: 20, bottom: 20, left: 20, right: 20 }}
         gridlines={{
           horizontal: horizontalLinesShown,
@@ -34,9 +34,31 @@ const LineChartScreen = () => {
           lineWidth: 1,
           opacity: 0.2,
         }}
-        arrows={
-          showArrows ? { variant: 'classic', length: 16, width: 10 } : undefined
-        }
+        xAxis={{
+          arrow: showArrows
+            ? { variant: 'classic', length: 16, width: 10 }
+            : undefined,
+          style: {
+            line: {
+              strokeWidth: 2,
+            },
+            labels: {
+              fontSize: 16,
+            },
+          },
+        }}
+        yAxis={{
+          showLine: false,
+          showTicks: false,
+          width: 40,
+          formatLabel: tick => tick.toFixed(1),
+          style: {
+            labels: {
+              fontSize: 16,
+              color: 'grey',
+            },
+          },
+        }}
         font={LatoRegular}>
         <Line color="red" strokeWidth={3} data={dataset1} />
         <Line color="blue" strokeWidth={5} data={dataset2} />
@@ -56,7 +78,7 @@ const LineChartScreen = () => {
         />
       </View>
       <View style={styles.row}>
-        <Text style={styles.switchLabel}>Show axes arrows:</Text>
+        <Text style={styles.switchLabel}>Show x axis arrow:</Text>
         <Switch
           value={showArrows}
           onChange={() => setShowArrows(prev => !prev)}

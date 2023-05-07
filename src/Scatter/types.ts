@@ -1,5 +1,6 @@
 import type { SkPoint } from '@shopify/react-native-skia';
 
+import type { XAxisConfig, YAxisConfig } from '../core/Axes/types';
 import type { GridlinesConfig } from '../core/Gridlines/types';
 import type { ChartBaseProps } from '../types';
 import type { LegendConfig } from './Legend/types';
@@ -25,6 +26,8 @@ export interface ScatterProps<T extends ScatterPoint> extends ChartBaseProps {
   yTicks: number[];
   data: T[];
   legend?: LegendConfig;
+  xAxis?: XAxisConfig;
+  yAxis?: YAxisConfig;
   marker?: MarkerConfig;
   renderMarker?: React.FC<T & RenderMarkerParams>;
   gridlines?: GridlinesConfig | null;

@@ -29,6 +29,8 @@ const Scatter = <T extends ScatterPoint>({
   font,
   padding: customPadding,
   legend: legendsConfig,
+  xAxis,
+  yAxis,
   marker: markerConfig,
   renderMarker: CustomMarker,
   gridlines: gridlinesConfig = gridlinesDefaults,
@@ -36,8 +38,8 @@ const Scatter = <T extends ScatterPoint>({
   backgroundColor,
 }: ScatterProps<T>) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
-  const yAxisWidth = 30;
-  const xAxisHeight = 30;
+  const yAxisWidth = yAxis?.width || 30;
+  const xAxisHeight = xAxis?.height || 30;
   const colorLegendWidth = showContinuousLegend ? 40 : 0;
   const legendHeight = legendsConfig ? legendsConfig.height || 30 : 0;
   const contentWidth =
@@ -101,7 +103,7 @@ const Scatter = <T extends ScatterPoint>({
           width={yAxisWidth}
           height={contentHeight}
           font={font}
-          fontSize={18}
+          {...yAxis}
           mapDomainToCanvas={mapDomainToCanvas}
         />
         <Translate x={yAxisWidth}>
@@ -124,7 +126,7 @@ const Scatter = <T extends ScatterPoint>({
             width={contentWidth}
             height={xAxisHeight}
             font={font}
-            fontSize={18}
+            {...xAxis}
             mapDomainToCanvas={mapDomainToCanvas}
           />
         </Translate>

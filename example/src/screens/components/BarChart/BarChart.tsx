@@ -43,8 +43,8 @@ const BarChart = () => {
         padding={{ top: 20, right: 20, bottom: 10 }}
         backgroundColor="#e6e6e6"
         data={data}
-        yDomain={[-4, 22]}
-        yLabels={[-4, 0, 4, 8, 12, 16, 20]}
+        yDomain={[-4, 20]}
+        yTicks={[-4, 0, 4, 8, 12, 16, 20]}
         showLines
         animated={isAnimated}
         font={font}
@@ -53,6 +53,10 @@ const BarChart = () => {
         barRatio={0.8}
         barColor="#2d74bf"
         barRadius={7}
+        yAxis={{
+          showLine: false,
+          showTicks: false,
+        }}
         renderBar={isCustomComponent ? CustomBar : undefined}
       />
       <Button title="Change dataset" onPress={toggleData} />

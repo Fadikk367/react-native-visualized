@@ -1,5 +1,6 @@
 import type { DataSourceParam } from '@shopify/react-native-skia';
 
+import type { YAxisConfig } from '../core/Axes/types';
 import type { ChartBaseProps } from '../types';
 
 export interface BarData {
@@ -11,12 +12,12 @@ export interface BarChartProps extends ChartBaseProps {
   data: BarData[];
   yDomain: [number, number];
   barRatio?: number;
-  yLabels: number[];
-  yLabelsWidth?: number;
+  yTicks: number[];
   showLines?: boolean;
   animated?: boolean;
   barColor?: string;
   barRadius?: number;
+  yAxis?: YAxisConfig;
   renderBar?(props: BarProps): React.ReactElement;
 }
 
@@ -37,17 +38,6 @@ export interface BarLabelProps {
   height: number;
   fontSize?: number;
   font: DataSourceParam;
-}
-
-export interface YLabelsProps {
-  labels: number[];
-  width?: number;
-  fontSize?: number;
-  height: number;
-  showDash?: boolean;
-  domain: [number, number];
-  font: DataSourceParam;
-  mapDomainToCanvas(v: number): number;
 }
 
 export interface LabelsLinesProps {

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Group, Line } from '@shopify/react-native-skia';
+import { Group, Line, SkPoint } from '@shopify/react-native-skia';
 
-import { ensureDefaults } from '../core//utils';
+import { ensureDefaults, getIsWithinDomain } from '../core//utils';
+import YAxis from '../core/Axes/YAxis';
 import ChartContainer from '../core/ChartContainer/ChartContainer';
 import { defaultPadding } from '../core/constants';
 import AnimatedBar from './AnimatedBar';
 import Bar from './Bar';
 import BarLabel from './BarLabel';
 import LabelsLines from './LabelsLines';
-import YLabels from './YLabels';
 import type { BarChartProps } from './types';
 
 const BarChart = ({
@@ -17,10 +17,9 @@ const BarChart = ({
   height,
   data,
   yDomain,
-  yLabels,
+  yTicks,
   animated = false,
   barRatio = 0.9,
-  yLabelsWidth = 40,
   showLines = false,
   padding: customPadding,
   backgroundColor,
@@ -28,10 +27,12 @@ const BarChart = ({
   fontSize = 18,
   barColor,
   barRadius,
+  yAxis,
   renderBar,
 }: BarChartProps) => {
+  const yAxisWidth = yAxis?.width || 40;
   const padding = ensureDefaults(customPadding, defaultPadding);
-  const chartContentWidth = width - yLabelsWidth - padding.right - padding.left;
+  const chartContentWidth = width - yAxisWidth - padding.right - padding.left;
   const barSpace = chartContentWidth / data.length;
   // TODO: when y domain is missing / set to auto determine based on data extremums
   const yDomainSize = yDomain[1] - yDomain[0];
@@ -39,8 +40,20 @@ const BarChart = ({
   const chartContentHeight =
     height - labelsBarHeight - padding.top - padding.bottom;
 
+  const yTicksWithinDomain = yTicks.filter(getIsWithinDomain(yDomain));
+
   const mapDomainToCanvas = (domainValue: number) => {
     return (chartContentHeight / yDomainSize) * domainValue;
+  };
+
+  // Temporary solution to conform to YAxis interface
+  const mapDomainToCanvas2D = (point: SkPoint) => {
+    return {
+      x: 0,
+      y:
+        chartContentHeight -
+        (chartContentHeight / yDomainSize) * (point.y - yDomain[0]),
+    };
   };
 
   let BarComponent = animated ? AnimatedBar : Bar;
@@ -95,25 +108,22 @@ const BarChart = ({
       height={height}
       backgroundColor={backgroundColor}
       padding={padding}>
-      <Group transform={[{ translateY: mapDomainToCanvas(yDomain[0]) }]}>
-        <YLabels
-          labels={yLabels}
-          width={yLabelsWidth}
-          height={chartContentHeight}
-          domain={yDomain}
-          font={font}
-          fontSize={fontSize}
-          mapDomainToCanvas={mapDomainToCanvas}
-        />
-      </Group>
+      <YAxis
+        ticks={yTicksWithinDomain}
+        width={yAxisWidth}
+        height={chartContentHeight}
+        font={font}
+        {...yAxis}
+        mapDomainToCanvas={mapDomainToCanvas2D}
+      />
       <Group
         transform={[
-          { translateX: yLabelsWidth },
+          { translateX: yAxisWidth },
           { translateY: mapDomainToCanvas(yDomain[0]) },
         ]}>
         {showLines && (
           <LabelsLines
-            labels={yLabels}
+            labels={yTicks}
             height={chartContentHeight}
             mapDomainToCanvas={mapDomainToCanvas}
             width={chartContentWidth}
@@ -122,13 +132,13 @@ const BarChart = ({
         {bars}
       </Group>
       <Line
-        p1={{ x: yLabelsWidth, y: chartContentHeight }}
-        p2={{ x: chartContentWidth + yLabelsWidth, y: chartContentHeight }}
+        p1={{ x: yAxisWidth, y: chartContentHeight }}
+        p2={{ x: chartContentWidth + yAxisWidth, y: chartContentHeight }}
         strokeWidth={1}
       />
       <Group
         transform={[
-          { translateX: yLabelsWidth },
+          { translateX: yAxisWidth },
           { translateY: chartContentHeight },
         ]}>
         {barLabels}
