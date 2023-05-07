@@ -14,6 +14,7 @@ const LineChartScreen = () => {
   const [horizontalLinesShown, setHorizontalLinesShown] = useState(false);
   const [verticalLinesShown, setVerticalLinesShown] = useState(false);
   const [showArrows, setShowArrows] = useState(false);
+  const [exactValue, setExactValue] = useState<number | undefined>(undefined);
 
   const xLabels = utils.linspace(0, 100, 10);
   const yLabels = utils.linspace(0, 100, 20);
@@ -59,10 +60,17 @@ const LineChartScreen = () => {
             },
           },
         }}
-        font={LatoRegular}>
+        font={LatoRegular}
+        onIndicatorChange={v => setExactValue(v.y)}>
         <Line color="red" strokeWidth={3} data={dataset1} />
         <Line color="blue" strokeWidth={5} data={dataset2} />
       </LineChart>
+      <View style={styles.row}>
+        <Text style={styles.switchLabel}>Value:</Text>
+        {exactValue ? (
+          <Text style={styles.switchLabel}>{exactValue}</Text>
+        ) : null}
+      </View>
       <View style={styles.row}>
         <Text style={styles.switchLabel}>Show horizontal lines:</Text>
         <Switch

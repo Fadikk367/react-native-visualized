@@ -56,8 +56,8 @@
     "@release-it/conventional-changelog": "^5.0.0",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@types/jest": "^28.1.2",
-    "@types/react": "~17.0.21",
-    "@types/react-native": "0.70.0",
+    "@types/react": "~18.2.0",
+    "@types/react-native": "0.71.3",
     "del-cli": "^5.0.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.5.0",
@@ -77,7 +77,7 @@
     "react-native-reanimated": "^2.14.4"
   },
   "resolutions": {
-    "@types/react": "17.0.21"
+    "@types/react": "~18.2.0"
   },
   "peerDependencies": {
     "react": "*",

@@ -1,3 +1,5 @@
+import type { SkPoint } from '@shopify/react-native-skia';
+
 import type { XAxisConfig, YAxisConfig } from '../core/Axes/types';
 import type { ArrowVariant } from '../core/AxisArrow/types';
 import type { GridlinesConfig } from '../core/Gridlines/types';
@@ -28,4 +30,5 @@ export interface LineChartProps extends ChartBaseProps {
   children?: LineChartChildren;
   xAxis?: XAxisConfig;
   yAxis?: YAxisConfig;
+  onIndicatorChange?(value: SkPoint): void;
 }
