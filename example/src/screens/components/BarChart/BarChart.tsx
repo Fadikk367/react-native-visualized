@@ -53,6 +53,10 @@ const BarChart = () => {
         barRatio={0.8}
         barColor="#2d74bf"
         barRadius={7}
+        yAxis={{
+          showLine: false,
+          showTicks: false,
+        }}
         renderBar={isCustomComponent ? CustomBar : undefined}
       />
       <Button title="Change dataset" onPress={toggleData} />
