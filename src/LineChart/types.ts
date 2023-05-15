@@ -3,16 +3,11 @@ import type { ArrowVariant } from '../core/AxisArrow/types';
 import type { GridlinesConfig } from '../core/Gridlines/types';
 import type { ChartBaseProps } from '../types';
 
-export interface LineProps {
-  data: { x: number; y: number }[];
+export interface LineData {
+  points: { x: number; y: number }[];
   color?: string;
   strokeWidth?: number;
 }
-
-export type LineChartChildren =
-  | React.ReactElement<LineProps>
-  | React.ReactElement<LineProps>[];
-
 export interface ArrowConfig {
   variant?: ArrowVariant;
   length?: number;
@@ -25,7 +20,7 @@ export interface LineChartProps extends ChartBaseProps {
   xTicks: number[];
   gridlines?: GridlinesConfig;
   arrows?: ArrowConfig;
-  children?: LineChartChildren;
+  data: LineData[];
   xAxis?: XAxisConfig;
   yAxis?: YAxisConfig;
 }

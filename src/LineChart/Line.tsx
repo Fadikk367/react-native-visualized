@@ -1,5 +1,3 @@
-import type { LineProps } from './types';
-
-const Line = (_: LineProps) => null;
+const Line = () => null;
 
 export default Line;

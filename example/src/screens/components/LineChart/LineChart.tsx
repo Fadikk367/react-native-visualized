@@ -8,7 +8,7 @@ import ScreenContainer from '@/components/ScreenContainer';
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { dataset1, dataset2 } from './data';
 
-const { LineChart, Line } = Chart;
+const { LineChart } = Chart;
 
 const LineChartScreen = () => {
   const [horizontalLinesShown, setHorizontalLinesShown] = useState(false);
@@ -27,6 +27,10 @@ const LineChartScreen = () => {
         yDomain={[0, 100]}
         xTicks={xLabels}
         yTicks={yLabels}
+        data={[
+          { points: dataset1, color: 'red', strokeWidth: 3 },
+          { points: dataset2, color: 'blue', strokeWidth: 5 },
+        ]}
         padding={{ top: 20, bottom: 20, left: 20, right: 20 }}
         gridlines={{
           horizontal: horizontalLinesShown,
@@ -59,10 +63,8 @@ const LineChartScreen = () => {
             },
           },
         }}
-        font={LatoRegular}>
-        <Line color="red" strokeWidth={3} data={dataset1} />
-        <Line color="blue" strokeWidth={5} data={dataset2} />
-      </LineChart>
+        font={LatoRegular}
+      />
       <View style={styles.row}>
         <Text style={styles.switchLabel}>Show horizontal lines:</Text>
         <Switch

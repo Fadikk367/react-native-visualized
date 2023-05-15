@@ -9,7 +9,7 @@ import Gridlines from '../core/Gridlines';
 import { defaultPadding } from '../core/constants';
 import { ensureDefaults, getIsWithinDomain } from '../core/utils';
 import type { LineChartProps } from './types';
-import { buildPath, extractProps } from './utils';
+import { buildPath } from './utils';
 
 const LineChart = ({
   width,
@@ -24,7 +24,7 @@ const LineChart = ({
   gridlines: gridlinesConfig,
   xAxis,
   yAxis,
-  children,
+  data,
 }: LineChartProps) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
   const xAxisHeight = xAxis?.height || 30;
@@ -44,10 +44,8 @@ const LineChart = ({
     };
   };
 
-  const dataSeries = extractProps(children);
-
-  const paths = dataSeries.map(({ data, color, strokeWidth }) => {
-    const path = buildPath(data, mapDomainToCanvas);
+  const paths = data.map(({ points, color, strokeWidth }) => {
+    const path = buildPath(points, mapDomainToCanvas);
     return (
       <Path
         path={path}
