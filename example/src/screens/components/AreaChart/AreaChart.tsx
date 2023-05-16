@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { StyleSheet, Switch, Text, View } from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
@@ -10,6 +11,8 @@ import { dataset1, dataset2, dataset3 } from './data';
 const { AreaChart } = Chart;
 
 const AreaChartScreen = () => {
+  const [normalized, setNormalized] = useState(false);
+
   const xLabels = utils.linspace(0, 4, 1);
   const yLabels = utils.linspace(0, 10, 2);
 
@@ -23,12 +26,13 @@ const AreaChartScreen = () => {
         xTicks={xLabels}
         yTicks={yLabels}
         stacked
+        normalized={normalized}
         data={[
           { id: 'seriesA', points: dataset1, color: '#d75454' },
           { id: 'seriesB', points: dataset2, color: '#67a0d8' },
           { id: 'seriesC', points: dataset3, color: '#e0e359' },
         ]}
-        padding={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        padding={{ top: 20, bottom: 0, left: 20, right: 20 }}
         gridlines={{
           horizontal: true,
         }}
@@ -43,9 +47,7 @@ const AreaChartScreen = () => {
           },
         }}
         yAxis={{
-          // showLine: false,
-          // showTicks: false,
-          width: 40,
+          width: 20,
           style: {
             labels: {
               fontSize: 16,
@@ -55,8 +57,27 @@ const AreaChartScreen = () => {
         }}
         font={LatoRegular}
       />
+      <View style={styles.row}>
+        <Text style={styles.switchLabel}>Normalize:</Text>
+        <Switch
+          value={normalized}
+          onChange={() => setNormalized(prev => !prev)}
+        />
+      </View>
     </ScreenContainer>
   );
 };
 
 export default AreaChartScreen;
+
+const styles = StyleSheet.create({
+  row: {
+    padding: 20,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  switchLabel: {
+    fontSize: 20,
+    fontWeight: '500',
+  },
+});

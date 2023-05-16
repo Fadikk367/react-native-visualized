@@ -5,14 +5,18 @@ import type { RenderPath } from 'src/core/BaseLineChart/types';
 
 import BaseLineChart from '../core/BaseLineChart';
 import type { AreaChartProps, AreaData } from './types';
-import { buildAreaPath, stackAreasData } from './utils';
+import { buildAreaPath, normalizeAreasData, stackAreasData } from './utils';
 
 const AreaChart = ({
   data,
   stacked = false,
+  normalized = false,
   ...baseLineChartProps
 }: AreaChartProps) => {
   const transformedData = stacked ? stackAreasData(data).reverse() : data;
+  const normalizedData = normalized
+    ? stackAreasData(normalizeAreasData(data, [0, 10])).reverse()
+    : transformedData;
 
   const renderAreaPath: RenderPath<AreaData> = (
     areaData,
@@ -39,7 +43,7 @@ const AreaChart = ({
   return (
     <BaseLineChart
       {...baseLineChartProps}
-      data={transformedData}
+      data={normalizedData}
       renderPath={renderAreaPath}
     />
   );

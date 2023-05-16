@@ -41,8 +41,6 @@ export const stackAreasData = (data: AreaData[]): AreaData[] => {
         totalValuesLeft += data[k]?.points[j]?.y || 0;
       }
 
-      console.log({ totalValuesLeft, point });
-
       return {
         ...point,
         y: point.y + totalValuesLeft,
@@ -52,6 +50,32 @@ export const stackAreasData = (data: AreaData[]): AreaData[] => {
     return {
       ...areaData,
       points: stackedPoints,
+    };
+  });
+};
+
+export const normalizeAreasData = (
+  data: AreaData[],
+  yDomain: [number, number],
+): AreaData[] => {
+  const domainSize = Math.abs(yDomain[1] - yDomain[0]);
+
+  return data.map(areaData => {
+    const normalizedPoints = areaData.points.map((point, i) => {
+      const totalValue = data.reduce(
+        (acc, curr) => acc + curr.points[i]?.y || 0,
+        0,
+      );
+
+      return {
+        ...point,
+        y: (point.y / totalValue) * domainSize,
+      };
+    });
+
+    return {
+      ...areaData,
+      points: normalizedPoints,
     };
   });
 };
