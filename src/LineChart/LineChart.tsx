@@ -1,53 +1,20 @@
 import React from 'react';
 
-import { Group, Path, SkPoint, rect } from '@shopify/react-native-skia';
+import { Path } from '@shopify/react-native-skia';
+import type { RenderPath } from 'src/core/BaseLineChart/types';
 
-import XAxis from '../core/Axes/XAxis';
-import YAxis from '../core/Axes/YAxis';
-import ChartContainer from '../core/ChartContainer';
-import Gridlines from '../core/Gridlines';
-import { defaultPadding } from '../core/constants';
-import { ensureDefaults, getIsWithinDomain } from '../core/utils';
-import type { LineChartProps } from './types';
+import BaseLineChart from '../core/BaseLineChart';
+import type { LineChartProps, LineData } from './types';
 import { buildPath } from './utils';
 
-const LineChart = ({
-  width,
-  height,
-  xDomain,
-  yDomain,
-  xTicks,
-  yTicks,
-  padding: customPadding,
-  backgroundColor,
-  font,
-  gridlines: gridlinesConfig,
-  xAxis,
-  yAxis,
-  data,
-}: LineChartProps) => {
-  const padding = ensureDefaults(customPadding, defaultPadding);
-  const xAxisHeight = xAxis?.height || 30;
-  const yAxisWidth = yAxis?.width || 30;
-  const contentWidth = width - (padding.left + yAxisWidth + padding.right);
-  const contentHeight = height - (padding.top + xAxisHeight + padding.bottom);
-  const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
-  const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
-
-  const xTicksWithinDomain = xTicks.filter(getIsWithinDomain(xDomain));
-  const yTicksWithinDomain = yTicks.filter(getIsWithinDomain(yDomain));
-
-  const mapDomainToCanvas = ({ x, y }: SkPoint): SkPoint => {
-    return {
-      x: (contentWidth / xDomainSize) * (x - xDomain[0]),
-      y: contentHeight - (contentHeight / yDomainSize) * (y - yDomain[0]),
-    };
-  };
-
-  const paths = data.map(({ points, color, strokeWidth }) => {
+const LineChart = ({ ...baseLineChartProps }: LineChartProps) => {
+  const renderPath: RenderPath<LineData> = (data, mapDomainToCanvas) => {
+    const { id, points, color, strokeWidth } = data;
     const path = buildPath(points, mapDomainToCanvas);
+
     return (
       <Path
+        key={id}
         path={path}
         color={color}
         strokeWidth={strokeWidth}
@@ -56,51 +23,9 @@ const LineChart = ({
         strokeJoin="round"
       />
     );
-  });
+  };
 
-  return (
-    <ChartContainer
-      width={width}
-      height={height}
-      backgroundColor={backgroundColor}
-      padding={padding}>
-      <Group transform={[{ translateX: yAxisWidth }]}>
-        <Gridlines
-          {...gridlinesConfig}
-          xTicks={xTicks}
-          yTicks={yTicks}
-          xDomain={xDomain}
-          yDomain={yDomain}
-          mapDomainToCanvas={mapDomainToCanvas}
-        />
-        <Group clip={rect(0, 0, contentWidth, contentHeight)}>{paths}</Group>
-      </Group>
-      <YAxis
-        ticks={yTicksWithinDomain}
-        width={yAxisWidth}
-        height={contentHeight}
-        font={font}
-        {...yAxis}
-        mapDomainToCanvas={mapDomainToCanvas}
-      />
-      <Group
-        transform={[
-          { translateX: yAxisWidth },
-          {
-            translateY: contentHeight,
-          },
-        ]}>
-        <XAxis
-          ticks={xTicksWithinDomain}
-          width={contentWidth}
-          height={xAxisHeight}
-          font={font}
-          {...xAxis}
-          mapDomainToCanvas={mapDomainToCanvas}
-        />
-      </Group>
-    </ChartContainer>
-  );
+  return <BaseLineChart {...baseLineChartProps} renderPath={renderPath} />;
 };
 
 export default LineChart;

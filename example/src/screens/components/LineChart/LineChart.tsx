@@ -28,8 +28,8 @@ const LineChartScreen = () => {
         xTicks={xLabels}
         yTicks={yLabels}
         data={[
-          { points: dataset1, color: 'red', strokeWidth: 3 },
-          { points: dataset2, color: 'blue', strokeWidth: 5 },
+          { id: 'seriesA', points: dataset1, color: 'red', strokeWidth: 3 },
+          { id: 'seriesB', points: dataset2, color: 'blue', strokeWidth: 5 },
         ]}
         padding={{ top: 20, bottom: 20, left: 20, right: 20 }}
         gridlines={{

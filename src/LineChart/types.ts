@@ -1,22 +1,11 @@
-import type { XAxisConfig, YAxisConfig } from '../core/Axes/types';
-import type { ArrowConfig } from '../core/AxisArrow/types';
-import type { GridlinesConfig } from '../core/Gridlines/types';
-import type { ChartBaseProps } from '../types';
+import type { BaseLineChartProps } from '../core/BaseLineChart/types';
 
 export interface LineData {
+  id: string;
   points: { x: number; y: number }[];
   color?: string;
   strokeWidth?: number;
 }
 
-export interface LineChartProps extends ChartBaseProps {
-  yDomain: [number, number];
-  xDomain: [number, number];
-  yTicks: number[];
-  xTicks: number[];
-  gridlines?: GridlinesConfig;
-  arrows?: ArrowConfig;
-  data: LineData[];
-  xAxis?: XAxisConfig;
-  yAxis?: YAxisConfig;
-}
+export interface LineChartProps
+  extends Omit<BaseLineChartProps<LineData>, 'renderPath'> {}
