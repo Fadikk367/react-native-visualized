@@ -2,6 +2,7 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import AreaChart from '@/screens/components/AreaChart';
 import BarChart from '@/screens/components/BarChart';
 import Catalogue from '@/screens/components/Catalogue';
 import LineChart from '@/screens/components/LineChart';
@@ -24,6 +25,7 @@ const ComponentsStack = () => {
         options={{ title: 'Components' }}
       />
       <Stack.Screen name="LineChart" component={LineChart} />
+      <Stack.Screen name="AreaChart" component={AreaChart} />
       <Stack.Screen name="BarChart" component={BarChart} />
       <Stack.Screen name="Scatter" component={Scatter} />
       <Stack.Screen name="PieChart" component={PieChart} />

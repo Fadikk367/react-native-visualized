@@ -13,6 +13,7 @@ const Catalogue = ({ navigation }: CatalogueProps) => {
   return (
     <ScreenContainer>
       <Button title="LineChart" onPress={getNavigateTo('LineChart')} />
+      <Button title="AreaChart" onPress={getNavigateTo('AreaChart')} />
       <Button title="BarChart" onPress={getNavigateTo('BarChart')} />
       <Button title="Scatter" onPress={getNavigateTo('Scatter')} />
       <Button title="PieChart" onPress={getNavigateTo('PieChart')} />
