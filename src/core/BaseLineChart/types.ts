@@ -20,5 +20,6 @@ export interface BaseLineChartProps<T> extends ChartBaseProps {
 
 export type RenderPath<T> = (
   data: T,
+  yDomain: [number, number],
   mapDomainToCanvas: (p: SkPoint) => SkPoint,
 ) => JSX.Element;

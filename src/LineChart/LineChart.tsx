@@ -8,7 +8,7 @@ import type { LineChartProps, LineData } from './types';
 import { buildPath } from './utils';
 
 const LineChart = ({ ...baseLineChartProps }: LineChartProps) => {
-  const renderPath: RenderPath<LineData> = (data, mapDomainToCanvas) => {
+  const renderPath: RenderPath<LineData> = (data, _, mapDomainToCanvas) => {
     const { id, points, color, strokeWidth } = data;
     const path = buildPath(points, mapDomainToCanvas);
 

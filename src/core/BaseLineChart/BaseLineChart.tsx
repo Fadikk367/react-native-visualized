@@ -44,7 +44,9 @@ const BaseLineChart = <T,>({
     };
   };
 
-  const paths = data.map(pathData => renderPath(pathData, mapDomainToCanvas));
+  const paths = data.map(pathData =>
+    renderPath(pathData, yDomain, mapDomainToCanvas),
+  );
 
   return (
     <ChartContainer

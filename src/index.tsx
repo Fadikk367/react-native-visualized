@@ -1,3 +1,4 @@
+import AreaChart from './AreaChart';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
 import PieChart from './PieChart';
@@ -11,6 +12,7 @@ export function multiply(a: number, b: number): Promise<number> {
 
 export const Chart = {
   LineChart,
+  AreaChart,
   Bar: BarChart,
   Scatter,
   Pie: PieChart,
