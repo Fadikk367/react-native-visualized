@@ -1,5 +1,5 @@
 import type { XAxisConfig, YAxisConfig } from '../core/Axes/types';
-import type { ArrowVariant } from '../core/AxisArrow/types';
+import type { ArrowConfig } from '../core/AxisArrow/types';
 import type { GridlinesConfig } from '../core/Gridlines/types';
 import type { ChartBaseProps } from '../types';
 
@@ -8,11 +8,7 @@ export interface LineData {
   color?: string;
   strokeWidth?: number;
 }
-export interface ArrowConfig {
-  variant?: ArrowVariant;
-  length?: number;
-  width?: number;
-}
+
 export interface LineChartProps extends ChartBaseProps {
   yDomain: [number, number];
   xDomain: [number, number];
