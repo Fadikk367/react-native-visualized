@@ -1,5 +1,7 @@
 import { SkPath, SkPoint, Skia } from '@shopify/react-native-skia';
 
+import type { AreaData } from './types';
+
 export const buildAreaPath = (
   points: SkPoint[],
   yDomain: [number, number],
@@ -29,4 +31,27 @@ export const buildAreaPath = (
   path.lineTo(lastPointCanvas.x, lastPointCanvas.y);
 
   return path;
+};
+
+export const stackAreasData = (data: AreaData[]): AreaData[] => {
+  return data.map((areaData, i) => {
+    const stackedPoints = areaData.points.map((point, j) => {
+      let totalValuesLeft = 0;
+      for (let k = 0; k < i; k++) {
+        totalValuesLeft += data[k]?.points[j]?.y || 0;
+      }
+
+      console.log({ totalValuesLeft, point });
+
+      return {
+        ...point,
+        y: point.y + totalValuesLeft,
+      };
+    });
+
+    return {
+      ...areaData,
+      points: stackedPoints,
+    };
+  });
 };
