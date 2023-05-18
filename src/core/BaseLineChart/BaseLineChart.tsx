@@ -6,6 +6,7 @@ import XAxis from '../Axes/XAxis';
 import YAxis from '../Axes/YAxis';
 import ChartContainer from '../ChartContainer';
 import Gridlines from '../Gridlines';
+import Translate from '../Translate/Translate';
 import { defaultPadding } from '../constants';
 import { ensureDefaults, getIsWithinDomain } from '../utils';
 import type { BaseLineChartProps } from './types';
@@ -54,7 +55,7 @@ const BaseLineChart = <T,>({
       height={height}
       backgroundColor={backgroundColor}
       padding={padding}>
-      <Group transform={[{ translateX: yAxisWidth }]}>
+      <Translate x={yAxisWidth}>
         <Gridlines
           {...gridlinesConfig}
           xTicks={xTicks}
@@ -64,7 +65,7 @@ const BaseLineChart = <T,>({
           mapDomainToCanvas={mapDomainToCanvas}
         />
         <Group clip={rect(0, 0, contentWidth, contentHeight)}>{paths}</Group>
-      </Group>
+      </Translate>
       <YAxis
         ticks={yTicksWithinDomain}
         width={yAxisWidth}
@@ -73,13 +74,7 @@ const BaseLineChart = <T,>({
         {...yAxis}
         mapDomainToCanvas={mapDomainToCanvas}
       />
-      <Group
-        transform={[
-          { translateX: yAxisWidth },
-          {
-            translateY: contentHeight,
-          },
-        ]}>
+      <Translate x={yAxisWidth} y={contentHeight}>
         <XAxis
           ticks={xTicksWithinDomain}
           width={contentWidth}
@@ -88,7 +83,7 @@ const BaseLineChart = <T,>({
           {...xAxis}
           mapDomainToCanvas={mapDomainToCanvas}
         />
-      </Group>
+      </Translate>
     </ChartContainer>
   );
 };
