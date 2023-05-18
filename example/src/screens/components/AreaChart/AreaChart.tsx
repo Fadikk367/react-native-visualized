@@ -12,6 +12,7 @@ const { AreaChart } = Chart;
 
 const AreaChartScreen = () => {
   const [normalized, setNormalized] = useState(false);
+  const [stacked, setStacked] = useState(false);
 
   const xLabels = utils.linspace(0, 4, 1);
   const yLabels = utils.linspace(0, 10, 2);
@@ -25,7 +26,7 @@ const AreaChartScreen = () => {
         yDomain={[0, 10]}
         xTicks={xLabels}
         yTicks={yLabels}
-        stacked
+        stacked={stacked}
         normalized={normalized}
         data={[
           { id: 'seriesA', points: dataset1, color: '#d75454' },
@@ -57,6 +58,10 @@ const AreaChartScreen = () => {
         }}
         font={LatoRegular}
       />
+      <View style={styles.row}>
+        <Text style={styles.switchLabel}>Stacked:</Text>
+        <Switch value={stacked} onChange={() => setStacked(prev => !prev)} />
+      </View>
       <View style={styles.row}>
         <Text style={styles.switchLabel}>Normalize:</Text>
         <Switch

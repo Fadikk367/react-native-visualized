@@ -28,7 +28,7 @@ const AreaChart = ({
 
     return (
       <Path
-        key={id}
+        key={`${id}/${stacked}/${normalized}`}
         path={path}
         color={color}
         strokeWidth={0}

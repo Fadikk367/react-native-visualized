@@ -63,7 +63,7 @@ export const normalizeAreasData = (
   return data.map(areaData => {
     const normalizedPoints = areaData.points.map((point, i) => {
       const totalValue = data.reduce(
-        (acc, curr) => acc + curr.points[i]?.y || 0,
+        (acc, curr) => acc + (curr.points[i]?.y || 0),
         0,
       );
 
