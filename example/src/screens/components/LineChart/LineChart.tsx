@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
@@ -14,6 +20,7 @@ const LineChartScreen = () => {
   const [horizontalLinesShown, setHorizontalLinesShown] = useState(false);
   const [verticalLinesShown, setVerticalLinesShown] = useState(false);
   const [showArrows, setShowArrows] = useState(false);
+  const { width } = useWindowDimensions();
 
   const xLabels = utils.linspace(0, 100, 10);
   const yLabels = utils.linspace(0, 100, 20);
@@ -21,7 +28,7 @@ const LineChartScreen = () => {
   return (
     <ScreenContainer>
       <LineChart
-        width={394}
+        width={width}
         height={320}
         xDomain={[0, 100]}
         yDomain={[0, 100]}
@@ -42,9 +49,10 @@ const LineChartScreen = () => {
           arrow: showArrows
             ? { variant: 'classic', length: 16, width: 10 }
             : undefined,
+          showTicks: false,
           style: {
             line: {
-              strokeWidth: 2,
+              strokeWidth: 3,
             },
             labels: {
               fontSize: 16,

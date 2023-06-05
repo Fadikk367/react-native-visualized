@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Switch, Text, View } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
 import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
@@ -17,6 +24,7 @@ const PieChart = () => {
   const [startAngle, setStartAngle] = useState(0);
   const [isCenterLabelShown, setIsCenterLabelShown] = useState(false);
   const [legendPosition, setLegendPosition] = useState<LegendPosition>('right');
+  const { width } = useWindowDimensions();
 
   const handleCutoutRadiusChange = (v: number) => {
     setCutoutRadius(v);
@@ -56,7 +64,7 @@ const PieChart = () => {
   return (
     <ScreenContainer>
       <Chart.Pie
-        width={394}
+        width={width}
         height={300}
         data={dataset}
         startAngle={-90 + startAngle}
