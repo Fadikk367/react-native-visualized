@@ -1,41 +1,41 @@
 import React from 'react';
 
-import { Path } from '@shopify/react-native-skia';
-import type { RenderPath } from 'src/core/BaseLineChart/types';
-
 import BaseLineChart from '../core/BaseLineChart';
+import type { RenderPath } from '../core/BaseLineChart/types';
+import AnimatedArea from './AnimatedArea';
+import Area from './Area';
 import type { AreaChartProps, AreaData } from './types';
-import { buildAreaPath, normalizeAreasData, stackAreasData } from './utils';
+import { normalizeAreasData, stackAreasData } from './utils';
 
 const AreaChart = ({
   data,
   stacked = false,
   normalized = false,
+  animated = true,
   ...baseLineChartProps
 }: AreaChartProps) => {
   const transformedData = stacked ? stackAreasData(data).reverse() : data;
   const normalizedData = normalized
-    ? stackAreasData(normalizeAreasData(data, [0, 10])).reverse()
+    ? stackAreasData(
+        normalizeAreasData(data, baseLineChartProps.yDomain),
+      ).reverse()
     : transformedData;
+
+  const AreaComponent = animated ? AnimatedArea : Area;
 
   const renderAreaPath: RenderPath<AreaData> = (
     areaData,
-    domainY,
+    yDomain,
     mapDomainToCanvas,
   ) => {
-    const { id, points, color, opacity = 1 } = areaData;
-    const path = buildAreaPath(points, domainY, mapDomainToCanvas);
-
     return (
-      <Path
-        key={`${id}/${stacked}/${normalized}`}
-        path={path}
-        color={color}
-        strokeWidth={0}
-        opacity={opacity}
-        style="fill"
-        strokeCap="round"
-        strokeJoin="round"
+      <AreaComponent
+        key={`${areaData.id}/${stacked}/${stacked}/${animated}`}
+        data={areaData}
+        yDomain={yDomain}
+        stacked={stacked}
+        normalized={stacked}
+        mapDomainToCanvas={mapDomainToCanvas}
       />
     );
   };

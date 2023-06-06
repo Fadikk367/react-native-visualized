@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Path } from '@shopify/react-native-skia';
-import type { RenderPath } from 'src/core/BaseLineChart/types';
 
 import BaseLineChart from '../core/BaseLineChart';
+import type { RenderPath } from '../core/BaseLineChart/types';
 import type { LineChartProps, LineData } from './types';
 import { buildPath } from './utils';
 

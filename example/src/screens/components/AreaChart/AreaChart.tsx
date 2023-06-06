@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import { Button, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
-import { dataset1, dataset2, dataset3 } from './data';
+import { datasetA, datasetB, datasetC } from './data';
 
 const { AreaChart } = Chart;
 
 const AreaChartScreen = () => {
   const [normalized, setNormalized] = useState(false);
-  const [stacked, setStacked] = useState(false);
+  const [stacked, setStacked] = useState(true);
+  const [animated, setAnimated] = useState(true);
+  const [data, setData] = useState(datasetA);
 
   const xLabels = utils.linspace(0, 4, 1);
   const yLabels = utils.linspace(0, 10, 2);
@@ -28,11 +30,8 @@ const AreaChartScreen = () => {
         yTicks={yLabels}
         stacked={stacked}
         normalized={normalized}
-        data={[
-          { id: 'seriesA', points: dataset1, color: '#d75454' },
-          { id: 'seriesB', points: dataset2, color: '#67a0d8' },
-          { id: 'seriesC', points: dataset3, color: '#e0e359' },
-        ]}
+        data={data}
+        animated={animated}
         padding={{ top: 20, bottom: 0, left: 20, right: 20 }}
         gridlines={{
           horizontal: true,
@@ -59,6 +58,10 @@ const AreaChartScreen = () => {
         font={LatoRegular}
       />
       <View style={styles.row}>
+        <Text style={styles.switchLabel}>Animated:</Text>
+        <Switch value={animated} onChange={() => setAnimated(prev => !prev)} />
+      </View>
+      <View style={styles.row}>
         <Text style={styles.switchLabel}>Stacked:</Text>
         <Switch value={stacked} onChange={() => setStacked(prev => !prev)} />
       </View>
@@ -68,6 +71,11 @@ const AreaChartScreen = () => {
           value={normalized}
           onChange={() => setNormalized(prev => !prev)}
         />
+      </View>
+      <View style={styles.row}>
+        <Button title="data A" onPress={() => setData(datasetA)} />
+        <Button title="data B" onPress={() => setData(datasetB)} />
+        <Button title="data C" onPress={() => setData(datasetC)} />
       </View>
     </ScreenContainer>
   );
