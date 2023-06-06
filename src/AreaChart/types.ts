@@ -7,6 +7,7 @@ export interface AreaData {
   points: { x: number; y: number }[];
   color: string;
   opacity?: number;
+  stroke?: number;
 }
 
 export interface AreaChartProps

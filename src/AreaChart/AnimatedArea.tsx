@@ -2,29 +2,38 @@ import React, { useEffect, useMemo } from 'react';
 
 import {
   Path,
+  SkPath,
+  Skia,
   runTiming,
   useComputedValue,
   useValue,
 } from '@shopify/react-native-skia';
 
+import { buildPath } from '../LineChart/utils';
 import type { AreaProps } from './types';
 import { buildAreaPath } from './utils';
 
 export const AnimatedArea = ({
-  data: { id, points, color, opacity = 1 },
+  data: { id, points, color, opacity = 1, stroke },
   yDomain,
   stacked = false,
   normalized = false,
   mapDomainToCanvas,
 }: AreaProps) => {
-  const path = useMemo(
-    () => buildAreaPath(points, yDomain, mapDomainToCanvas),
-    [points, yDomain, mapDomainToCanvas],
+  const [areaPath, linePath] = useMemo(
+    () => [
+      buildAreaPath(points, yDomain, mapDomainToCanvas),
+      stroke ? buildPath(points, mapDomainToCanvas) : null,
+    ],
+    [points, yDomain, stroke, mapDomainToCanvas],
   );
 
-  const state = useValue({
-    current: path,
-    next: path,
+  const state = useValue<{
+    current: [SkPath, SkPath | null];
+    next: [SkPath, SkPath | null];
+  }>({
+    current: [areaPath, linePath],
+    next: [areaPath, linePath],
   });
 
   const transition = useValue(0);
@@ -32,31 +41,52 @@ export const AnimatedArea = ({
   useEffect(() => {
     state.current = {
       current: state.current.next,
-      next: path,
+      next: [areaPath, linePath],
     };
     transition.current = 0;
     runTiming(transition, { from: 0, to: 1 }, { duration: 300 });
-  }, [state, transition, path]);
+  }, [state, transition, areaPath, linePath]);
 
-  const interpolatedPath = useComputedValue(() => {
-    const start = state.current.current;
-    const end = state.current.next;
+  const interpolatedArea = useComputedValue(() => {
+    const [start] = state.current.current;
+    const [end] = state.current.next;
 
-    const interpolated = end.interpolate(start, transition.current);
-    return interpolated ?? end;
+    return end.interpolate(start, transition.current) ?? end;
+  }, [state, transition]);
+
+  const interpolatedLine = useComputedValue(() => {
+    const [, start] = state.current.current;
+    const [, end] = state.current.next;
+
+    if (!start && !!end) return end;
+
+    if (!start || !end) return Skia.Path.Make();
+
+    return end.interpolate(start, transition.current) ?? end;
   }, [state, transition]);
 
   return (
-    <Path
-      key={`${id}/${stacked}/${normalized}`}
-      path={interpolatedPath}
-      color={color}
-      strokeWidth={0}
-      opacity={opacity}
-      style="fill"
-      strokeCap="round"
-      strokeJoin="round"
-    />
+    <React.Fragment key={`${id}/${stacked}/${normalized}`}>
+      <Path
+        path={interpolatedArea}
+        color={color}
+        strokeWidth={0}
+        opacity={opacity}
+        style="fill"
+        strokeCap="round"
+        strokeJoin="round"
+      />
+      {linePath && (
+        <Path
+          path={interpolatedLine}
+          color={color}
+          strokeWidth={stroke}
+          style="stroke"
+          strokeCap="round"
+          strokeJoin="round"
+        />
+      )}
+    </React.Fragment>
   );
 };
 

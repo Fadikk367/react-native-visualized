@@ -87,3 +87,21 @@ export const datasetC = [
   { id: 'seriesB', points: data8, color: '#67a0d8' },
   { id: 'seriesC', points: data9, color: '#e0e359' },
 ];
+
+export const datasetOpacityA = [
+  { id: 'seriesA', points: data1, color: '#d75454', opacity: 0.5, stroke: 4 },
+  { id: 'seriesB', points: data2, color: '#67a0d8', opacity: 0.5, stroke: 4 },
+  { id: 'seriesC', points: data3, color: '#e0e359', opacity: 0.5, stroke: 4 },
+];
+
+export const datasetOpacityB = [
+  { id: 'seriesA', points: data4, color: '#d75454', opacity: 0.5, stroke: 4 },
+  { id: 'seriesB', points: data5, color: '#67a0d8', opacity: 0.5, stroke: 4 },
+  { id: 'seriesC', points: data6, color: '#e0e359', opacity: 0.5, stroke: 4 },
+];
+
+export const datasetOpacityC = [
+  { id: 'seriesA', points: data7, color: '#d75454', opacity: 0.5, stroke: 4 },
+  { id: 'seriesB', points: data8, color: '#67a0d8', opacity: 0.5, stroke: 4 },
+  { id: 'seriesC', points: data9, color: '#e0e359', opacity: 0.5, stroke: 4 },
+];
