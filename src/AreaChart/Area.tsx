@@ -3,6 +3,7 @@ import React from 'react';
 import { Path } from '@shopify/react-native-skia';
 
 import { buildPath } from '../LineChart/utils';
+import AreaFill from './AreaFill';
 import type { AreaProps } from './types';
 import { buildAreaPath } from './utils';
 
@@ -13,7 +14,7 @@ const Area = ({
   stacked,
   mapDomainToCanvas,
 }: AreaProps) => {
-  const { id, points, color, opacity = 1, stroke = 0 } = data;
+  const { id, points, color, fill, opacity = 1, stroke = 0 } = data;
   const path = buildAreaPath(points, yDomain, mapDomainToCanvas);
   const linePath = stroke ? buildPath(points, mapDomainToCanvas) : null;
 
@@ -26,8 +27,9 @@ const Area = ({
         opacity={opacity}
         style="fill"
         strokeCap="round"
-        strokeJoin="round"
-      />
+        strokeJoin="round">
+        {fill && <AreaFill fill={fill} />}
+      </Path>
       {linePath && (
         <Path
           path={linePath}

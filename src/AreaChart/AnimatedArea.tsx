@@ -10,11 +10,12 @@ import {
 } from '@shopify/react-native-skia';
 
 import { buildPath } from '../LineChart/utils';
+import AreaFill from './AreaFill';
 import type { AreaProps } from './types';
 import { buildAreaPath } from './utils';
 
 export const AnimatedArea = ({
-  data: { id, points, color, opacity = 1, stroke },
+  data: { id, points, color, fill, opacity = 1, stroke },
   yDomain,
   stacked = false,
   normalized = false,
@@ -74,8 +75,9 @@ export const AnimatedArea = ({
         opacity={opacity}
         style="fill"
         strokeCap="round"
-        strokeJoin="round"
-      />
+        strokeJoin="round">
+        {fill && <AreaFill fill={fill} />}
+      </Path>
       {linePath && (
         <Path
           path={interpolatedLine}

@@ -7,7 +7,7 @@ import { Chart, utils } from 'react-native-visualized';
 import ScreenContainer from '@/components/ScreenContainer';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
-import { datasetA, datasetB, datasetC } from './data';
+import { datasetA, datasetB, datasetC, datasetD } from './data';
 
 const { AreaChart } = Chart;
 
@@ -112,6 +112,7 @@ const AreaChartScreen = () => {
         <Button title="data A" onPress={() => setData(datasetA)} />
         <Button title="data B" onPress={() => setData(datasetB)} />
         <Button title="data C" onPress={() => setData(datasetC)} />
+        <Button title="data D" onPress={() => setData(datasetD)} />
       </View>
     </ScreenContainer>
   );

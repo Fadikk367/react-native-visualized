@@ -87,3 +87,27 @@ export const datasetC = [
   { id: 'seriesB', points: data8, color: '#67a0d8' },
   { id: 'seriesC', points: data9, color: '#e0e359' },
 ];
+
+const gradient1 = {
+  start: { x: 0, y: 150 },
+  end: { x: 400, y: 300 },
+  colors: ['#E893CF', '#F3BCC8', '#F6FFA6'],
+};
+
+const gradient2 = {
+  start: { x: 0, y: 150 },
+  end: { x: 400, y: 300 },
+  colors: ['#00C4FF', '#FFE7A0', '#FFF5B8'],
+};
+
+const gradient3 = {
+  start: { x: 0, y: 150 },
+  end: { x: 400, y: 300 },
+  colors: ['#F6FA70', '#00DFA2', '#0079FF'],
+};
+
+export const datasetD = [
+  { id: 'seriesA', points: data1, color: 'blue', fill: gradient1 },
+  { id: 'seriesB', points: data4, color: 'yellow', fill: gradient2 },
+  { id: 'seriesC', points: data7, color: 'red', fill: gradient3 },
+];
