@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
@@ -8,12 +14,13 @@ import ScreenContainer from '@/components/ScreenContainer';
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { dataset1, dataset2 } from './data';
 
-const { LineChart, Line } = Chart;
+const { LineChart } = Chart;
 
 const LineChartScreen = () => {
   const [horizontalLinesShown, setHorizontalLinesShown] = useState(false);
   const [verticalLinesShown, setVerticalLinesShown] = useState(false);
   const [showArrows, setShowArrows] = useState(false);
+  const { width } = useWindowDimensions();
 
   const xLabels = utils.linspace(0, 100, 10);
   const yLabels = utils.linspace(0, 100, 20);
@@ -21,12 +28,16 @@ const LineChartScreen = () => {
   return (
     <ScreenContainer>
       <LineChart
-        width={394}
+        width={width}
         height={320}
         xDomain={[0, 100]}
         yDomain={[0, 100]}
         xTicks={xLabels}
         yTicks={yLabels}
+        data={[
+          { id: 'seriesA', points: dataset1, color: 'red', strokeWidth: 3 },
+          { id: 'seriesB', points: dataset2, color: 'blue', strokeWidth: 5 },
+        ]}
         padding={{ top: 20, bottom: 20, left: 20, right: 20 }}
         gridlines={{
           horizontal: horizontalLinesShown,
@@ -38,9 +49,10 @@ const LineChartScreen = () => {
           arrow: showArrows
             ? { variant: 'classic', length: 16, width: 10 }
             : undefined,
+          showTicks: false,
           style: {
             line: {
-              strokeWidth: 2,
+              strokeWidth: 3,
             },
             labels: {
               fontSize: 16,
@@ -59,10 +71,8 @@ const LineChartScreen = () => {
             },
           },
         }}
-        font={LatoRegular}>
-        <Line color="red" strokeWidth={3} data={dataset1} />
-        <Line color="blue" strokeWidth={5} data={dataset2} />
-      </LineChart>
+        font={LatoRegular}
+      />
       <View style={styles.row}>
         <Text style={styles.switchLabel}>Show horizontal lines:</Text>
         <Switch

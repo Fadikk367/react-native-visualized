@@ -1,8 +1,4 @@
-import { Children } from 'react';
-
 import { SkPath, SkPoint, Skia } from '@shopify/react-native-skia';
-
-import type { LineChartChildren, LineProps } from './types';
 
 export const buildPath = (
   points: SkPoint[],
@@ -21,16 +17,4 @@ export const buildPath = (
   }
 
   return path;
-};
-
-export const extractProps = (children?: LineChartChildren): LineProps[] => {
-  if (!children) return [];
-
-  if (Array.isArray(children)) {
-    return Children.map(children, series => ({
-      ...series.props,
-    }));
-  }
-
-  return [{ ...children.props }];
 };

@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Switch, Text, View } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
 import { Chart } from 'react-native-visualized';
 
@@ -16,6 +23,7 @@ const BarChart = () => {
   const [font, setFont] = useState(RobotoMono);
   const [isAnimated, setIsAnimated] = useState(false);
   const [isCustomComponent, setIsCustomComponent] = useState(false);
+  const { width } = useWindowDimensions();
 
   const toggleData = () => {
     const newData = data === dataset1 ? dataset2 : dataset1;
@@ -38,7 +46,7 @@ const BarChart = () => {
   return (
     <ScreenContainer>
       <Chart.Bar
-        width={394}
+        width={width}
         height={420}
         padding={{ top: 20, right: 20, bottom: 10 }}
         backgroundColor="#e6e6e6"

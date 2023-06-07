@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
@@ -16,6 +22,7 @@ const ScatterScreen = () => {
   const [isLegendShown, setIsLegendShown] = useState(false);
   const [showGridlines, setShowGridlines] = useState(true);
   const [showContinuousLegend, setShowContinuousLegend] = useState(false);
+  const { width } = useWindowDimensions();
 
   const xTicks = utils.linspace(0, 100, 20);
   const yTicks = utils.linspace(0, 100, 20);
@@ -57,7 +64,7 @@ const ScatterScreen = () => {
   return (
     <ScreenContainer>
       <Scatter
-        width={394}
+        width={width}
         height={300}
         xDomain={[0, 100]}
         yDomain={[0, 100]}

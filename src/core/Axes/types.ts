@@ -1,6 +1,6 @@
 import type { DataSourceParam, SkPoint } from '@shopify/react-native-skia';
 
-import type { ArrowVariant } from '../AxisArrow/types';
+import type { ArrowConfig } from '../AxisArrow/types';
 
 export interface AxisProps extends AxisConfig {
   ticks: number[];
@@ -23,12 +23,6 @@ export interface XAxisConfig extends AxisConfig {
 }
 
 export interface YAxisConfig extends AxisConfig {
-  width?: number;
-}
-
-export interface ArrowConfig {
-  variant?: ArrowVariant;
-  length?: number;
   width?: number;
 }
 
