@@ -16,6 +16,8 @@ export interface AreaChartProps
   normalized?: boolean;
   data: AreaData[];
   animated?: boolean;
+  opacity?: number;
+  stroke?: number;
 }
 
 export interface AreaProps {

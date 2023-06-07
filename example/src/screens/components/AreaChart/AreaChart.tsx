@@ -1,33 +1,23 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Switch, Text, View } from 'react-native';
 
+import Slider from '@react-native-community/slider';
 import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
-import {
-  datasetA,
-  datasetB,
-  datasetC,
-  datasetOpacityA,
-  datasetOpacityB,
-  datasetOpacityC,
-} from './data';
-
-const datasets = [datasetA, datasetB, datasetC];
-const datasetsWithOpacity = [datasetOpacityA, datasetOpacityB, datasetOpacityC];
+import { datasetA, datasetB, datasetC } from './data';
 
 const { AreaChart } = Chart;
 
 const AreaChartScreen = () => {
   const [normalized, setNormalized] = useState(false);
   const [stacked, setStacked] = useState(true);
-  const [opacity, setOpacity] = useState(true);
+  const [opacity, setOpacity] = useState(1);
+  const [stroke, setStroke] = useState(0);
   const [animated, setAnimated] = useState(true);
-  const [data, setData] = useState(0);
-
-  const dataset = opacity ? datasetsWithOpacity[data]! : datasets[data]!;
+  const [data, setData] = useState(datasetA);
 
   const xLabels = utils.linspace(0, 4, 1);
   const yLabels = utils.linspace(0, 10, 2);
@@ -43,7 +33,9 @@ const AreaChartScreen = () => {
         yTicks={yLabels}
         stacked={stacked}
         normalized={normalized}
-        data={dataset}
+        data={data}
+        opacity={opacity}
+        stroke={stroke}
         animated={animated}
         padding={{ top: 20, bottom: 0, left: 20, right: 20 }}
         gridlines={{
@@ -70,29 +62,56 @@ const AreaChartScreen = () => {
         }}
         font={LatoRegular}
       />
-      <View style={styles.row}>
+      <View style={[styles.setting, styles.row]}>
         <Text style={styles.switchLabel}>Animated:</Text>
         <Switch value={animated} onChange={() => setAnimated(prev => !prev)} />
       </View>
-      <View style={styles.row}>
+      <View style={styles.spacer} />
+      <View style={[styles.setting, styles.row]}>
         <Text style={styles.switchLabel}>Stacked:</Text>
         <Switch value={stacked} onChange={() => setStacked(prev => !prev)} />
       </View>
-      <View style={styles.row}>
+      <View style={styles.spacer} />
+      <View style={[styles.setting, styles.row]}>
         <Text style={styles.switchLabel}>Normalize:</Text>
         <Switch
           value={normalized}
           onChange={() => setNormalized(prev => !prev)}
         />
       </View>
-      <View style={styles.row}>
-        <Text style={styles.switchLabel}>Opacity & Stroke:</Text>
-        <Switch value={opacity} onChange={() => setOpacity(prev => !prev)} />
+      <View style={styles.spacer} />
+      <View style={styles.setting}>
+        <View style={styles.row}>
+          <Text style={styles.label}>Opacity:</Text>
+          <Text style={styles.value}>{opacity.toFixed(2)}</Text>
+        </View>
+        <Slider
+          value={opacity}
+          minimumValue={0}
+          maximumValue={1}
+          step={0.05}
+          onValueChange={v => setOpacity(v)}
+        />
       </View>
-      <View style={styles.row}>
-        <Button title="data A" onPress={() => setData(0)} />
-        <Button title="data B" onPress={() => setData(1)} />
-        <Button title="data C" onPress={() => setData(2)} />
+      <View style={styles.spacer} />
+      <View style={styles.setting}>
+        <View style={styles.row}>
+          <Text style={styles.label}>Stroke:</Text>
+          <Text style={styles.value}>{stroke}</Text>
+        </View>
+        <Slider
+          value={stroke}
+          minimumValue={0}
+          maximumValue={10}
+          step={1}
+          onValueChange={v => setStroke(v)}
+        />
+      </View>
+      <View style={styles.spacer} />
+      <View style={[styles.setting, styles.row]}>
+        <Button title="data A" onPress={() => setData(datasetA)} />
+        <Button title="data B" onPress={() => setData(datasetB)} />
+        <Button title="data C" onPress={() => setData(datasetC)} />
       </View>
     </ScreenContainer>
   );
@@ -101,10 +120,26 @@ const AreaChartScreen = () => {
 export default AreaChartScreen;
 
 const styles = StyleSheet.create({
+  setting: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
   row: {
-    padding: 20,
-    justifyContent: 'space-between',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  value: {
+    fontSize: 20,
+    fontWeight: '800',
+  },
+  spacer: {
+    height: 2,
+    backgroundColor: '#ffffff',
   },
   switchLabel: {
     fontSize: 20,

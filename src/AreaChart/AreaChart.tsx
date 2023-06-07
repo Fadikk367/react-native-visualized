@@ -12,6 +12,8 @@ const AreaChart = ({
   stacked = false,
   normalized = false,
   animated = true,
+  opacity,
+  stroke,
   ...baseLineChartProps
 }: AreaChartProps) => {
   const transformedData = stacked ? stackAreasData(data).reverse() : data;
@@ -32,7 +34,11 @@ const AreaChart = ({
     return (
       <AreaComponent
         key={`${areaData.id}/${stacked}/${animated}`}
-        data={areaData}
+        data={{
+          opacity: opacity,
+          stroke: stroke,
+          ...areaData,
+        }}
         yDomain={yDomain}
         stacked={stacked}
         normalized={stacked}
