@@ -18,6 +18,7 @@ const Catalogue = ({ navigation }: CatalogueProps) => {
       <Button title="Scatter" onPress={getNavigateTo('Scatter')} />
       <Button title="PieChart" onPress={getNavigateTo('PieChart')} />
       <Button title="ProgressRing" onPress={getNavigateTo('ProgressRing')} />
+      <Button title="RadarChart" onPress={getNavigateTo('RadarChart')} />
     </ScreenContainer>
   );
 };
