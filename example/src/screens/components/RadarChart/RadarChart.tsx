@@ -18,9 +18,9 @@ const RadarChart = () => {
         variables={['a', 'b', 'c']}
         domain={[0, 5]}
         data={[
-          { a: 1, b: 2, c: 3 },
-          { a: 2, b: 1.5, c: 4 },
-          { a: 0.5, b: 1, c: 1 },
+          { a: 1, b: 2, c: 3, color: 'red' },
+          { a: 2, b: 1.5, c: 4, color: 'blue' },
+          { a: 0.5, b: 1, c: 1, color: 'yellow' },
         ]}
         font={LatoRegular}
       />
