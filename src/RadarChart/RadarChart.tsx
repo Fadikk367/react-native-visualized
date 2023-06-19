@@ -12,6 +12,7 @@ const RadarChart = <T extends string>({
   height,
   width,
   domain,
+  ticks,
   padding: customPadding,
   variables,
   backgroundColor,
@@ -47,6 +48,38 @@ const RadarChart = <T extends string>({
     );
   });
 
+  const gridLines = ticks.map(tick => {
+    const path = Skia.Path.Make();
+    const points = variables.map(name => {
+      const scaledValue = mapValueToDomain(tick);
+      const variableAngle = variableAngles[name];
+
+      return {
+        x: Math.cos(variableAngle) * scaledValue + center.x,
+        y: Math.sin(variableAngle) * scaledValue + center.y,
+      };
+    });
+
+    const firstPoint = points[0] || { x: 0, y: 0 };
+    path.moveTo(firstPoint.x, firstPoint.y);
+    points.forEach(point => {
+      path.lineTo(point.x, point.y);
+    });
+    path.close();
+
+    return (
+      <Group key={tick}>
+        <Path
+          path={path}
+          style="stroke"
+          color="#000000"
+          opacity={0.3}
+          strokeWidth={1}
+        />
+      </Group>
+    );
+  });
+
   const polygons = data.map((values, i) => {
     const path = Skia.Path.Make();
     const points = variables.map(name => {
@@ -71,9 +104,16 @@ const RadarChart = <T extends string>({
       <Group key={i}>
         <Path
           path={path}
-          style="stroke"
+          style="fill"
           color={values.color}
           opacity={0.3}
+          strokeWidth={0}
+        />
+        <Path
+          path={path}
+          style="stroke"
+          color={values.color}
+          opacity={0.6}
           strokeWidth={3}
         />
       </Group>
@@ -86,6 +126,7 @@ const RadarChart = <T extends string>({
       height={height}
       padding={padding}
       backgroundColor={backgroundColor}>
+      {gridLines}
       {variablesAxes}
       {polygons}
     </ChartContainer>
