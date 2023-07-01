@@ -1,3 +1,5 @@
+import type { SkPoint } from '@shopify/react-native-skia';
+
 import type { ChartBaseProps } from '../types';
 
 export interface RadarChartProps<T extends string> extends ChartBaseProps {
@@ -5,4 +7,12 @@ export interface RadarChartProps<T extends string> extends ChartBaseProps {
   ticks: number[];
   domain: [number, number];
   variables: T[];
+}
+
+export interface AnimatedPolygonProps<T extends string> {
+  variables: T[];
+  variableAngles: Record<T, number>;
+  values: Record<T, number> & { color: string };
+  center: SkPoint;
+  mapValueToDomain(v: number): number;
 }
