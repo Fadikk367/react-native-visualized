@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Group, Line, Path, Skia } from '@shopify/react-native-skia';
+import {
+  Group,
+  Line,
+  Path,
+  Skia,
+  Text,
+  useFont,
+} from '@shopify/react-native-skia';
 
 import ChartContainer from '../core/ChartContainer';
 import { defaultPadding } from '../core/constants';
@@ -16,6 +23,8 @@ const RadarChart = <T extends string>({
   padding: customPadding,
   variables,
   backgroundColor,
+  font: fontSource,
+  fontSize = 14,
 }: RadarChartProps<T>) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
   const contentWidth = width - (padding.left + padding.right);
@@ -23,6 +32,7 @@ const RadarChart = <T extends string>({
   const center = { x: contentWidth / 2, y: contentHeight / 2 };
   const radius = Math.min(contentWidth, contentHeight) / 2 - 20;
   const domainSize = Math.abs(domain[1] - domain[0]);
+  const font = useFont(fontSource, fontSize);
 
   const mapValueToDomain = (v: number): number => {
     return (v * radius) / domainSize;
@@ -31,7 +41,7 @@ const RadarChart = <T extends string>({
   const variableAngles = Object.fromEntries(
     variables.map((variable, i) => {
       const sliceAngleInDegrees = 360 / variables.length;
-      const variableAngle = degreesToRadians(i * sliceAngleInDegrees);
+      const variableAngle = degreesToRadians(i * sliceAngleInDegrees - 90);
       return [variable, variableAngle];
     }),
   ) as Record<T, number>;
@@ -79,6 +89,33 @@ const RadarChart = <T extends string>({
       </Group>
     );
   });
+
+  const tickLabels = font
+    ? ticks.map(tick => {
+        const scaledValue = mapValueToDomain(tick);
+        const labelsAngle = degreesToRadians(-90);
+        const tickLabelPosition = {
+          x: Math.cos(labelsAngle) * scaledValue + center.x,
+          y: Math.sin(labelsAngle) * scaledValue + center.y,
+        };
+
+        return (
+          <Group key={tick}>
+            <Line
+              p1={{ x: tickLabelPosition.x - 3, y: tickLabelPosition.y }}
+              p2={{ x: tickLabelPosition.x + 3, y: tickLabelPosition.y }}
+              strokeWidth={1}
+            />
+            <Text
+              x={tickLabelPosition.x + 5}
+              y={tickLabelPosition.y + fontSize / 3}
+              text={tick.toString()}
+              font={font}
+            />
+          </Group>
+        );
+      })
+    : [];
 
   const polygons = data.map((values, i) => {
     const path = Skia.Path.Make();
@@ -129,6 +166,7 @@ const RadarChart = <T extends string>({
       {gridLines}
       {variablesAxes}
       {polygons}
+      {tickLabels}
     </ChartContainer>
   );
 };
