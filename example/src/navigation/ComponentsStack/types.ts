@@ -6,4 +6,5 @@ export type ComponentsStackParams = {
   Scatter: undefined;
   PieChart: undefined;
   ProgressRing: undefined;
+  RadarChart: undefined;
 };
