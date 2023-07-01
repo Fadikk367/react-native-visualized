@@ -1,14 +1,17 @@
-import React from 'react';
-import { useWindowDimensions } from 'react-native';
+import React, { useState } from 'react';
+import { Button, useWindowDimensions } from 'react-native';
 
 import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
+import { datasets } from './data';
 
 const RadarChart = () => {
+  const [dataset, setDataset] = useState(datasets[0]);
   const { width } = useWindowDimensions();
+
   return (
     <ScreenContainer>
       <Chart.Radar
@@ -17,15 +20,13 @@ const RadarChart = () => {
         variables={['a', 'b', 'c', 'd', 'e']}
         ticks={[1, 2, 3, 4, 5]}
         domain={[0, 5]}
-        data={[
-          { a: 1, b: 2, c: 3, d: 2, e: 3, color: 'red' },
-          { a: 2, b: 1.5, c: 4, d: 0.1, e: 2.3, color: 'blue' },
-          { a: 0.5, b: 1, c: 1, d: 3.3, e: 5, color: 'yellow' },
-          { a: 3, b: 4.5, c: 5, d: 4, e: 2, color: 'orange' },
-          { a: 2, b: 3.3, c: 4.1, d: 1, e: 4.4, color: 'green' },
-        ]}
+        data={dataset!}
         font={LatoRegular}
       />
+      <Button title="Dataset A" onPress={() => setDataset(datasets[0])} />
+      <Button title="Dataset B" onPress={() => setDataset(datasets[1])} />
+      <Button title="Dataset C" onPress={() => setDataset(datasets[2])} />
+      <Button title="Dataset D" onPress={() => setDataset(datasets[3])} />
     </ScreenContainer>
   );
 };
