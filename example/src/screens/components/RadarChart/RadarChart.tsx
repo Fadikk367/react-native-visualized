@@ -22,6 +22,7 @@ const RadarChart = () => {
         domain={[0, 5]}
         data={dataset!}
         labelsOrientation="radial"
+        legend={{ height: 30, width: width, gap: 0, position: 'bottom' }}
         font={LatoRegular}
       />
       <Button title="Dataset A" onPress={() => setDataset(datasets[0])} />

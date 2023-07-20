@@ -9,7 +9,11 @@ import {
   useFont,
 } from '@shopify/react-native-skia';
 
+import Legend from '../PieChart/Legend';
+import { defaultLegendConfig } from '../PieChart/Legend/constants';
+import { getPieChartLayout } from '../PieChart/utils';
 import ChartContainer from '../core/ChartContainer';
+import Translate from '../core/Translate';
 import { defaultPadding } from '../core/constants';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
 import AnimatedPolygon from './AnimatedPolygon';
@@ -27,15 +31,25 @@ const RadarChart = <T extends string>({
   labelsOrientation,
   backgroundColor,
   font: fontSource,
+  legend: customLegendConfig,
   fontSize = 14,
 }: RadarChartProps<T>) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
-  const contentWidth = width - (padding.left + padding.right);
-  const contentHeight = height - (padding.top + padding.bottom);
-  const center = { x: contentWidth / 2, y: contentHeight / 2 };
-  const radius = Math.min(contentWidth, contentHeight) / 2 - 60;
+  const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
   const domainSize = Math.abs(domain[1] - domain[0]);
   const font = useFont(fontSource, fontSize);
+
+  const {
+    pie: { position, center, radius: totalRadius },
+    legend,
+  } = getPieChartLayout({
+    width,
+    height,
+    padding,
+    legend: legendConfig,
+  });
+  const paddingForLabels = 30;
+  const radius = totalRadius - paddingForLabels;
 
   const mapValueToDomain = (v: number): number => {
     return (v * radius) / domainSize;
@@ -141,19 +155,31 @@ const RadarChart = <T extends string>({
       height={height}
       padding={padding}
       backgroundColor={backgroundColor}>
-      {gridLines}
-      {variablesAxes}
-      {polygons}
-      {tickLabels}
-      <VariableLabels
-        variables={variables}
-        angles={variableAngles}
-        center={center}
-        radius={radius}
-        font={font}
-        fontSize={fontSize}
-        orientation={labelsOrientation}
-      />
+      <Translate x={position.x} y={position.y}>
+        {gridLines}
+        {variablesAxes}
+        {polygons}
+        {tickLabels}
+        <VariableLabels
+          variables={variables}
+          angles={variableAngles}
+          center={center}
+          radius={radius}
+          font={font}
+          fontSize={fontSize}
+          orientation={labelsOrientation}
+        />
+      </Translate>
+      <Translate x={legend.position.x} y={legend.position.y}>
+        <Legend
+          items={data}
+          height={legendConfig.height}
+          width={legendConfig.width}
+          position={legendConfig.position}
+          font={fontSource}
+          fontSize={12}
+        />
+      </Translate>
     </ChartContainer>
   );
 };

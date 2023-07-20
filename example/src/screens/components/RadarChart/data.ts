@@ -7,6 +7,7 @@ export const datasets = [
       luck: 2,
       speech: 3.2,
       color: 'red',
+      label: 'Emma',
     },
     {
       agility: 2,
@@ -15,6 +16,7 @@ export const datasets = [
       luck: 2,
       speech: 2.3,
       color: 'blue',
+      label: 'Greg',
     },
     {
       agility: 2,
@@ -23,6 +25,7 @@ export const datasets = [
       luck: 3.3,
       speech: 5,
       color: 'yellow',
+      label: 'Hannah',
     },
     {
       agility: 2.7,
@@ -31,6 +34,7 @@ export const datasets = [
       luck: 4,
       speech: 2,
       color: 'orange',
+      label: 'Adam',
     },
     {
       agility: 1.9,
@@ -39,6 +43,7 @@ export const datasets = [
       luck: 1.3,
       speech: 4.1,
       color: 'green',
+      label: 'Olivier',
     },
   ],
   [
@@ -49,6 +54,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'red',
+      label: 'Emma',
     },
     {
       agility: Math.random() * 5,
@@ -57,6 +63,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'blue',
+      label: 'Greg',
     },
     {
       agility: Math.random() * 5,
@@ -65,6 +72,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'yellow',
+      label: 'Hannah',
     },
     {
       agility: Math.random() * 5,
@@ -73,6 +81,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'orange',
+      label: 'Adam',
     },
     {
       agility: Math.random() * 5,
@@ -81,6 +90,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'green',
+      label: 'Olivier',
     },
   ],
   [
@@ -91,6 +101,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'red',
+      label: 'Emma',
     },
     {
       agility: Math.random() * 5,
@@ -99,6 +110,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'blue',
+      label: 'Greg',
     },
     {
       agility: Math.random() * 5,
@@ -107,6 +119,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'yellow',
+      label: 'Hannah',
     },
     {
       agility: Math.random() * 5,
@@ -115,6 +128,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'orange',
+      label: 'Adam',
     },
     {
       agility: Math.random() * 5,
@@ -123,6 +137,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'green',
+      label: 'Olivier',
     },
   ],
   [
@@ -133,6 +148,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'red',
+      label: 'Emma',
     },
     {
       agility: Math.random() * 5,
@@ -141,6 +157,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'blue',
+      label: 'Greg',
     },
     {
       agility: Math.random() * 5,
@@ -149,6 +166,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'yellow',
+      label: 'Hannah',
     },
     {
       agility: Math.random() * 5,
@@ -157,6 +175,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'orange',
+      label: 'Adam',
     },
     {
       agility: Math.random() * 5,
@@ -165,6 +184,7 @@ export const datasets = [
       luck: Math.random() * 5,
       speech: Math.random() * 5,
       color: 'green',
+      label: 'Olivier',
     },
   ],
 ];
