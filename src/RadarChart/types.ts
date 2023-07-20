@@ -19,3 +19,11 @@ export interface AnimatedPolygonProps<T extends string> {
   center: SkPoint;
   mapValueToDomain(v: number): number;
 }
+
+export interface GridLinesProps<T extends string> {
+  variables: T[];
+  variableAngles: Record<T, number>;
+  ticks: number[];
+  center: SkPoint;
+  mapValueToDomain(v: number): number;
+}

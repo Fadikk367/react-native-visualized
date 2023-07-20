@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-  Group,
-  Line,
-  Path,
-  Skia,
-  Text,
-  useFont,
-} from '@shopify/react-native-skia';
+import { Group, Line, Text, useFont } from '@shopify/react-native-skia';
 
 import Legend from '../PieChart/Legend';
 import { defaultLegendConfig } from '../PieChart/Legend/constants';
@@ -17,6 +10,7 @@ import Translate from '../core/Translate';
 import { defaultPadding } from '../core/constants';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
 import AnimatedPolygon from './AnimatedPolygon';
+import GridLines from './GridLines';
 import VariableLabels from './VariableLabels';
 import type { RadarChartProps } from './types';
 
@@ -79,38 +73,6 @@ const RadarChart = <T extends string>({
     );
   });
 
-  const gridLines = ticks.map(tick => {
-    const path = Skia.Path.Make();
-    const points = variables.map(name => {
-      const scaledValue = mapValueToDomain(tick);
-      const variableAngle = variableAngles[name];
-
-      return {
-        x: Math.cos(variableAngle) * scaledValue + center.x,
-        y: Math.sin(variableAngle) * scaledValue + center.y,
-      };
-    });
-
-    const firstPoint = points[0] || { x: 0, y: 0 };
-    path.moveTo(firstPoint.x, firstPoint.y);
-    points.forEach(point => {
-      path.lineTo(point.x, point.y);
-    });
-    path.close();
-
-    return (
-      <Group key={tick}>
-        <Path
-          path={path}
-          style="stroke"
-          color="#000000"
-          opacity={0.3}
-          strokeWidth={1}
-        />
-      </Group>
-    );
-  });
-
   const tickLabels = font
     ? ticks.map(tick => {
         const scaledValue = mapValueToDomain(tick);
@@ -156,7 +118,13 @@ const RadarChart = <T extends string>({
       padding={padding}
       backgroundColor={backgroundColor}>
       <Translate x={position.x} y={position.y}>
-        {gridLines}
+        <GridLines
+          variables={variables}
+          variableAngles={variableAngles}
+          ticks={ticks}
+          center={center}
+          mapValueToDomain={mapValueToDomain}
+        />
         {variablesAxes}
         {polygons}
         {tickLabels}
