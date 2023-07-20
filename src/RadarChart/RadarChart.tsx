@@ -13,6 +13,7 @@ import ChartContainer from '../core/ChartContainer';
 import { defaultPadding } from '../core/constants';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
 import AnimatedPolygon from './AnimatedPolygon';
+import VariableLabels from './VariableLabels';
 import type { RadarChartProps } from './types';
 
 const RadarChart = <T extends string>({
@@ -23,6 +24,7 @@ const RadarChart = <T extends string>({
   ticks,
   padding: customPadding,
   variables,
+  labelsOrientation,
   backgroundColor,
   font: fontSource,
   fontSize = 14,
@@ -31,7 +33,7 @@ const RadarChart = <T extends string>({
   const contentWidth = width - (padding.left + padding.right);
   const contentHeight = height - (padding.top + padding.bottom);
   const center = { x: contentWidth / 2, y: contentHeight / 2 };
-  const radius = Math.min(contentWidth, contentHeight) / 2 - 20;
+  const radius = Math.min(contentWidth, contentHeight) / 2 - 60;
   const domainSize = Math.abs(domain[1] - domain[0]);
   const font = useFont(fontSource, fontSize);
 
@@ -49,12 +51,16 @@ const RadarChart = <T extends string>({
 
   const variablesAxes = variables.map(variable => {
     const variableAngle = variableAngles[variable];
-    const x = Math.cos(variableAngle) * radius + center.x;
-    const y = Math.sin(variableAngle) * radius + center.y;
-
     return (
-      <Group>
-        <Line p1={center} p2={{ x, y }} strokeWidth={1} />
+      <Group
+        key={variable}
+        transform={[{ rotate: variableAngle }]}
+        origin={center}>
+        <Line
+          p1={center}
+          p2={{ x: center.x + radius, y: center.y }}
+          strokeWidth={1}
+        />
       </Group>
     );
   });
@@ -139,6 +145,15 @@ const RadarChart = <T extends string>({
       {variablesAxes}
       {polygons}
       {tickLabels}
+      <VariableLabels
+        variables={variables}
+        angles={variableAngles}
+        center={center}
+        radius={radius}
+        font={font}
+        fontSize={fontSize}
+        orientation={labelsOrientation}
+      />
     </ChartContainer>
   );
 };

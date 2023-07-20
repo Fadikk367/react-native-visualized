@@ -7,6 +7,7 @@ export interface RadarChartProps<T extends string> extends ChartBaseProps {
   ticks: number[];
   domain: [number, number];
   variables: T[];
+  labelsOrientation?: 'radial' | 'horizontal';
 }
 
 export interface AnimatedPolygonProps<T extends string> {
