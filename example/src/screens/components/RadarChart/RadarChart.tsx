@@ -16,11 +16,12 @@ const RadarChart = () => {
     <ScreenContainer>
       <Chart.Radar
         width={width}
-        height={300}
-        variables={['a', 'b', 'c', 'd', 'e']}
+        height={400}
+        variables={['agility', 'strength', 'durability', 'luck', 'speech']}
         ticks={[1, 2, 3, 4, 5]}
         domain={[0, 5]}
         data={dataset!}
+        labelsOrientation="radial"
         font={LatoRegular}
       />
       <Button title="Dataset A" onPress={() => setDataset(datasets[0])} />
