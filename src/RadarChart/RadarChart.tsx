@@ -24,6 +24,7 @@ const RadarChart = <T extends string>({
   padding: customPadding,
   variables,
   labelsOrientation,
+  labelsPadding = 40,
   backgroundColor,
   font: fontSource,
   legend: customLegendConfig,
@@ -43,8 +44,7 @@ const RadarChart = <T extends string>({
     padding,
     legend: legendConfig,
   });
-  const paddingForLabels = 30;
-  const radius = totalRadius - paddingForLabels;
+  const radius = totalRadius - labelsPadding;
 
   const mapValueToDomain = (v: number): number => {
     return (v * radius) / domainSize;
