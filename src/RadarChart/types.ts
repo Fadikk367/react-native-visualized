@@ -1,4 +1,4 @@
-import type { SkPoint } from '@shopify/react-native-skia';
+import type { SkFont, SkPoint } from '@shopify/react-native-skia';
 
 import type { LegendConfig } from '../PieChart/Legend/types';
 import type { ChartBaseProps } from '../types';
@@ -25,5 +25,13 @@ export interface GridLinesProps<T extends string> {
   variableAngles: Record<T, number>;
   ticks: number[];
   center: SkPoint;
+  mapValueToDomain(v: number): number;
+}
+
+export interface TicksLabelsProps {
+  ticks: number[];
+  center: SkPoint;
+  font: SkFont | null;
+  fontSize: number;
   mapValueToDomain(v: number): number;
 }

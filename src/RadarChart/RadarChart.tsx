@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Group, Line, Text, useFont } from '@shopify/react-native-skia';
+import { Group, Line, useFont } from '@shopify/react-native-skia';
 
 import Legend from '../PieChart/Legend';
 import { defaultLegendConfig } from '../PieChart/Legend/constants';
@@ -11,6 +11,7 @@ import { defaultPadding } from '../core/constants';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
 import AnimatedPolygon from './AnimatedPolygon';
 import GridLines from './GridLines';
+import TickLabels from './TicksLabels';
 import VariableLabels from './VariableLabels';
 import type { RadarChartProps } from './types';
 
@@ -73,33 +74,6 @@ const RadarChart = <T extends string>({
     );
   });
 
-  const tickLabels = font
-    ? ticks.map(tick => {
-        const scaledValue = mapValueToDomain(tick);
-        const labelsAngle = degreesToRadians(-90);
-        const tickLabelPosition = {
-          x: Math.cos(labelsAngle) * scaledValue + center.x,
-          y: Math.sin(labelsAngle) * scaledValue + center.y,
-        };
-
-        return (
-          <Group key={tick}>
-            <Line
-              p1={{ x: tickLabelPosition.x - 3, y: tickLabelPosition.y }}
-              p2={{ x: tickLabelPosition.x + 3, y: tickLabelPosition.y }}
-              strokeWidth={1}
-            />
-            <Text
-              x={tickLabelPosition.x + 5}
-              y={tickLabelPosition.y + fontSize / 3}
-              text={tick.toString()}
-              font={font}
-            />
-          </Group>
-        );
-      })
-    : [];
-
   const polygons = data.map((values, i) => (
     <AnimatedPolygon
       key={i}
@@ -127,7 +101,13 @@ const RadarChart = <T extends string>({
         />
         {variablesAxes}
         {polygons}
-        {tickLabels}
+        <TickLabels
+          ticks={ticks}
+          center={center}
+          font={font}
+          fontSize={fontSize}
+          mapValueToDomain={mapValueToDomain}
+        />
         <VariableLabels
           variables={variables}
           angles={variableAngles}
