@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Path, Skia } from '@shopify/react-native-skia';
 
+import { ensureDefaults } from '../core/utils';
+import { gridLinesConfigDefaults } from './constants';
 import type { GridLinesProps } from './types';
 
 const GridLines = <T extends string>({
@@ -9,8 +11,11 @@ const GridLines = <T extends string>({
   variables,
   variableAngles,
   center,
+  config: customConfig,
   mapValueToDomain,
 }: GridLinesProps<T>) => {
+  const config = ensureDefaults(customConfig, gridLinesConfigDefaults);
+
   const gridLines = ticks.map(tick => {
     const path = Skia.Path.Make();
     const points = variables.map(name => {
@@ -35,9 +40,9 @@ const GridLines = <T extends string>({
         key={tick}
         path={path}
         style="stroke"
-        color="#000000"
-        opacity={0.3}
-        strokeWidth={1}
+        color={config.color}
+        opacity={config.opacity}
+        strokeWidth={config.lineWidth}
       />
     );
   });

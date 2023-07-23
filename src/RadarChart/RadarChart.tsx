@@ -28,6 +28,7 @@ const RadarChart = <T extends string>({
   backgroundColor,
   font: fontSource,
   legend: customLegendConfig,
+  gridLines: gridLinesConfig = {},
   fontSize = 14,
 }: RadarChartProps<T>) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -92,13 +93,16 @@ const RadarChart = <T extends string>({
       padding={padding}
       backgroundColor={backgroundColor}>
       <Translate x={position.x} y={position.y}>
-        <GridLines
-          variables={variables}
-          variableAngles={variableAngles}
-          ticks={ticks}
-          center={center}
-          mapValueToDomain={mapValueToDomain}
-        />
+        {gridLinesConfig && (
+          <GridLines
+            variables={variables}
+            variableAngles={variableAngles}
+            ticks={ticks}
+            center={center}
+            config={gridLinesConfig}
+            mapValueToDomain={mapValueToDomain}
+          />
+        )}
         {variablesAxes}
         {polygons}
         <TickLabels
