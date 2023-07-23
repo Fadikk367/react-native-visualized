@@ -13,6 +13,7 @@ export interface RadarChartProps<T extends string> extends ChartBaseProps {
   labelsPadding?: number;
   gridLines?: Partial<LineConfig> | null;
   axes?: Partial<LineConfig> | null;
+  polygons?: Partial<PolygonConfig>;
 }
 
 export interface AnimatedPolygonProps<T extends string> {
@@ -20,6 +21,7 @@ export interface AnimatedPolygonProps<T extends string> {
   variableAngles: Record<T, number>;
   values: Record<T, number> & { color: string };
   center: SkPoint;
+  config: PolygonConfig;
   mapValueToDomain(v: number): number;
 }
 
@@ -52,4 +54,10 @@ export interface LineConfig {
   color: string;
   lineWidth: number;
   opacity: number;
+}
+
+export interface PolygonConfig {
+  fillOpacity: number;
+  outlineOpacity: number;
+  lineWidth: number;
 }

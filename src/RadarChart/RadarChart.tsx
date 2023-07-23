@@ -14,6 +14,7 @@ import Axes from './Axes';
 import GridLines from './GridLines';
 import TickLabels from './TicksLabels';
 import VariableLabels from './VariableLabels';
+import { defaultPolygonsConfig } from './constants';
 import type { RadarChartProps } from './types';
 
 const RadarChart = <T extends string>({
@@ -31,10 +32,16 @@ const RadarChart = <T extends string>({
   legend: customLegendConfig,
   gridLines: gridLinesConfig = {},
   axes: axesConfig = {},
+  polygons: customPolygonsConfig = {},
   fontSize = 14,
 }: RadarChartProps<T>) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
+  const polygonsConfig = ensureDefaults(
+    customPolygonsConfig,
+    defaultPolygonsConfig,
+  );
+
   const domainSize = Math.abs(domain[1] - domain[0]);
   const font = useFont(fontSource, fontSize);
 
@@ -68,6 +75,7 @@ const RadarChart = <T extends string>({
       center={center}
       variables={variables}
       variableAngles={variableAngles}
+      config={polygonsConfig}
       mapValueToDomain={mapValueToDomain}
     />
   ));

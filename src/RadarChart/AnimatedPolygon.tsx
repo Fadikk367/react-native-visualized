@@ -18,6 +18,7 @@ const AnimatedPolygon = <T extends string>({
   center,
   variables,
   variableAngles,
+  config,
   mapValueToDomain,
 }: AnimatedPolygonProps<T>) => {
   const path = Skia.Path.Make();
@@ -83,15 +84,16 @@ const AnimatedPolygon = <T extends string>({
         path={interpolatedPolygonPath}
         style="fill"
         color={values.color}
-        opacity={0.3}
+        opacity={config.fillOpacity}
         strokeWidth={0}
       />
       <Path
         path={interpolatedPolygonPath}
         style="stroke"
         color={values.color}
-        opacity={0.6}
-        strokeWidth={3}
+        opacity={config.outlineOpacity}
+        strokeWidth={config.lineWidth}
+        strokeJoin="round"
       />
     </Group>
   );
