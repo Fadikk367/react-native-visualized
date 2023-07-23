@@ -36,6 +36,7 @@ const RadarChart = () => {
         labelsPadding={labelsPadding}
         legend={{ height: 30, width: width, gap: 0, position: 'bottom' }}
         font={LatoRegular}
+        fontSize={12}
       />
       <View style={styles.setting}>
         <View style={styles.row}>

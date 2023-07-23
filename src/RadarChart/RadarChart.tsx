@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Group, Line, useFont } from '@shopify/react-native-skia';
+import { useFont } from '@shopify/react-native-skia';
 
 import Legend from '../PieChart/Legend';
 import { defaultLegendConfig } from '../PieChart/Legend/constants';
@@ -10,6 +10,7 @@ import Translate from '../core/Translate';
 import { defaultPadding } from '../core/constants';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
 import AnimatedPolygon from './AnimatedPolygon';
+import Axes from './Axes';
 import GridLines from './GridLines';
 import TickLabels from './TicksLabels';
 import VariableLabels from './VariableLabels';
@@ -29,6 +30,7 @@ const RadarChart = <T extends string>({
   font: fontSource,
   legend: customLegendConfig,
   gridLines: gridLinesConfig = {},
+  axes: axesConfig = {},
   fontSize = 14,
 }: RadarChartProps<T>) => {
   const padding = ensureDefaults(customPadding, defaultPadding);
@@ -59,22 +61,6 @@ const RadarChart = <T extends string>({
     }),
   ) as Record<T, number>;
 
-  const variablesAxes = variables.map(variable => {
-    const variableAngle = variableAngles[variable];
-    return (
-      <Group
-        key={variable}
-        transform={[{ rotate: variableAngle }]}
-        origin={center}>
-        <Line
-          p1={center}
-          p2={{ x: center.x + radius, y: center.y }}
-          strokeWidth={1}
-        />
-      </Group>
-    );
-  });
-
   const polygons = data.map((values, i) => (
     <AnimatedPolygon
       key={i}
@@ -103,7 +89,15 @@ const RadarChart = <T extends string>({
             mapValueToDomain={mapValueToDomain}
           />
         )}
-        {variablesAxes}
+        {axesConfig && (
+          <Axes
+            variables={variables}
+            variableAngles={variableAngles}
+            center={center}
+            radius={radius}
+            config={axesConfig}
+          />
+        )}
         {polygons}
         <TickLabels
           ticks={ticks}

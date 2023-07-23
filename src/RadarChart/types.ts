@@ -11,7 +11,8 @@ export interface RadarChartProps<T extends string> extends ChartBaseProps {
   labelsOrientation?: 'radial' | 'horizontal';
   legend?: LegendConfig;
   labelsPadding?: number;
-  gridLines?: Partial<GridLinesConfig> | null;
+  gridLines?: Partial<LineConfig> | null;
+  axes?: Partial<LineConfig> | null;
 }
 
 export interface AnimatedPolygonProps<T extends string> {
@@ -22,12 +23,20 @@ export interface AnimatedPolygonProps<T extends string> {
   mapValueToDomain(v: number): number;
 }
 
+export interface AxesProps<T extends string> {
+  variables: T[];
+  variableAngles: Record<T, number>;
+  radius: number;
+  center: SkPoint;
+  config: Partial<LineConfig>;
+}
+
 export interface GridLinesProps<T extends string> {
   variables: T[];
   variableAngles: Record<T, number>;
   ticks: number[];
   center: SkPoint;
-  config: Partial<GridLinesConfig>;
+  config: Partial<LineConfig>;
   mapValueToDomain(v: number): number;
 }
 
@@ -39,7 +48,7 @@ export interface TicksLabelsProps {
   mapValueToDomain(v: number): number;
 }
 
-export interface GridLinesConfig {
+export interface LineConfig {
   color: string;
   lineWidth: number;
   opacity: number;
