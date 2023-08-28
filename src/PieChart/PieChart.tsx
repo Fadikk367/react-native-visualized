@@ -2,10 +2,9 @@ import React from 'react';
 
 import { Circle } from '@shopify/react-native-skia';
 
-import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate/';
-import { defaultPadding } from '../core/constants';
 import { ensureDefaults } from '../core/utils';
+import withPadding from '../core/withPadding';
 import CenterLabel from './CenterLabel';
 import Legend from './Legend';
 import { defaultLegendConfig } from './Legend/constants';
@@ -22,20 +21,17 @@ const PieChart = ({
   startAngle: customStartAngle = 0,
   cutoutRadius = 0,
   spacing = 0,
-  padding: customPadding,
   font,
   fontSize,
   backgroundColor = 'white',
   legend: customLegendConfig,
   centerLabel,
 }: PieChartProps) => {
-  const padding = ensureDefaults(customPadding, defaultPadding);
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
 
   const { pie, legend } = getPieChartLayout({
     width,
     height,
-    padding,
     legend: legendConfig,
   });
 
@@ -59,11 +55,7 @@ const PieChart = ({
   ));
 
   return (
-    <ChartContainer
-      width={width}
-      height={height}
-      padding={padding}
-      backgroundColor={backgroundColor}>
+    <>
       <Translate x={pie.position.x} y={pie.position.y}>
         {slices}
         {cutoutRadius ? (
@@ -105,8 +97,8 @@ const PieChart = ({
           fontSize={12}
         />
       </Translate>
-    </ChartContainer>
+    </>
   );
 };
 
-export default PieChart;
+export default withPadding(PieChart);

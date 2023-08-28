@@ -5,11 +5,10 @@ import { interpolateColor } from 'react-native-reanimated';
 
 import XAxis from '../core/Axes/XAxis';
 import YAxis from '../core/Axes/YAxis';
-import ChartContainer from '../core/ChartContainer';
 import Gridlines from '../core/Gridlines';
 import Translate from '../core/Translate';
-import { defaultPadding } from '../core/constants';
-import { ensureDefaults, getIsWithinDomain } from '../core/utils';
+import { getIsWithinDomain } from '../core/utils';
+import withPadding from '../core/withPadding';
 import ContinuousColorLegend from './Legend/ContinuousColorLegend';
 import Legend from './Legend/Legend';
 import Marker from './Marker';
@@ -27,7 +26,6 @@ const Scatter = <T extends ScatterPoint>({
   yTicks,
   data,
   font,
-  padding: customPadding,
   legend: legendsConfig,
   xAxis,
   yAxis,
@@ -35,17 +33,13 @@ const Scatter = <T extends ScatterPoint>({
   renderMarker: CustomMarker,
   gridlines: gridlinesConfig = gridlinesDefaults,
   showContinuousLegend = false,
-  backgroundColor,
 }: ScatterProps<T>) => {
-  const padding = ensureDefaults(customPadding, defaultPadding);
   const yAxisWidth = yAxis?.width || 30;
   const xAxisHeight = xAxis?.height || 30;
   const colorLegendWidth = showContinuousLegend ? 40 : 0;
   const legendHeight = legendsConfig ? legendsConfig.height || 30 : 0;
-  const contentWidth =
-    width - (padding.left + yAxisWidth + colorLegendWidth + padding.right);
-  const contentHeight =
-    height - (padding.top + legendHeight + xAxisHeight + padding.bottom);
+  const contentWidth = width - (yAxisWidth + colorLegendWidth);
+  const contentHeight = height - (legendHeight + xAxisHeight);
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
   const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
 
@@ -87,11 +81,7 @@ const Scatter = <T extends ScatterPoint>({
   });
 
   return (
-    <ChartContainer
-      width={width}
-      height={height}
-      padding={padding}
-      backgroundColor={backgroundColor}>
+    <>
       <Translate x={yAxisWidth}>
         {legendsConfig && (
           <Legend {...legendsConfig} width={contentWidth} font={font} />
@@ -143,8 +133,8 @@ const Scatter = <T extends ScatterPoint>({
           )}
         </Translate>
       </Translate>
-    </ChartContainer>
+    </>
   );
 };
 
-export default Scatter;
+export default withPadding(Scatter);

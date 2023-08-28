@@ -4,7 +4,7 @@ import type {
   SkRect,
 } from '@shopify/react-native-skia';
 
-import type { ChartBaseProps, ChartPadding } from '../types';
+import type { ChartBaseProps } from '../types';
 import type { LegendConfig } from './Legend/types';
 
 export interface PieChartPiece {
@@ -60,7 +60,6 @@ export interface CenterLabelProps {
 export type GetPieChartLayoutParams = {
   width: number;
   height: number;
-  padding: ChartPadding;
   legend: Required<LegendConfig>;
 };
 

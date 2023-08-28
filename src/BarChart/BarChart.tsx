@@ -2,10 +2,9 @@ import React from 'react';
 
 import { Group, Line, SkPoint } from '@shopify/react-native-skia';
 
-import { ensureDefaults, getIsWithinDomain } from '../core//utils';
+import { getIsWithinDomain } from '../core//utils';
 import YAxis from '../core/Axes/YAxis';
-import ChartContainer from '../core/ChartContainer/ChartContainer';
-import { defaultPadding } from '../core/constants';
+import withPadding from '../core/withPadding';
 import AnimatedBar from './AnimatedBar';
 import Bar from './Bar';
 import BarLabel from './BarLabel';
@@ -21,8 +20,6 @@ const BarChart = ({
   animated = false,
   barRatio = 0.9,
   showLines = false,
-  padding: customPadding,
-  backgroundColor,
   font,
   fontSize = 18,
   barColor,
@@ -31,14 +28,12 @@ const BarChart = ({
   renderBar,
 }: BarChartProps) => {
   const yAxisWidth = yAxis?.width || 40;
-  const padding = ensureDefaults(customPadding, defaultPadding);
-  const chartContentWidth = width - yAxisWidth - padding.right - padding.left;
+  const chartContentWidth = width - yAxisWidth;
   const barSpace = chartContentWidth / data.length;
   // TODO: when y domain is missing / set to auto determine based on data extremums
   const yDomainSize = yDomain[1] - yDomain[0];
   const labelsBarHeight = 30;
-  const chartContentHeight =
-    height - labelsBarHeight - padding.top - padding.bottom;
+  const chartContentHeight = height - labelsBarHeight;
 
   const yTicksWithinDomain = yTicks.filter(getIsWithinDomain(yDomain));
 
@@ -103,11 +98,7 @@ const BarChart = ({
   });
 
   return (
-    <ChartContainer
-      width={width}
-      height={height}
-      backgroundColor={backgroundColor}
-      padding={padding}>
+    <>
       <YAxis
         ticks={yTicksWithinDomain}
         width={yAxisWidth}
@@ -143,8 +134,8 @@ const BarChart = ({
         ]}>
         {barLabels}
       </Group>
-    </ChartContainer>
+    </>
   );
 };
 
-export default BarChart;
+export default withPadding(BarChart);
