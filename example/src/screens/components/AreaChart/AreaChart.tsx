@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Switch, Text, View } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
 import Slider from '@react-native-community/slider';
 import { Chart, utils } from 'react-native-visualized';
@@ -12,6 +19,8 @@ import { datasetA, datasetB, datasetC, datasetD } from './data';
 const { AreaChart } = Chart;
 
 const AreaChartScreen = () => {
+  const { width } = useWindowDimensions();
+
   const [normalized, setNormalized] = useState(false);
   const [stacked, setStacked] = useState(true);
   const [opacity, setOpacity] = useState(1);
@@ -25,7 +34,7 @@ const AreaChartScreen = () => {
   return (
     <ScreenContainer>
       <AreaChart
-        width={394}
+        width={width}
         height={320}
         xDomain={[0, 4]}
         yDomain={[0, 10]}

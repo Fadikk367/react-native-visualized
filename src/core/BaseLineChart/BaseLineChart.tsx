@@ -4,11 +4,10 @@ import { Group, SkPoint, rect } from '@shopify/react-native-skia';
 
 import XAxis from '../Axes/XAxis';
 import YAxis from '../Axes/YAxis';
-import ChartContainer from '../ChartContainer';
 import Gridlines from '../Gridlines';
 import Translate from '../Translate/Translate';
-import { defaultPadding } from '../constants';
-import { ensureDefaults, getIsWithinDomain } from '../utils';
+import { getIsWithinDomain } from '../utils';
+import withPadding from '../withPadding';
 import type { BaseLineChartProps } from './types';
 
 const BaseLineChart = <T,>({
@@ -18,8 +17,6 @@ const BaseLineChart = <T,>({
   yDomain,
   xTicks,
   yTicks,
-  padding: customPadding,
-  backgroundColor,
   font,
   gridlines: gridlinesConfig,
   xAxis,
@@ -27,11 +24,10 @@ const BaseLineChart = <T,>({
   data,
   renderPath,
 }: BaseLineChartProps<T>) => {
-  const padding = ensureDefaults(customPadding, defaultPadding);
   const xAxisHeight = xAxis?.height || 30;
   const yAxisWidth = yAxis?.width || 30;
-  const contentWidth = width - (padding.left + yAxisWidth + padding.right);
-  const contentHeight = height - (padding.top + xAxisHeight + padding.bottom);
+  const contentWidth = width - yAxisWidth;
+  const contentHeight = height - xAxisHeight;
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
   const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
 
@@ -50,11 +46,7 @@ const BaseLineChart = <T,>({
   );
 
   return (
-    <ChartContainer
-      width={width}
-      height={height}
-      backgroundColor={backgroundColor}
-      padding={padding}>
+    <>
       <Translate x={yAxisWidth}>
         <Gridlines
           {...gridlinesConfig}
@@ -84,8 +76,8 @@ const BaseLineChart = <T,>({
           mapDomainToCanvas={mapDomainToCanvas}
         />
       </Translate>
-    </ChartContainer>
+    </>
   );
 };
 
-export default BaseLineChart;
+export default withPadding(BaseLineChart);

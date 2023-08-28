@@ -3,6 +3,10 @@ import type { SkFont, SkPoint } from '@shopify/react-native-skia';
 import type { LegendConfig } from '../PieChart/Legend/types';
 import type { ChartBaseProps } from '../types';
 
+export type RadarChartType = <T extends string>(
+  props: RadarChartProps<T>,
+) => React.ReactElement;
+
 export interface RadarChartProps<T extends string> extends ChartBaseProps {
   data: (Record<T, number> & { color: string; label: string })[];
   ticks: number[];

@@ -5,17 +5,16 @@ import { useFont } from '@shopify/react-native-skia';
 import Legend from '../PieChart/Legend';
 import { defaultLegendConfig } from '../PieChart/Legend/constants';
 import { getPieChartLayout } from '../PieChart/utils';
-import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate';
-import { defaultPadding } from '../core/constants';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
+import withPadding from '../core/withPadding';
 import AnimatedPolygon from './AnimatedPolygon';
 import Axes from './Axes';
 import GridLines from './GridLines';
 import TickLabels from './TicksLabels';
 import VariableLabels from './VariableLabels';
 import { defaultPolygonsConfig } from './constants';
-import type { RadarChartProps } from './types';
+import type { RadarChartProps, RadarChartType } from './types';
 
 const RadarChart = <T extends string>({
   data,
@@ -23,11 +22,9 @@ const RadarChart = <T extends string>({
   width,
   domain,
   ticks,
-  padding: customPadding,
   variables,
   labelsOrientation,
   labelsPadding = 40,
-  backgroundColor,
   font: fontSource,
   legend: customLegendConfig,
   gridLines: gridLinesConfig = {},
@@ -35,7 +32,6 @@ const RadarChart = <T extends string>({
   polygons: customPolygonsConfig = {},
   fontSize = 14,
 }: RadarChartProps<T>) => {
-  const padding = ensureDefaults(customPadding, defaultPadding);
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
   const polygonsConfig = ensureDefaults(
     customPolygonsConfig,
@@ -51,7 +47,6 @@ const RadarChart = <T extends string>({
   } = getPieChartLayout({
     width,
     height,
-    padding,
     legend: legendConfig,
   });
   const radius = totalRadius - labelsPadding;
@@ -81,11 +76,7 @@ const RadarChart = <T extends string>({
   ));
 
   return (
-    <ChartContainer
-      width={width}
-      height={height}
-      padding={padding}
-      backgroundColor={backgroundColor}>
+    <>
       <Translate x={position.x} y={position.y}>
         {gridLinesConfig && (
           <GridLines
@@ -134,8 +125,9 @@ const RadarChart = <T extends string>({
           fontSize={12}
         />
       </Translate>
-    </ChartContainer>
+    </>
   );
 };
 
-export default RadarChart;
+// FIXME: Find a better way to type withPadding so it does not loose generic chart type
+export default withPadding(RadarChart) as RadarChartType;

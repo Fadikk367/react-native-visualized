@@ -5,10 +5,9 @@ import { Group } from '@shopify/react-native-skia';
 import Legend from '../PieChart/Legend';
 import { defaultLegendConfig } from '../PieChart/Legend/constants';
 import { getPieChartLayout } from '../PieChart/utils';
-import ChartContainer from '../core/ChartContainer';
 import Translate from '../core/Translate/Translate';
-import { defaultPadding } from '../core/constants';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
+import withPadding from '../core/withPadding';
 import CenterLabel from './CenterLabel';
 import Ring from './Ring';
 import type { ProgressRingProps } from './types';
@@ -16,8 +15,6 @@ import type { ProgressRingProps } from './types';
 const ProgressRing = ({
   width,
   height,
-  padding: customPadding,
-  backgroundColor,
   data,
   ringsSpacing = 6,
   startAngle = 0,
@@ -26,7 +23,6 @@ const ProgressRing = ({
   centerLabel,
   font,
 }: ProgressRingProps) => {
-  const padding = ensureDefaults(customPadding, defaultPadding);
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
 
   const {
@@ -35,7 +31,6 @@ const ProgressRing = ({
   } = getPieChartLayout({
     width,
     height,
-    padding,
     legend: legendConfig,
   });
 
@@ -52,11 +47,7 @@ const ProgressRing = ({
   ));
 
   return (
-    <ChartContainer
-      width={width}
-      height={height}
-      padding={padding}
-      backgroundColor={backgroundColor}>
+    <>
       <Translate x={position.x} y={position.y}>
         <Group
           origin={center}
@@ -78,8 +69,8 @@ const ProgressRing = ({
           fontSize={12}
         />
       </Translate>
-    </ChartContainer>
+    </>
   );
 };
 
-export default ProgressRing;
+export default withPadding(ProgressRing);

@@ -7,14 +7,12 @@ import type {
 export const getPieChartLayout: GetPieChartLayout = ({
   width,
   height,
-  padding,
   legend,
 }) => {
   // Content means space for chart itself, excluding extra elements like legend
   const { contentWidth, contentHeight } = getContentDimensions({
     width,
     height,
-    padding,
     legend,
   });
 
@@ -88,20 +86,16 @@ export const getDataWithAngles: GetDataWithAngles = (
 const getContentDimensions: GetContentDimensions = ({
   width,
   height,
-  padding,
   legend,
 }) => {
   const isHorizontalLayout =
     legend.position === 'left' || legend.position === 'right';
 
-  const totalHorizontalPadding = padding.left + padding.right;
-  const totalVerticalPadding = padding.top + padding.bottom;
-
   const legendWidth = isHorizontalLayout ? legend.width + legend.gap : 0;
   const legendHeight = isHorizontalLayout ? 0 : legend.height + legend.gap;
 
-  const contentWidth = width - (totalHorizontalPadding + legendWidth);
-  const contentHeight = height - (totalVerticalPadding + legendHeight);
+  const contentWidth = width - legendWidth;
+  const contentHeight = height - legendHeight;
 
   return { contentWidth, contentHeight };
 };
