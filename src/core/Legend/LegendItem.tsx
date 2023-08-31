@@ -15,7 +15,7 @@ const LegendItem = ({
   marker,
   font,
   fontSize,
-  textColor,
+  fontColor,
 }: LegendItemProps) => {
   const { height: markerHeight, width: markerWidth } =
     getMarkerDimensions(marker);
@@ -36,7 +36,7 @@ const LegendItem = ({
           y={height / 2 + fontSize / 3}
           text={label}
           font={font}
-          color={textColor}
+          color={fontColor}
         />
       )}
     </Translate>

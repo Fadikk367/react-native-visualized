@@ -16,7 +16,7 @@ const Legend = ({
   marker,
   font: fontSource,
   fontSize = 12,
-  textColor = 'black',
+  fontColor = 'black',
 }: LegendProps) => {
   const font = useFont(fontSource, fontSize);
   const orientation = getOrientation(position);
@@ -38,7 +38,7 @@ const Legend = ({
       label={label}
       font={font}
       fontSize={fontSize}
-      textColor={textColor}
+      fontColor={fontColor}
     />
   ));
 

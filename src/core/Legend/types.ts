@@ -5,14 +5,11 @@ export interface LegendItem {
   label: string;
 }
 
-export interface LegendProps extends Omit<LegendConfig, 'gap'> {
+export interface LegendProps extends Omit<LegendConfig, 'gap' | 'items'> {
   width: number;
   height: number;
   items: LegendItem[];
-  marker?: LegendMarker;
   font: DataSourceParam;
-  fontSize?: number;
-  textColor?: string;
 }
 
 export interface LegendItemProps extends LegendItem {
@@ -23,15 +20,18 @@ export interface LegendItemProps extends LegendItem {
   marker: Required<LegendMarker>;
   font: SkFont | null;
   fontSize: number;
-  textColor: string;
+  fontColor: string;
 }
 
 export interface LegendConfig {
   width: number;
   height: number;
   position?: LegendPosition;
+  marker?: LegendMarker;
+  items?: LegendItem[];
   gap?: number;
-  textColor?: string;
+  fontColor?: string;
+  fontSize?: number;
 }
 
 export type LegendPosition = 'left' | 'right' | 'top' | 'bottom';

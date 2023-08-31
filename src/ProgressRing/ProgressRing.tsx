@@ -61,12 +61,10 @@ const ProgressRing = ({
       )}
       <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
+          {...legendConfig}
           items={data}
-          height={legendConfig.height}
-          width={legendConfig.width}
-          position={legendConfig.position}
+          marker={customLegendConfig?.marker}
           font={font}
-          fontSize={12}
         />
       </Translate>
     </>

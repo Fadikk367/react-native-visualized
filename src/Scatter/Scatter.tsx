@@ -7,8 +7,9 @@ import XAxis from '../core/Axes/XAxis';
 import YAxis from '../core/Axes/YAxis';
 import Gridlines from '../core/Gridlines';
 import Legend from '../core/Legend';
+import { defaultLegendConfig } from '../core/Legend/constants';
 import Translate from '../core/Translate';
-import { getIsWithinDomain } from '../core/utils';
+import { ensureDefaults, getIsWithinDomain } from '../core/utils';
 import withPadding from '../core/withPadding';
 import ContinuousColorLegend from './Legend/ContinuousColorLegend';
 import Marker from './Marker';
@@ -26,7 +27,7 @@ const Scatter = <T extends ScatterPoint>({
   yTicks,
   data,
   font,
-  legend: legendsConfig,
+  legend: customLegendConfig,
   xAxis,
   yAxis,
   marker: markerConfig,
@@ -34,12 +35,12 @@ const Scatter = <T extends ScatterPoint>({
   gridlines: gridlinesConfig = gridlinesDefaults,
   showContinuousLegend = false,
 }: ScatterProps<T>) => {
+  const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
   const yAxisWidth = yAxis?.width || 30;
   const xAxisHeight = xAxis?.height || 30;
   const colorLegendWidth = showContinuousLegend ? 40 : 0;
-  const legendHeight = legendsConfig ? legendsConfig.height || 30 : 0;
   const contentWidth = width - (yAxisWidth + colorLegendWidth);
-  const contentHeight = height - (legendHeight + xAxisHeight);
+  const contentHeight = height - (legendConfig.height + xAxisHeight);
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
   const xDomainSize = Math.abs(xDomain[1] - xDomain[0]);
 
@@ -83,11 +84,11 @@ const Scatter = <T extends ScatterPoint>({
   return (
     <>
       <Translate x={yAxisWidth}>
-        {legendsConfig && (
-          <Legend {...legendsConfig} width={contentWidth} font={font} />
+        {customLegendConfig && (
+          <Legend {...legendConfig} width={contentWidth} font={font} />
         )}
       </Translate>
-      <Translate y={legendHeight}>
+      <Translate y={legendConfig.height}>
         <YAxis
           ticks={yTicksWithinDomain}
           width={yAxisWidth}

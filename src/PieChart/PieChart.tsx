@@ -89,16 +89,16 @@ const PieChart = ({
       </Translate>
       <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
+          {...legendConfig}
           items={data}
-          height={legendConfig.height}
-          width={legendConfig.width}
-          position={legendConfig.position}
+          marker={customLegendConfig?.marker}
           font={font}
-          fontSize={12}
         />
       </Translate>
     </>
   );
 };
 
-export default withPadding(PieChart);
+export default withPadding(PieChart) as (
+  props: PieChartProps,
+) => React.ReactElement;
