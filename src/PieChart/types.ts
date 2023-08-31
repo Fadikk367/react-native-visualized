@@ -4,8 +4,8 @@ import type {
   SkRect,
 } from '@shopify/react-native-skia';
 
+import type { LegendConfig } from '../core/Legend/types';
 import type { ChartBaseProps } from '../types';
-import type { LegendConfig } from './Legend/types';
 
 export interface PieChartPiece {
   label: string;

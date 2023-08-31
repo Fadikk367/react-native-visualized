@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Circle } from '@shopify/react-native-skia';
 
+import Legend from '../core/Legend';
+import { defaultLegendConfig } from '../core/Legend/constants';
 import Translate from '../core/Translate/';
 import { ensureDefaults } from '../core/utils';
 import withPadding from '../core/withPadding';
 import CenterLabel from './CenterLabel';
-import Legend from './Legend';
-import { defaultLegendConfig } from './Legend/constants';
 import PieSlice from './PieSlice';
 import SliceLabels from './SliceLabels';
 import SliceSpaces from './SliceSpaces';

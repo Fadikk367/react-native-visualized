@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Circle, Text } from '@shopify/react-native-skia';
 
-import Translate from '../../core/Translate';
+import Translate from '../Translate';
 import type { LegendItemProps } from './types';
 
 const LegendItem = ({
