@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Circle, Text } from '@shopify/react-native-skia';
+import { RoundedRect, Text } from '@shopify/react-native-skia';
 
 import Translate from '../Translate';
 import type { LegendItemProps } from './types';
+import { getMarkerDimensions } from './utils';
 
 const LegendItem = ({
   label,
@@ -11,27 +12,31 @@ const LegendItem = ({
   x = 0,
   y = 0,
   height,
+  marker,
   font,
   fontSize,
+  textColor,
 }: LegendItemProps) => {
-  const circleRadius = 7;
-
-  if (!font) return null;
+  const { height: markerHeight, width: markerWidth } =
+    getMarkerDimensions(marker);
 
   return (
     <Translate key={label} x={x} y={y}>
-      <Circle
-        cx={circleRadius}
-        cy={height / 2}
-        r={circleRadius}
+      <RoundedRect
+        x={0}
+        y={(height - markerHeight) / 2}
+        r={marker.radius}
+        width={markerWidth}
+        height={markerHeight}
         color={color}
       />
       {font && (
         <Text
-          x={circleRadius + 15}
+          x={markerWidth + 10}
           y={height / 2 + fontSize / 3}
           text={label}
           font={font}
+          color={textColor}
         />
       )}
     </Translate>
