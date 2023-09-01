@@ -35,7 +35,7 @@ export interface LegendConfig {
 
 export type LegendPosition = 'left' | 'right' | 'top' | 'bottom';
 
-export type LegendMarker = { radius?: number } & (
+export type LegendMarker = { radius?: number; gap?: number } & (
   | { size?: number }
   | Dimensions
 );

@@ -33,7 +33,7 @@ const LegendItem = ({
       />
       {font && (
         <Text
-          x={markerWidth + 10}
+          x={markerWidth + marker.gap}
           y={height / 2 + fontSize / 3}
           text={label}
           font={font}

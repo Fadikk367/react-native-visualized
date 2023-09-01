@@ -51,7 +51,7 @@ const AreaChartScreen = () => {
           horizontal: true,
         }}
         legend={{
-          marker: { width: 30, height: 4, radius: 2 },
+          marker: { width: 30, height: 4, radius: 2, gap: 5 },
           position: 'top',
           height: 40,
           fontSize: 14,

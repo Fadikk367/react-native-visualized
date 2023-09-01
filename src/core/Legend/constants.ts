@@ -11,5 +11,6 @@ export const defaultLegendConfig: Required<Omit<LegendConfig, 'marker'>> = {
 
 export const defaultMarkerConfig: Required<LegendMarker> = {
   radius: 0,
+  gap: 10,
   size: 20,
 };
