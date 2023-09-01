@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
+import Switch from '@/components/Switch';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { dataset1, dataset2 } from './data';

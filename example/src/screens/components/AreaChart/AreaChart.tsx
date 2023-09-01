@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Button,
   StyleSheet,
-  Switch,
   Text,
   View,
   useWindowDimensions,
@@ -12,6 +11,7 @@ import Slider from '@react-native-community/slider';
 import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
+import Switch from '@/components/Switch';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { datasetA, datasetB, datasetC, datasetD } from './data';

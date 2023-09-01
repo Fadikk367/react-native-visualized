@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Button,
   StyleSheet,
-  Switch,
   Text,
   View,
   useWindowDimensions,
@@ -11,6 +10,7 @@ import {
 import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
+import Switch from '@/components/Switch';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 // TODO: Find a way to correctly set an alias like @/assets

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Button,
   StyleSheet,
-  Switch,
   Text,
   View,
   useWindowDimensions,
@@ -12,6 +11,7 @@ import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer/ScreenContainer';
+import Switch from '@/components/Switch';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { dataset } from './data';
@@ -35,6 +35,7 @@ const PieChart = () => {
   };
 
   const handleStartAngleChange = (v: number) => {
+    // console.log(v);
     setStartAngle(v);
   };
 
