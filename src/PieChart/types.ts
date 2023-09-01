@@ -60,7 +60,7 @@ export interface CenterLabelProps {
 export type GetPieChartLayoutParams = {
   width: number;
   height: number;
-  legend: Required<Omit<LegendConfig, 'marker'>>;
+  legend: Required<Omit<LegendConfig, 'marker' | 'layout'>>;
 };
 
 export type PieChartLayout = {

@@ -34,7 +34,15 @@ const RadarChart = () => {
         data={dataset!}
         labelsOrientation={labelsOrientation}
         labelsPadding={labelsPadding}
-        legend={{ height: 30, width: width, gap: 0, position: 'bottom' }}
+        legend={{
+          height: 60,
+          width: width,
+          gap: 0,
+          position: 'bottom',
+          padding: { left: 20 },
+          marker: { size: 20, radius: 4 },
+          layout: { rows: 2, columns: 3 },
+        }}
         font={LatoRegular}
         fontSize={12}
       />

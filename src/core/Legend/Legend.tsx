@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { Group, useFont } from '@shopify/react-native-skia';
+import { useFont } from '@shopify/react-native-skia';
 
-import { ensureDefaults } from '../utils';
+import Translate from '../Translate/Translate';
+import { applyPadding, ensureDefaults } from '../utils';
 import LegendItem from './LegendItem';
 import { defaultMarkerConfig } from './constants';
 import type { LegendProps } from './types';
-import { getLegendItemLayout, getOrientation } from './utils';
+import {
+  getDefaultLayoutForOrientation,
+  getLegendItemLayout,
+  getOrientation,
+} from './utils';
 
 const Legend = ({
   items = [],
@@ -14,22 +19,29 @@ const Legend = ({
   height,
   position = 'right',
   marker,
+  layout: gridLayout,
+  padding: customPadding,
   font: fontSource,
   fontSize = 12,
   fontColor = 'black',
 }: LegendProps) => {
   const font = useFont(fontSource, fontSize);
-  const orientation = getOrientation(position);
+  const layout = applyPadding(width, height, customPadding || {});
   const markerConfig = ensureDefaults(marker, defaultMarkerConfig);
+  const orientation = getOrientation(position);
+  const { rows, columns } =
+    gridLayout || getDefaultLayoutForOrientation(items.length, orientation);
 
   const getItemLayoutByIndex = getLegendItemLayout({
-    width,
-    height,
+    width: layout.width,
+    height: layout.height,
     itemsCount: items.length,
     orientation,
+    rows,
+    columns,
   });
 
-  const itemsElementsVertical = items.map(({ color, label }, i) => (
+  const itemsElements = items.map(({ color, label }, i) => (
     <LegendItem
       key={label}
       {...getItemLayoutByIndex(i)}
@@ -42,7 +54,11 @@ const Legend = ({
     />
   ));
 
-  return <Group>{itemsElementsVertical}</Group>;
+  return (
+    <Translate x={layout.x} y={layout.y}>
+      {itemsElements}
+    </Translate>
+  );
 };
 
 export default Legend;

@@ -1,6 +1,7 @@
 import type {
   Dimensions,
   GetLegendItemLayout,
+  GridLayout,
   LegendPosition,
   Orientation,
 } from './types';
@@ -10,14 +11,17 @@ export const getLegendItemLayout: GetLegendItemLayout = ({
   height,
   itemsCount,
   orientation,
+  rows,
+  columns,
 }) => {
   const horizontalLayoutGetter = (index: number) => {
-    const itemSize = width / itemsCount;
+    const itemWidth = width / columns;
+    const itemHeight = height / rows;
     return {
-      x: index * itemSize,
-      y: 0,
-      height,
-      width: itemSize,
+      x: (index % columns) * itemWidth,
+      y: Math.floor(index / columns) * itemHeight,
+      height: itemHeight,
+      width: itemWidth,
     };
   };
 
@@ -48,4 +52,13 @@ export const getMarkerDimensions = (
   return 'height' in rectangular
     ? rectangular
     : { height: rectangular.size, width: rectangular.size };
+};
+
+export const getDefaultLayoutForOrientation = (
+  itemsCount: number,
+  orientation: Orientation,
+): GridLayout => {
+  return orientation === 'horizontal'
+    ? { rows: 1, columns: itemsCount }
+    : { rows: itemsCount, columns: 1 };
 };

@@ -22,7 +22,7 @@ const LegendItem = ({
     getMarkerDimensions(marker);
 
   return (
-    <Translate key={label} x={x} y={y}>
+    <Translate x={x} y={y}>
       <RoundedRect
         x={0}
         y={(height - markerHeight) / 2}

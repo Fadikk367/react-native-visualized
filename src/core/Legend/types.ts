@@ -1,5 +1,7 @@
 import type { DataSourceParam, SkFont } from '@shopify/react-native-skia';
 
+import type { Padding } from '../../types';
+
 export interface LegendItem {
   color: string;
   label: string;
@@ -28,6 +30,8 @@ export interface LegendConfig {
   height: number;
   position?: LegendPosition;
   marker?: LegendMarker;
+  layout?: GridLayout;
+  padding?: Partial<Padding>;
   gap?: number;
   fontColor?: string;
   fontSize?: number;
@@ -45,6 +49,8 @@ interface GetLegendItemLayoutParams {
   height: number;
   itemsCount: number;
   orientation: Orientation;
+  rows: number;
+  columns: number;
 }
 
 export type Orientation = 'horizontal' | 'vertical';
@@ -63,4 +69,9 @@ export type GetLegendItemLayout = (
 export interface Dimensions {
   width: number;
   height: number;
+}
+
+export interface GridLayout {
+  rows: number;
+  columns: number;
 }

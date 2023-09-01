@@ -1,3 +1,8 @@
+import type { SkRect } from '@shopify/react-native-skia';
+
+import type { Padding } from '../types';
+import { defaultPadding } from './constants';
+
 export function ensureDefaults<T extends Record<string, number | string | any>>(
   obj: T | undefined,
   defaults: Required<T>,
@@ -28,4 +33,19 @@ export const degreesToRadians = (degrees: number): number => {
 
 export const radiansToDegrees = (radians: number): number => {
   return (radians * 180) / Math.PI;
+};
+
+export const applyPadding = (
+  width: number,
+  height: number,
+  customPadding: Partial<Padding>,
+): SkRect => {
+  const padding = { ...defaultPadding, ...customPadding };
+
+  return {
+    x: padding.left,
+    y: padding.top,
+    width: width - (padding.left + padding.right),
+    height: height - (padding.top + padding.bottom),
+  };
 };

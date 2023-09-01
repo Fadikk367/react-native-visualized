@@ -1,6 +1,6 @@
 import type { DataSourceParam } from '@shopify/react-native-skia';
 
-export interface ChartPadding {
+export interface Padding {
   top: number;
   right: number;
   bottom: number;
@@ -9,7 +9,7 @@ export interface ChartPadding {
 export interface ChartBaseProps {
   width: number;
   height: number;
-  padding?: Partial<ChartPadding>;
+  padding?: Partial<Padding>;
   backgroundColor?: string;
   font: DataSourceParam;
   fontSize?: number;

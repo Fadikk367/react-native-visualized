@@ -1,12 +1,16 @@
+import { defaultPadding } from '../constants';
 import type { LegendConfig, LegendMarker } from './types';
 
-export const defaultLegendConfig: Required<Omit<LegendConfig, 'marker'>> = {
+export const defaultLegendConfig: Required<
+  Omit<LegendConfig, 'marker' | 'layout'>
+> = {
   gap: 0,
   position: 'right',
   width: 0,
   height: 0,
   fontColor: 'black',
   fontSize: 12,
+  padding: defaultPadding,
 };
 
 export const defaultMarkerConfig: Required<LegendMarker> = {

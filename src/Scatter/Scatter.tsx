@@ -35,6 +35,8 @@ const Scatter = <T extends ScatterPoint>({
   gridlines: gridlinesConfig = gridlinesDefaults,
   showContinuousLegend = false,
 }: ScatterProps<T>) => {
+  // FIXME: Fix when working on simple layout engine - at this point we should not care about the marker
+  // @ts-expect-error
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
   const yAxisWidth = yAxis?.width || 30;
   const xAxisHeight = xAxis?.height || 30;
