@@ -3,6 +3,7 @@
   "compilerOptions": {
     // Avoid expo-cli auto-generating a tsconfig
     "baseUrl": ".",
+    "ignoreDeprecations": "5.0",
     "paths": {
       "react-native-visualized": ["../src/index"],
       "@/*": ["src/*"]

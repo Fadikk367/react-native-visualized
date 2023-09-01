@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Path } from '@shopify/react-native-skia';
+import { Group, Path } from '@shopify/react-native-skia';
 
 import { buildPath } from '../LineChart/utils';
 import AreaFill from './AreaFill';
@@ -19,7 +19,7 @@ const Area = ({
   const linePath = stroke ? buildPath(points, mapDomainToCanvas) : null;
 
   return (
-    <React.Fragment key={`${label}/${stacked}/${normalized}`}>
+    <Group key={`${label}/${stacked}/${normalized}`}>
       <Path
         path={path}
         color={color}
@@ -40,7 +40,7 @@ const Area = ({
           strokeJoin="round"
         />
       )}
-    </React.Fragment>
+    </Group>
   );
 };
 

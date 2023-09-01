@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import { BottomTabs } from './navigation';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <BottomTabs />
-    </View>
+    <GestureHandlerRootView style={styles.container}>
+      <View style={styles.container}>
+        <BottomTabs />
+      </View>
+    </GestureHandlerRootView>
   );
 }
 
