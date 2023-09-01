@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
 import {
+  Group,
   Path,
   SkPath,
   Skia,
@@ -67,7 +68,7 @@ export const AnimatedArea = ({
   }, [state, transition]);
 
   return (
-    <React.Fragment key={`${label}/${stacked}/${normalized}`}>
+    <Group key={`${label}/${stacked}/${normalized}`}>
       <Path
         path={interpolatedArea}
         color={color}
@@ -88,7 +89,7 @@ export const AnimatedArea = ({
           strokeJoin="round"
         />
       )}
-    </React.Fragment>
+    </Group>
   );
 };
 

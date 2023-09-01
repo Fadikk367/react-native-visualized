@@ -108,6 +108,4 @@ const PieChart = ({
   );
 };
 
-export default withPadding(PieChart) as (
-  props: PieChartProps,
-) => React.ReactElement;
+export default withPadding(PieChart) as (props: PieChartProps) => JSX.Element;
