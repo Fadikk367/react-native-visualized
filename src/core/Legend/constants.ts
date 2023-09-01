@@ -7,7 +7,6 @@ export const defaultLegendConfig: Required<Omit<LegendConfig, 'marker'>> = {
   height: 0,
   fontColor: 'black',
   fontSize: 12,
-  items: [],
 };
 
 export const defaultMarkerConfig: Required<LegendMarker> = {

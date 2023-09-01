@@ -35,15 +35,25 @@ const LineChartScreen = () => {
         xTicks={xLabels}
         yTicks={yLabels}
         data={[
-          { id: 'seriesA', points: dataset1, color: 'red', strokeWidth: 3 },
-          { id: 'seriesB', points: dataset2, color: 'blue', strokeWidth: 5 },
+          { label: 'Data A', points: dataset1, color: 'red', strokeWidth: 3 },
+          {
+            label: 'Data B',
+            points: dataset2,
+            color: 'blue',
+            strokeWidth: 5,
+          },
         ]}
-        padding={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        padding={{ top: 10, bottom: 10, left: 15, right: 20 }}
         gridlines={{
           horizontal: horizontalLinesShown,
           vertical: verticalLinesShown,
           lineWidth: 1,
           opacity: 0.2,
+        }}
+        legend={{
+          marker: { width: 30, height: 4, radius: 2 },
+          position: 'top',
+          height: 40,
         }}
         xAxis={{
           arrow: showArrows

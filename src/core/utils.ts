@@ -4,7 +4,7 @@ export function ensureDefaults<T extends Record<string, number | string | any>>(
 ): Required<T> {
   if (!obj) return { ...defaults };
 
-  let result: Partial<T> = {};
+  let result: Partial<T> = { ...obj };
   for (const key in defaults) {
     result[key] = obj[key] === undefined ? defaults[key] : obj[key];
   }

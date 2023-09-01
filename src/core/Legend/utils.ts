@@ -45,7 +45,7 @@ export const getOrientation = (position: LegendPosition): Orientation => {
 export const getMarkerDimensions = (
   rectangular: Dimensions | { size: number },
 ): Dimensions => {
-  return 'size' in rectangular
-    ? { height: rectangular.size, width: rectangular.size }
-    : rectangular;
+  return 'height' in rectangular
+    ? rectangular
+    : { height: rectangular.size, width: rectangular.size };
 };

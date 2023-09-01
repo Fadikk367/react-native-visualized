@@ -47,6 +47,10 @@ const ScatterScreen = () => {
     fontSize: 12,
     height: 30,
     position: 'top',
+    marker: {
+      size: 16,
+      radius: 8,
+    },
     items: [
       { color: 'yellow', label: 'series A' },
       { color: 'blue', label: 'series B' },

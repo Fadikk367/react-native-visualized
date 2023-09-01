@@ -4,6 +4,13 @@ import type { ChartBaseProps } from '../../types';
 import type { XAxisConfig, YAxisConfig } from '../Axes/types';
 import type { ArrowConfig } from '../AxisArrow/types';
 import type { GridlinesConfig } from '../Gridlines/types';
+import type { LegendConfig } from '../Legend/types';
+
+interface LineChartLegendConfig
+  extends Omit<LegendConfig, 'position' | 'width'> {
+  position: 'top' | 'bottom';
+  width?: number;
+}
 
 export interface BaseLineChartProps<T> extends ChartBaseProps {
   yDomain: [number, number];
@@ -16,6 +23,7 @@ export interface BaseLineChartProps<T> extends ChartBaseProps {
   renderPath: RenderPath<T>;
   xAxis?: XAxisConfig;
   yAxis?: YAxisConfig;
+  legend?: LineChartLegendConfig;
 }
 
 export type RenderPath<T> = (

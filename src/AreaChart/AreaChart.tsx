@@ -33,7 +33,7 @@ const AreaChart = ({
   ) => {
     return (
       <AreaComponent
-        key={`${areaData.id}/${stacked}/${animated}`}
+        key={`${areaData.label}/${stacked}/${animated}`}
         data={{
           opacity: opacity,
           stroke: stroke,

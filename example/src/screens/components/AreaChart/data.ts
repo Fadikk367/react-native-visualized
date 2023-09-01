@@ -71,21 +71,21 @@ const data9 = [
 ];
 
 export const datasetA = [
-  { id: 'seriesA', points: data1, color: '#d75454' },
-  { id: 'seriesB', points: data2, color: '#67a0d8' },
-  { id: 'seriesC', points: data3, color: '#e0e359' },
+  { label: 'seriesA', points: data1, color: '#d75454' },
+  { label: 'seriesB', points: data2, color: '#67a0d8' },
+  { label: 'seriesC', points: data3, color: '#e0e359' },
 ];
 
 export const datasetB = [
-  { id: 'seriesA', points: data4, color: '#d75454' },
-  { id: 'seriesB', points: data5, color: '#67a0d8' },
-  { id: 'seriesC', points: data6, color: '#e0e359' },
+  { label: 'seriesA', points: data4, color: '#d75454' },
+  { label: 'seriesB', points: data5, color: '#67a0d8' },
+  { label: 'seriesC', points: data6, color: '#e0e359' },
 ];
 
 export const datasetC = [
-  { id: 'seriesA', points: data7, color: '#d75454' },
-  { id: 'seriesB', points: data8, color: '#67a0d8' },
-  { id: 'seriesC', points: data9, color: '#e0e359' },
+  { label: 'seriesA', points: data7, color: '#d75454' },
+  { label: 'seriesB', points: data8, color: '#67a0d8' },
+  { label: 'seriesC', points: data9, color: '#e0e359' },
 ];
 
 const gradient1 = {
@@ -107,7 +107,7 @@ const gradient3 = {
 };
 
 export const datasetD = [
-  { id: 'seriesA', points: data1, color: 'blue', fill: gradient1 },
-  { id: 'seriesB', points: data4, color: 'yellow', fill: gradient2 },
-  { id: 'seriesC', points: data7, color: 'red', fill: gradient3 },
+  { label: 'seriesA', points: data1, color: 'blue', fill: gradient1 },
+  { label: 'seriesB', points: data4, color: 'yellow', fill: gradient2 },
+  { label: 'seriesC', points: data7, color: 'red', fill: gradient3 },
 ];

@@ -3,6 +3,7 @@ import React from 'react';
 import { RoundedRect, Text } from '@shopify/react-native-skia';
 
 import Translate from '../Translate';
+import { defaultMarkerConfig } from './constants';
 import type { LegendItemProps } from './types';
 import { getMarkerDimensions } from './utils';
 
@@ -12,7 +13,7 @@ const LegendItem = ({
   x = 0,
   y = 0,
   height,
-  marker,
+  marker = defaultMarkerConfig,
   font,
   fontSize,
   fontColor,

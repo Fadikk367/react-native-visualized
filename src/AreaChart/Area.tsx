@@ -14,12 +14,12 @@ const Area = ({
   stacked,
   mapDomainToCanvas,
 }: AreaProps) => {
-  const { id, points, color, fill, opacity = 1, stroke = 0 } = data;
+  const { label, points, color, fill, opacity = 1, stroke = 0 } = data;
   const path = buildAreaPath(points, yDomain, mapDomainToCanvas);
   const linePath = stroke ? buildPath(points, mapDomainToCanvas) : null;
 
   return (
-    <React.Fragment key={`${id}/${stacked}/${normalized}`}>
+    <React.Fragment key={`${label}/${stacked}/${normalized}`}>
       <Path
         path={path}
         color={color}

@@ -5,7 +5,7 @@ export interface LegendItem {
   label: string;
 }
 
-export interface LegendProps extends Omit<LegendConfig, 'gap' | 'items'> {
+export interface LegendProps extends Omit<LegendConfig, 'gap'> {
   width: number;
   height: number;
   items: LegendItem[];
@@ -28,7 +28,6 @@ export interface LegendConfig {
   height: number;
   position?: LegendPosition;
   marker?: LegendMarker;
-  items?: LegendItem[];
   gap?: number;
   fontColor?: string;
   fontSize?: number;

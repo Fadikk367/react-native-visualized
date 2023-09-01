@@ -1,9 +1,9 @@
 import type { BaseLineChartProps } from '../core/BaseLineChart/types';
 
 export interface LineData {
-  id: string;
+  label: string;
   points: { x: number; y: number }[];
-  color?: string;
+  color: string;
   strokeWidth?: number;
 }
 

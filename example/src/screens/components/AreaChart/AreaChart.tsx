@@ -46,9 +46,15 @@ const AreaChartScreen = () => {
         opacity={opacity}
         stroke={stroke}
         animated={animated}
-        padding={{ top: 20, bottom: 0, left: 20, right: 20 }}
+        padding={{ top: 10, bottom: 0, left: 20, right: 20 }}
         gridlines={{
           horizontal: true,
+        }}
+        legend={{
+          marker: { width: 30, height: 4, radius: 2 },
+          position: 'top',
+          height: 40,
+          fontSize: 14,
         }}
         xAxis={{
           style: {
