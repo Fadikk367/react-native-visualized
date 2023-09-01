@@ -54,6 +54,15 @@ const PieChart = ({
     />
   ));
 
+  const legendItems = data.map(({ label, color, value }) => ({
+    label,
+    color,
+    extras: {
+      total,
+      value,
+    },
+  }));
+
   return (
     <>
       <Translate x={pie.position.x} y={pie.position.y}>
@@ -90,7 +99,7 @@ const PieChart = ({
       <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
           {...legendConfig}
-          items={data}
+          items={legendItems}
           marker={customLegendConfig?.marker}
           font={font}
         />

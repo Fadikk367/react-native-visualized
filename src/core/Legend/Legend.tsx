@@ -13,7 +13,7 @@ import {
   getOrientation,
 } from './utils';
 
-const Legend = ({
+const Legend = <T,>({
   items = [],
   width,
   height,
@@ -24,7 +24,8 @@ const Legend = ({
   font: fontSource,
   fontSize = 12,
   fontColor = 'black',
-}: LegendProps) => {
+  formatLabel,
+}: LegendProps<T>) => {
   const font = useFont(fontSource, fontSize);
   const layout = applyPadding(width, height, customPadding || {});
   const markerConfig = ensureDefaults(marker, defaultMarkerConfig);
@@ -41,13 +42,13 @@ const Legend = ({
     columns,
   });
 
-  const itemsElements = items.map(({ color, label }, i) => (
+  const itemsElements = items.map(({ color, label, extras }, i) => (
     <LegendItem
       key={label}
       {...getItemLayoutByIndex(i)}
       color={color}
       marker={markerConfig}
-      label={label}
+      label={formatLabel?.(label, extras!) || label}
       font={font}
       fontSize={fontSize}
       fontColor={fontColor}

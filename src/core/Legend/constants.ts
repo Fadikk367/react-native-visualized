@@ -2,7 +2,7 @@ import { defaultPadding } from '../constants';
 import type { LegendConfig, LegendMarker } from './types';
 
 export const defaultLegendConfig: Required<
-  Omit<LegendConfig, 'marker' | 'layout'>
+  Omit<LegendConfig, 'marker' | 'layout' | 'formatLabel'>
 > = {
   gap: 0,
   position: 'right',

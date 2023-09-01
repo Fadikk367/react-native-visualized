@@ -7,10 +7,11 @@ export interface LegendItem {
   label: string;
 }
 
-export interface LegendProps extends Omit<LegendConfig, 'gap'> {
+export interface LegendProps<T = undefined>
+  extends Omit<LegendConfig<T>, 'gap'> {
   width: number;
   height: number;
-  items: LegendItem[];
+  items: (LegendItem & { extras?: T })[];
   font: DataSourceParam;
 }
 
@@ -25,16 +26,18 @@ export interface LegendItemProps extends LegendItem {
   fontColor: string;
 }
 
-export interface LegendConfig {
+export interface LegendConfig<T = undefined> {
   width: number;
   height: number;
   position?: LegendPosition;
   marker?: LegendMarker;
+  /** For now only works for 'top' | 'bottom' positions */
   layout?: GridLayout;
   padding?: Partial<Padding>;
   gap?: number;
   fontColor?: string;
   fontSize?: number;
+  formatLabel?(label: string, extras: T): string;
 }
 
 export type LegendPosition = 'left' | 'right' | 'top' | 'bottom';
