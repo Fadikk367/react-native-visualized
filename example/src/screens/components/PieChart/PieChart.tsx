@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Button,
   StyleSheet,
@@ -11,6 +11,7 @@ import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer/ScreenContainer';
+import MySlider from '@/components/Slider';
 import Switch from '@/components/Switch';
 
 import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
@@ -26,18 +27,17 @@ const PieChart = () => {
   const [legendPosition, setLegendPosition] = useState<LegendPosition>('right');
   const { width } = useWindowDimensions();
 
-  const handleCutoutRadiusChange = (v: number) => {
+  const handleCutoutRadiusChange = useCallback((v: number) => {
     setCutoutRadius(v);
-  };
+  }, []);
 
-  const handleSpacingChange = (v: number) => {
+  const handleSpacingChange = useCallback((v: number) => {
     setSpacing(v);
-  };
+  }, []);
 
-  const handleStartAngleChange = (v: number) => {
-    // console.log(v);
+  const handleStartAngleChange = useCallback((v: number) => {
     setStartAngle(v);
-  };
+  }, []);
 
   const total = dataset.reduce((acc, { value }) => acc + value, 0);
 
@@ -90,6 +90,13 @@ const PieChart = () => {
           step={2}
           onValueChange={handleCutoutRadiusChange}
         />
+        {/* <MySlider
+          defaultValue={cutoutRadius}
+          min={0}
+          max={100}
+          step={2}
+          onValueChange={handleCutoutRadiusChange}
+        /> */}
       </View>
       <View style={styles.spacer} />
       <View style={styles.setting}>
@@ -97,10 +104,17 @@ const PieChart = () => {
           <Text style={styles.label}>Slices spacing:</Text>
           <Text style={styles.value}>{spacing}</Text>
         </View>
-        <Slider
+        {/* <Slider
           value={spacing}
           minimumValue={0}
           maximumValue={20}
+          step={1}
+          onValueChange={handleSpacingChange}
+        /> */}
+        <MySlider
+          defaultValue={spacing}
+          min={0}
+          max={20}
           step={1}
           onValueChange={handleSpacingChange}
         />
@@ -111,11 +125,18 @@ const PieChart = () => {
           <Text style={styles.label}>Start angle:</Text>
           <Text style={styles.value}>{startAngle}</Text>
         </View>
-        <Slider
+        {/* <Slider
           value={startAngle}
           minimumValue={0}
           maximumValue={360}
           step={5}
+          onValueChange={handleStartAngleChange}
+        /> */}
+        <MySlider
+          defaultValue={startAngle}
+          min={0}
+          max={360}
+          step={10}
           onValueChange={handleStartAngleChange}
         />
       </View>
