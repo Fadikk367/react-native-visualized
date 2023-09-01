@@ -42,18 +42,21 @@ const Legend = <T,>({
     columns,
   });
 
-  const itemsElements = items.map(({ color, label, extras }, i) => (
-    <LegendItem
-      key={label}
-      {...getItemLayoutByIndex(i)}
-      color={color}
-      marker={markerConfig}
-      label={formatLabel?.(label, extras!) || label}
-      font={font}
-      fontSize={fontSize}
-      fontColor={fontColor}
-    />
-  ));
+  const itemsElements = items.map(({ color, label, extras }, i) => {
+    const formattedLabel = formatLabel?.(label, extras!) || label;
+    return (
+      <LegendItem
+        key={formattedLabel}
+        {...getItemLayoutByIndex(i)}
+        color={color}
+        marker={markerConfig}
+        label={formattedLabel}
+        font={font}
+        fontSize={fontSize}
+        fontColor={fontColor}
+      />
+    );
+  });
 
   return (
     <Translate x={layout.x} y={layout.y}>
