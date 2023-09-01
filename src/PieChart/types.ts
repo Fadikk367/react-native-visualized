@@ -4,8 +4,8 @@ import type {
   SkRect,
 } from '@shopify/react-native-skia';
 
+import type { LegendConfig } from '../core/Legend/types';
 import type { ChartBaseProps } from '../types';
-import type { LegendConfig } from './Legend/types';
 
 export interface PieChartPiece {
   label: string;
@@ -18,7 +18,7 @@ export interface PieChartProps extends ChartBaseProps {
   startAngle?: number;
   cutoutRadius?: number;
   spacing?: number;
-  legend?: LegendConfig;
+  legend?: LegendConfig<{ value: number; total: number }>;
   centerLabel?: Omit<CenterLabelProps, 'center' | 'font'>;
 }
 
@@ -60,7 +60,7 @@ export interface CenterLabelProps {
 export type GetPieChartLayoutParams = {
   width: number;
   height: number;
-  legend: Required<LegendConfig>;
+  legend: Required<Omit<LegendConfig, 'marker' | 'layout' | 'formatLabel'>>;
 };
 
 export type PieChartLayout = {

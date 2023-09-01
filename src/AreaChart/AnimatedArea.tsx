@@ -15,7 +15,7 @@ import type { AreaProps } from './types';
 import { buildAreaPath } from './utils';
 
 export const AnimatedArea = ({
-  data: { id, points, color, fill, opacity = 1, stroke },
+  data: { label, points, color, fill, opacity = 1, stroke },
   yDomain,
   stacked = false,
   normalized = false,
@@ -67,7 +67,7 @@ export const AnimatedArea = ({
   }, [state, transition]);
 
   return (
-    <React.Fragment key={`${id}/${stacked}/${normalized}`}>
+    <React.Fragment key={`${label}/${stacked}/${normalized}`}>
       <Path
         path={interpolatedArea}
         color={color}

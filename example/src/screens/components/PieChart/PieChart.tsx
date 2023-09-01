@@ -59,6 +59,8 @@ const PieChart = () => {
     ...legendSizeByPosition[legendPosition],
     gap: 10,
     position: legendPosition,
+    marker: { size: 24, radius: 5 },
+    fontSize: 12,
   };
 
   return (

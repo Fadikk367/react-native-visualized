@@ -2,8 +2,8 @@ import type { SkPoint } from '@shopify/react-native-skia';
 
 import type { XAxisConfig, YAxisConfig } from '../core/Axes/types';
 import type { GridlinesConfig } from '../core/Gridlines/types';
+import type { LegendProps } from '../core/Legend/types';
 import type { ChartBaseProps } from '../types';
-import type { LegendConfig } from './Legend/types';
 import type { MarkerConfig } from './Marker/types';
 
 export interface ScatterPoint {
@@ -25,7 +25,7 @@ export interface ScatterProps<T extends ScatterPoint> extends ChartBaseProps {
   xTicks: number[];
   yTicks: number[];
   data: T[];
-  legend?: LegendConfig;
+  legend?: LegendProps;
   xAxis?: XAxisConfig;
   yAxis?: YAxisConfig;
   marker?: MarkerConfig;

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Group } from '@shopify/react-native-skia';
 
-import Legend from '../PieChart/Legend';
-import { defaultLegendConfig } from '../PieChart/Legend/constants';
 import { getPieChartLayout } from '../PieChart/utils';
+import Legend from '../core/Legend';
+import { defaultLegendConfig } from '../core/Legend/constants';
 import Translate from '../core/Translate/Translate';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
 import withPadding from '../core/withPadding';
@@ -61,12 +61,10 @@ const ProgressRing = ({
       )}
       <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
+          {...legendConfig}
           items={data}
-          height={legendConfig.height}
-          width={legendConfig.width}
-          position={legendConfig.position}
+          marker={customLegendConfig?.marker}
           font={font}
-          fontSize={12}
         />
       </Translate>
     </>

@@ -4,7 +4,7 @@ import type {
   SkRect,
 } from '@shopify/react-native-skia';
 
-import type { LegendConfig } from '../PieChart/Legend/types';
+import type { LegendConfig } from '../core/Legend/types';
 import type { ChartBaseProps } from '../types';
 
 export interface RingData {

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useFont } from '@shopify/react-native-skia';
 
-import Legend from '../PieChart/Legend';
-import { defaultLegendConfig } from '../PieChart/Legend/constants';
 import { getPieChartLayout } from '../PieChart/utils';
+import Legend from '../core/Legend';
+import { defaultLegendConfig } from '../core/Legend/constants';
 import Translate from '../core/Translate';
 import { degreesToRadians, ensureDefaults } from '../core/utils';
 import withPadding from '../core/withPadding';
@@ -117,12 +117,10 @@ const RadarChart = <T extends string>({
       </Translate>
       <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
+          {...legendConfig}
           items={data}
-          height={legendConfig.height}
-          width={legendConfig.width}
-          position={legendConfig.position}
+          marker={customLegendConfig?.marker}
           font={fontSource}
-          fontSize={12}
         />
       </Translate>
     </>

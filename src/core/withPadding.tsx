@@ -5,7 +5,7 @@ import { Canvas } from '@shopify/react-native-skia';
 import type { ChartBaseProps } from '../types';
 import Translate from './Translate/Translate';
 import { defaultPadding } from './constants';
-import { ensureDefaults } from './utils';
+import { applyPadding, ensureDefaults } from './utils';
 
 function withPadding<T extends ChartBaseProps>(Chart: React.FC<T>) {
   return <U,>({
@@ -17,10 +17,7 @@ function withPadding<T extends ChartBaseProps>(Chart: React.FC<T>) {
   }: // @ts-ignore
   T<U>) => {
     const padding = ensureDefaults(customPadding, defaultPadding);
-    const horizontalPadding = padding.left + padding.right;
-    const verticalPadding = padding.top + padding.bottom;
-    const contentWidth = width - horizontalPadding;
-    const contentHeight = height - verticalPadding;
+    const layout = applyPadding(width, height, padding);
 
     // TODO: Make use of it when clip prop will be introduced
     // const clipRect = rect(
@@ -32,11 +29,11 @@ function withPadding<T extends ChartBaseProps>(Chart: React.FC<T>) {
 
     return (
       <Canvas style={{ width, height, backgroundColor }}>
-        <Translate x={padding.left} y={padding.top}>
+        <Translate x={layout.x} y={layout.y}>
           <Chart
             {...chartProps}
-            width={contentWidth}
-            height={contentHeight}
+            width={layout.width}
+            height={layout.height}
             padding={padding}
           />
         </Translate>

@@ -10,7 +10,7 @@ export interface GradientConfig {
 }
 
 export interface AreaData {
-  id: string;
+  label: string;
   points: { x: number; y: number }[];
   color: string;
   fill?: string | GradientConfig;

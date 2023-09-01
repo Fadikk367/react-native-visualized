@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Circle } from '@shopify/react-native-skia';
 
+import Legend from '../core/Legend';
+import { defaultLegendConfig } from '../core/Legend/constants';
 import Translate from '../core/Translate/';
 import { ensureDefaults } from '../core/utils';
 import withPadding from '../core/withPadding';
 import CenterLabel from './CenterLabel';
-import Legend from './Legend';
-import { defaultLegendConfig } from './Legend/constants';
 import PieSlice from './PieSlice';
 import SliceLabels from './SliceLabels';
 import SliceSpaces from './SliceSpaces';
@@ -54,6 +54,15 @@ const PieChart = ({
     />
   ));
 
+  const legendItems = data.map(({ label, color, value }) => ({
+    label,
+    color,
+    extras: {
+      total,
+      value,
+    },
+  }));
+
   return (
     <>
       <Translate x={pie.position.x} y={pie.position.y}>
@@ -89,16 +98,16 @@ const PieChart = ({
       </Translate>
       <Translate x={legend.position.x} y={legend.position.y}>
         <Legend
-          items={data}
-          height={legendConfig.height}
-          width={legendConfig.width}
-          position={legendConfig.position}
+          {...legendConfig}
+          items={legendItems}
+          marker={customLegendConfig?.marker}
           font={font}
-          fontSize={12}
         />
       </Translate>
     </>
   );
 };
 
-export default withPadding(PieChart);
+export default withPadding(PieChart) as (
+  props: PieChartProps,
+) => React.ReactElement;

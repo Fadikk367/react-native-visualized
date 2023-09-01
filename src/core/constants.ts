@@ -1,6 +1,6 @@
-import type { ChartPadding } from '../types';
+import type { Padding } from '../types';
 
-export const defaultPadding: Readonly<ChartPadding> = {
+export const defaultPadding: Readonly<Padding> = {
   top: 0,
   right: 0,
   bottom: 0,
