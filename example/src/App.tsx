@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { BottomTabs } from './navigation';
@@ -8,9 +9,11 @@ import { BottomTabs } from './navigation';
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <View style={styles.container}>
-        <BottomTabs />
-      </View>
+      <BottomSheetModalProvider>
+        <View style={styles.container}>
+          <BottomTabs />
+        </View>
+      </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }

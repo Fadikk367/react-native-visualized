@@ -9,6 +9,7 @@ import {
 
 import { Chart } from 'react-native-visualized';
 
+import ColorPicker from '@/components/ColorPicker';
 import ScreenContainer from '@/components/ScreenContainer';
 import Switch from '@/components/Switch';
 
@@ -22,6 +23,7 @@ const BarChart = () => {
   const [data, setData] = useState(dataset1);
   const [font, setFont] = useState(RobotoMono);
   const [isAnimated, setIsAnimated] = useState(false);
+  const [barColor, setBarColor] = useState('#2d74bf');
   const [isCustomComponent, setIsCustomComponent] = useState(false);
   const { width } = useWindowDimensions();
 
@@ -59,7 +61,7 @@ const BarChart = () => {
         fontSize={18}
         // bars config
         barRatio={0.8}
-        barColor="#2d74bf"
+        barColor={barColor}
         barRadius={7}
         yAxis={{
           showLine: false,
@@ -77,6 +79,11 @@ const BarChart = () => {
         <Text style={styles.animatedLabel}>Custom Bar component:</Text>
         <Switch value={isCustomComponent} onChange={toggleCustomComponent} />
       </View>
+      <ColorPicker
+        color={barColor}
+        label="Bar color"
+        onColorPicked={setBarColor}
+      />
     </ScreenContainer>
   );
 };

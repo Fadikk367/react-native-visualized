@@ -1688,6 +1688,21 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
+"@gorhom/bottom-sheet@^4":
+  version "4.4.7"
+  resolved "https://registry.yarnpkg.com/@gorhom/bottom-sheet/-/bottom-sheet-4.4.7.tgz#fc80b3f0b7ebab056ce226f3aa3a89b2db8660dd"
+  integrity sha512-ukTuTqDQi2heo68hAJsBpUQeEkdqP9REBcn47OpuvPKhdPuO1RBOOADjqXJNCnZZRcY+HqbnGPMSLFVc31zylQ==
+  dependencies:
+    "@gorhom/portal" "1.0.14"
+    invariant "^2.2.4"
+
+"@gorhom/portal@1.0.14":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@gorhom/portal/-/portal-1.0.14.tgz#1953edb76aaba80fb24021dc774550194a18e111"
+  integrity sha512-MXyL4xvCjmgaORr/rtryDNFy3kU4qUbKlwtQqqsygd0xX3mhKjOLn6mQK8wfu0RkoE0pBE0nAasRoHua+/QZ7A==
+  dependencies:
+    nanoid "^3.3.1"
+
 "@graphql-typed-document-node/core@^3.1.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.2.0.tgz#5f3d96ec6b2354ad6d8a28bf216a1d97b5426861"
@@ -6379,7 +6394,7 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nanoid@^3.1.23, nanoid@^3.3.4, nanoid@^3.3.6:
+nanoid@^3.1.23, nanoid@^3.3.1, nanoid@^3.3.4, nanoid@^3.3.6:
   version "3.3.6"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.6.tgz#443380c856d6e9f9824267d960b4236ad583ea4c"
   integrity sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==
@@ -7385,6 +7400,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-elevation@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-elevation/-/react-native-elevation-1.0.0.tgz#2a091c688290ac9b08b5842d1a8e8a00fc84233e"
+  integrity sha512-BWIKcEYtzjRV6GpkX0Km5/w2E7fgIcywiQOT7JZTc5NSbv/YI9kpFinB9lRFsOoRVGmiqq/O3VfP/oH2clIiBA==
+
 react-native-gesture-handler@~2.12.0:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.12.1.tgz#f11a99fb95169810c6886fad5efa01a17fd81660"
@@ -7432,6 +7452,13 @@ react-native-web@~0.19.6:
     nullthrows "^1.1.1"
     postcss-value-parser "^4.2.0"
     styleq "^0.1.3"
+
+react-native-wheel-color-picker@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-color-picker/-/react-native-wheel-color-picker-1.2.0.tgz#56ba38fc57411edececb0fb6a8f049e91160b015"
+  integrity sha512-j4IcN7so9dZAkXyrPTTaPqCKsjkGBZkd5F7HqLo0OTRB1EZX3Ww5VMKsKjloxv6Omv193wGOhwfG20ec2KnxJQ==
+  dependencies:
+    react-native-elevation "^1.0.0"
 
 react-native@0.72.3:
   version "0.72.3"
