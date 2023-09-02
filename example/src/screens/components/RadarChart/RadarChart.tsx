@@ -11,8 +11,8 @@ import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
+import { fonts } from '@/theme/fonts';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { datasets } from './data';
 
 const RadarChart = () => {
@@ -43,7 +43,7 @@ const RadarChart = () => {
           marker: { size: 20, radius: 4 },
           layout: { rows: 2, columns: 3 },
         }}
-        font={LatoRegular}
+        font={fonts.Lato}
         fontSize={12}
       />
       <View style={styles.setting}>

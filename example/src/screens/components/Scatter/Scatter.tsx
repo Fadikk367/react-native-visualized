@@ -5,8 +5,8 @@ import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 import Switch from '@/components/Switch';
+import { fonts } from '@/theme/fonts';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import CustomMarker from './CustomMarker';
 import { datasetA } from './data';
 
@@ -89,7 +89,7 @@ const ScatterScreen = () => {
         renderMarker={isCustomComponent ? CustomMarker : undefined}
         gridlines={showGridlines ? gridlinesConfig : null}
         showContinuousLegend={showContinuousLegend}
-        font={LatoRegular}
+        font={fonts.Lato}
       />
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Custom Bar component:</Text>

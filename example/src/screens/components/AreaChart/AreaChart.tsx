@@ -12,8 +12,8 @@ import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 import Switch from '@/components/Switch';
+import { fonts } from '@/theme/fonts';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { datasetA, datasetB, datasetC, datasetD } from './data';
 
 const { AreaChart } = Chart;
@@ -75,7 +75,7 @@ const AreaChartScreen = () => {
             },
           },
         }}
-        font={LatoRegular}
+        font={fonts.Lato}
       />
       <View style={[styles.setting, styles.row]}>
         <Text style={styles.switchLabel}>Animated:</Text>

@@ -5,8 +5,8 @@ import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 import Switch from '@/components/Switch';
+import { fonts } from '@/theme/fonts';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { dataset1, dataset2 } from './data';
 
 const { LineChart } = Chart;
@@ -76,7 +76,7 @@ const LineChartScreen = () => {
             },
           },
         }}
-        font={LatoRegular}
+        font={fonts.Lato}
       />
       <View style={styles.row}>
         <Text style={styles.switchLabel}>Show horizontal lines:</Text>

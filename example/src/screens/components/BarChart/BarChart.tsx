@@ -11,17 +11,23 @@ import { Chart } from 'react-native-visualized';
 
 import ColorPicker from '@/components/ColorPicker';
 import ScreenContainer from '@/components/ScreenContainer';
+import Select from '@/components/Select/Select';
 import Switch from '@/components/Switch';
+import { fonts } from '@/theme/fonts';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
-// TODO: Find a way to correctly set an alias like @/assets
-import RobotoMono from '../../../../assets/fonts/RobotoMono.ttf';
 import CustomBar from './CustomBar';
 import { dataset1, dataset2 } from './data';
 
 const BarChart = () => {
+  const fontOptions = [
+    { label: 'Roboto', value: fonts.RobotoMono },
+    { label: 'Lato', value: fonts.Lato },
+    { label: 'Poppins', value: fonts.Poppins },
+    { label: 'OpenSans', value: fonts.OpenSans },
+  ];
+
   const [data, setData] = useState(dataset1);
-  const [font, setFont] = useState(RobotoMono);
+  const [font, setFont] = useState(fontOptions[0]!);
   const [isAnimated, setIsAnimated] = useState(false);
   const [barColor, setBarColor] = useState('#2d74bf');
   const [isCustomComponent, setIsCustomComponent] = useState(false);
@@ -30,19 +36,6 @@ const BarChart = () => {
   const toggleData = () => {
     const newData = data === dataset1 ? dataset2 : dataset1;
     setData(newData);
-  };
-
-  const toggleFont = () => {
-    const newFont = font === RobotoMono ? LatoRegular : RobotoMono;
-    setFont(newFont);
-  };
-
-  const toggleAnimated = () => {
-    setIsAnimated(!isAnimated);
-  };
-
-  const toggleCustomComponent = () => {
-    setIsCustomComponent(!isCustomComponent);
   };
 
   return (
@@ -57,7 +50,7 @@ const BarChart = () => {
         yTicks={[-4, 0, 4, 8, 12, 16, 20]}
         showLines
         animated={isAnimated}
-        font={font}
+        font={font.value}
         fontSize={18}
         // bars config
         barRatio={0.8}
@@ -70,15 +63,20 @@ const BarChart = () => {
         renderBar={isCustomComponent ? CustomBar : undefined}
       />
       <Button title="Change dataset" onPress={toggleData} />
-      <Button title="Change font" onPress={toggleFont} />
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Animated:</Text>
-        <Switch value={isAnimated} onChange={toggleAnimated} />
+        <Switch value={isAnimated} onChange={setIsAnimated} />
       </View>
       <View style={styles.row}>
         <Text style={styles.animatedLabel}>Custom Bar component:</Text>
-        <Switch value={isCustomComponent} onChange={toggleCustomComponent} />
+        <Switch value={isCustomComponent} onChange={setIsCustomComponent} />
       </View>
+      <Select
+        label="Font"
+        value={font}
+        options={fontOptions}
+        onChange={value => setFont(value)}
+      />
       <ColorPicker
         color={barColor}
         label="Bar color"

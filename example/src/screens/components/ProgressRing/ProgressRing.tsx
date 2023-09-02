@@ -11,9 +11,11 @@ import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer/ScreenContainer';
+import MySlider from '@/components/Slider';
 import Switch from '@/components/Switch';
+import { fonts } from '@/theme/fonts';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
+import { throttle } from '../PieChart/PieChart';
 import { ringsA, ringsB, ringsC } from './data';
 
 const ProgressRing = () => {
@@ -55,7 +57,7 @@ const ProgressRing = () => {
         startAngle={startAngle}
         legend={legend}
         centerLabel={centerLabel}
-        font={LatoRegular}
+        font={fonts.Lato}
       />
       <View style={styles.setting}>
         <View style={styles.row}>
@@ -86,12 +88,19 @@ const ProgressRing = () => {
           <Text style={styles.label}>Rings spacing:</Text>
           <Text style={styles.value}>{spacing}</Text>
         </View>
-        <Slider
+        {/* <Slider
           value={spacing}
           minimumValue={0}
           maximumValue={20}
           step={1}
           onValueChange={v => setSpacing(v)}
+        /> */}
+        <MySlider
+          defaultValue={spacing}
+          min={0}
+          max={20}
+          step={1}
+          onValueChange={throttle(setSpacing, 10)[0]}
         />
       </View>
       <View style={styles.spacer} />
@@ -100,12 +109,19 @@ const ProgressRing = () => {
           <Text style={styles.label}>Start angle:</Text>
           <Text style={styles.value}>{startAngle}</Text>
         </View>
-        <Slider
+        {/* <Slider
           value={startAngle}
           minimumValue={0}
           maximumValue={360}
           step={5}
           onValueChange={v => setStartAngle(v)}
+        /> */}
+        <MySlider
+          defaultValue={spacing}
+          min={0}
+          max={360}
+          step={5}
+          onValueChange={throttle(setStartAngle, 20)[0]}
         />
       </View>
       <View style={[styles.setting, styles.row]}>

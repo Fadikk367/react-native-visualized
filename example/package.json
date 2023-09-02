@@ -17,6 +17,8 @@
     "@react-navigation/native-stack": "^6.9.13",
     "@shopify/react-native-skia": "0.1.196",
     "expo": "^49.0.0",
+    "expo-font": "~11.4.0",
+    "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
