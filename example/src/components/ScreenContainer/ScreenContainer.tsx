@@ -20,5 +20,6 @@ export default ScreenContainer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#e7e7e7',
   },
 });

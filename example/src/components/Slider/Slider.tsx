@@ -13,20 +13,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { THUMB_SIZES } from './constants';
-
-export interface SliderProps {
-  activeTrackColor?: string;
-  inactiveTrackColor?: string;
-  thumbColor?: string;
-  defaultValue?: number;
-  step?: number;
-  min?: number;
-  max?: number;
-  size?: keyof typeof THUMB_SIZES;
-  onSlidingComplete?(value: number): void;
-  onSlidingBegin?(value: number): void;
-  onValueChange?(value: number): void;
-}
+import type { SliderProps } from './types';
 
 const Slider = ({
   size = 'medium',
@@ -42,9 +29,11 @@ const Slider = ({
   onValueChange,
 }: SliderProps) => {
   const thumbSize = THUMB_SIZES[size];
-
-  const [trackWidth, setTrackWidth] = useState(0);
-  const progress = useSharedValue(defaultValue);
+  // FIXME: ensure that width is known at this point
+  const [trackWidth, setTrackWidth] = useState(300);
+  const progress = useSharedValue(
+    interpolate(defaultValue, [min, max], [0, trackWidth]),
+  );
   const thumbScale = useSharedValue(1);
 
   useAnimatedReaction(
@@ -71,7 +60,7 @@ const Slider = ({
     () =>
       Gesture.Pan()
         .onStart(({}) => {
-          thumbScale.value = withTiming(1.3, { duration: 200 });
+          thumbScale.value = withTiming(1.2, { duration: 200 });
           if (!onSlidingBegin) return;
 
           runOnJS(onSlidingBegin)(

@@ -1,13 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import WheelColorPicker from 'react-native-wheel-color-picker';
+import type { ColorPickerProps as WheelColorPickerProps } from 'react-native-wheel-color-picker';
 
 import { useBottomSheet } from '@/hooks/useBottomSheet';
 
-import type { ColorPickerProps } from './types';
+import Container from './Container';
+import Label from './Label';
+
+export interface ColorPickerProps extends WheelColorPickerProps {
+  label: string;
+  onColorPicked(color: string): void;
+}
 
 const ColorPicker = ({
   color,
@@ -18,11 +24,9 @@ const ColorPicker = ({
   const bottomSheet = useBottomSheet();
 
   return (
-    <TouchableOpacity onPress={bottomSheet.open}>
-      <View style={styles.row}>
-        <Text style={styles.label}>{label}</Text>
-        <View style={[styles.colorThumbnail, { backgroundColor: color }]} />
-      </View>
+    <Container onPress={bottomSheet.open}>
+      <Label>{label}</Label>
+      <View style={[styles.colorThumbnail, { backgroundColor: color }]} />
       <BottomSheetModal ref={bottomSheet.ref} snapPoints={[360]}>
         <View style={styles.container}>
           <WheelColorPicker
@@ -37,7 +41,7 @@ const ColorPicker = ({
           />
         </View>
       </BottomSheetModal>
-    </TouchableOpacity>
+    </Container>
   );
 };
 
@@ -49,19 +53,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     height: 320,
   },
-  row: {
-    padding: 20,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  label: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
   colorThumbnail: {
-    width: 36,
-    height: 36,
+    width: 24,
+    height: 24,
     borderRadius: 20,
   },
 });
