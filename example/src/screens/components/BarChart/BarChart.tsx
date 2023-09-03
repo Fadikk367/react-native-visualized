@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { Button, useWindowDimensions } from 'react-native';
 
-import { Chart } from 'react-native-visualized';
+import { Chart, utils } from 'react-native-visualized';
 
-import ColorPicker from '@/components/ColorPicker';
 import ScreenContainer from '@/components/ScreenContainer';
-import Select from '@/components/Select/Select';
-import Switch from '@/components/Switch';
+import Settings from '@/components/Settings';
 import { fonts } from '@/theme/fonts';
+import { throttle } from '@/utils/throttle';
 
 import CustomBar from './CustomBar';
 import { dataset1, dataset2 } from './data';
 
 const BarChart = () => {
   const fontOptions = [
-    { label: 'Roboto', value: fonts.RobotoMono },
+    { label: 'RobotoMono', value: fonts.RobotoMono },
     { label: 'Lato', value: fonts.Lato },
     { label: 'Poppins', value: fonts.Poppins },
     { label: 'OpenSans', value: fonts.OpenSans },
-  ];
+  ] as const;
+
+  const { width } = useWindowDimensions();
 
   const [data, setData] = useState(dataset1);
-  const [font, setFont] = useState(fontOptions[0]!);
+  const [font, setFont] = useState<(typeof fontOptions)[number]>(
+    fontOptions[0]!,
+  );
   const [isAnimated, setIsAnimated] = useState(false);
   const [barColor, setBarColor] = useState('#2d74bf');
   const [isCustomComponent, setIsCustomComponent] = useState(false);
-  const { width } = useWindowDimensions();
+  const [yTicksStep, setYTicksStep] = useState(4);
+  const [fontSize, setFontSize] = useState(18);
+  const [barRatio, setBarRatio] = useState(0.8);
+  const [barRadius, setBarRadius] = useState(7);
 
   const toggleData = () => {
     const newData = data === dataset1 ? dataset2 : dataset1;
@@ -47,55 +47,85 @@ const BarChart = () => {
         backgroundColor="#e6e6e6"
         data={data}
         yDomain={[-4, 20]}
-        yTicks={[-4, 0, 4, 8, 12, 16, 20]}
+        yTicks={utils.linspace(-4, 20, yTicksStep)}
         showLines
         animated={isAnimated}
         font={font.value}
-        fontSize={18}
+        fontSize={fontSize}
         // bars config
-        barRatio={0.8}
+        barRatio={barRatio}
         barColor={barColor}
-        barRadius={7}
+        barRadius={barRadius}
         yAxis={{
           showLine: false,
           showTicks: false,
+          style: {
+            labels: {
+              fontSize,
+            },
+          },
         }}
         renderBar={isCustomComponent ? CustomBar : undefined}
       />
       <Button title="Change dataset" onPress={toggleData} />
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Animated:</Text>
-        <Switch value={isAnimated} onChange={setIsAnimated} />
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Custom Bar component:</Text>
-        <Switch value={isCustomComponent} onChange={setIsCustomComponent} />
-      </View>
-      <Select
-        label="Font"
-        value={font}
-        options={fontOptions}
-        onChange={value => setFont(value)}
-      />
-      <ColorPicker
-        color={barColor}
-        label="Bar color"
-        onColorPicked={setBarColor}
-      />
+      <Settings.Group>
+        <Settings.Switch
+          label="Animated"
+          value={isAnimated}
+          onChange={setIsAnimated}
+        />
+        <Settings.Switch
+          label="Custom Bar component"
+          value={isCustomComponent}
+          onChange={setIsCustomComponent}
+        />
+        <Settings.Slider
+          label="Bar border radius"
+          min={0}
+          max={20}
+          step={1}
+          defaultValue={barRadius}
+          onValueChange={throttle(setBarRadius, 50)}
+        />
+        <Settings.Slider
+          label="Bar ratio"
+          min={0.1}
+          max={1}
+          step={0.05}
+          labelPrecision={2}
+          defaultValue={barRatio}
+          onValueChange={throttle(setBarRatio, 50)}
+        />
+        <Settings.Slider
+          label="Y Axis ticks step"
+          min={1}
+          max={10}
+          step={1}
+          defaultValue={yTicksStep}
+          onValueChange={throttle(setYTicksStep, 50)}
+        />
+        <Settings.Slider
+          label="Font size"
+          min={10}
+          max={24}
+          step={2}
+          defaultValue={fontSize}
+          onValueChange={throttle(setFontSize, 50)}
+        />
+        <Settings.ColorPicker
+          color={barColor}
+          label="Bar color"
+          onColorPicked={setBarColor}
+        />
+        <Settings.FontSelect
+          label="Font"
+          value={font}
+          options={fontOptions}
+          onChange={value => setFont(value)}
+        />
+      </Settings.Group>
     </ScreenContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    padding: 20,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  animatedLabel: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-});
 
 export default BarChart;
