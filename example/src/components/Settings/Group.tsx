@@ -1,22 +1,34 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface GroupProps {
+  title?: string;
   children: React.ReactNode;
 }
 
-const Group = ({ children }: GroupProps) => {
-  return <View style={styles.container}>{children}</View>;
+const Group = ({ title, children }: GroupProps) => {
+  return (
+    <View style={styles.container}>
+      {title && <Text style={styles.title}>{title}</Text>}
+      <View style={styles.content}>{children}</View>
+    </View>
+  );
 };
 
 export default Group;
 
 const styles = StyleSheet.create({
-  container: {
+  container: {},
+  content: {
     rowGap: 2,
     borderRadius: 24,
     overflow: 'hidden',
-    marginHorizontal: 10,
-    marginVertical: 20,
+  },
+  title: {
+    fontWeight: '700',
+    fontSize: 14,
+    textTransform: 'uppercase',
+    paddingHorizontal: 20,
+    paddingBottom: 4,
   },
 });
