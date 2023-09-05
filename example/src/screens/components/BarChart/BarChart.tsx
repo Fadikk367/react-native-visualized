@@ -5,19 +5,14 @@ import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 import Settings from '@/components/Settings';
-import { fonts } from '@/theme/fonts';
+import { getFontOptions } from '@/theme/fonts';
 import { throttle } from '@/utils/throttle';
 
 import CustomBar from './CustomBar';
 import { dataset1, dataset2 } from './data';
 
 const BarChart = () => {
-  const fontOptions = [
-    { label: 'RobotoMono', value: fonts.RobotoMono },
-    { label: 'Lato', value: fonts.Lato },
-    { label: 'Poppins', value: fonts.Poppins },
-    { label: 'OpenSans', value: fonts.OpenSans },
-  ] as const;
+  const fontOptions = getFontOptions();
 
   const { width } = useWindowDimensions();
 

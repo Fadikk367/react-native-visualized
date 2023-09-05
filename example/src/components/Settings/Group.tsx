@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 14,
     textTransform: 'uppercase',
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
     paddingBottom: 4,
   },
 });
