@@ -5,6 +5,7 @@ import Select from './Select';
 import Slider from './Slider';
 import Stack from './Stack';
 import Switch from './Switch';
+import ToggleGroup from './ToggleGroup';
 
 export default {
   ColorPicker,
@@ -14,4 +15,5 @@ export default {
   Slider,
   Stack,
   Switch,
+  ToggleGroup,
 };
