@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
-import { Button, useWindowDimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
 import Settings from '@/components/Settings';
+import SlidingSelect from '@/components/SlidingSelect';
 import { getFontOptions } from '@/theme/fonts';
 import { throttle } from '@/utils/throttle';
 
 import CustomBar from './CustomBar';
-import { dataset1, dataset2 } from './data';
+import { datasetsWeekly } from './data';
+
+const datasetOptions = [
+  { label: 'Week 1', value: datasetsWeekly[0]! },
+  { label: 'Week 2', value: datasetsWeekly[1]! },
+  { label: 'Week 3', value: datasetsWeekly[2]! },
+];
 
 const BarChart = () => {
   const fontOptions = getFontOptions();
 
   const { width } = useWindowDimensions();
 
-  const [data, setData] = useState(dataset1);
+  const [data, setData] = useState(datasetOptions[0]!);
   const [font, setFont] = useState<(typeof fontOptions)[number]>(
     fontOptions[3]!,
   );
@@ -30,11 +37,6 @@ const BarChart = () => {
   const [showTicks, setShowTicks] = useState(false);
   const [showYAxisLine, setShowYAxisLine] = useState(false);
 
-  const toggleData = () => {
-    const newData = data === dataset1 ? dataset2 : dataset1;
-    setData(newData);
-  };
-
   return (
     <ScreenContainer>
       <Chart.Bar
@@ -42,7 +44,7 @@ const BarChart = () => {
         height={420}
         padding={{ top: 20, right: 20, bottom: 10 }}
         backgroundColor="#fff"
-        data={data}
+        data={data.value}
         yDomain={[-4, 20]}
         yTicks={utils.linspace(-4, 20, yTicksStep)}
         showLines
@@ -64,8 +66,13 @@ const BarChart = () => {
         }}
         renderBar={isCustomComponent ? CustomBar : undefined}
       />
-      <Button title="Change dataset" onPress={toggleData} />
       <Settings.Stack>
+        <SlidingSelect
+          value={data}
+          options={datasetOptions}
+          width={width - 20}
+          onChange={setData}
+        />
         <Settings.Group title="General">
           <Settings.Switch
             label="Animated"
