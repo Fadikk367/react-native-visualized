@@ -1,13 +1,7 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Animated, {
-  interpolateColor,
-  useAnimatedStyle,
-  useDerivedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import type { OptionItemProps } from './types';
 
@@ -18,16 +12,17 @@ const OptionItem = ({
   height,
   onPress,
 }: OptionItemProps) => {
-  const transition = useDerivedValue(() =>
-    withTiming(Number(isActive), { duration: 300 }),
-  );
+  // FIXME: Examine slow text color animations on Android, even fast phones
+  // const transition = useDerivedValue(() =>
+  //   withTiming(Number(isActive), { duration: 300 }),
+  // );
 
-  const textStyles = useAnimatedStyle(() => ({
-    color: interpolateColor(transition.value, [0, 1], ['#000', '#fff']),
-  }));
+  // const textStyles = useAnimatedStyle(() => ({
+  //   color: interpolateColor(transition.value, [0, 1], ['#000', '#fff']),
+  // }));
 
   return (
-    <TouchableOpacity
+    <TouchableWithoutFeedback
       onPress={onPress}
       containerStyle={[
         styles.container,
@@ -36,8 +31,15 @@ const OptionItem = ({
           height,
         },
       ]}>
-      <Animated.Text style={[styles.label, textStyles]}>{label}</Animated.Text>
-    </TouchableOpacity>
+      <Text
+        style={[
+          styles.label,
+          // textStyles,
+          { color: isActive ? 'white' : 'black' },
+        ]}>
+        {label}
+      </Text>
+    </TouchableWithoutFeedback>
   );
 };
 

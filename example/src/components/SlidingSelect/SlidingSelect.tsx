@@ -55,11 +55,14 @@ const SlidingSelect = <T,>({
       />
       {options.map((option, i) => (
         <OptionItem
+          key={option.label}
           label={option.label}
           itemSize={itemSize}
           height={height}
           isActive={i === selectedOptionIndex}
-          onPress={() => onChange(option)}
+          onPress={() => {
+            if (selectedOption.value !== option.value) onChange(option);
+          }}
         />
       ))}
     </View>
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
   selectIndicator: {
     position: 'absolute',
     height: ITEM_HEIGHT,
-    backgroundColor: '#955b5b',
+    backgroundColor: '#4b7853',
     borderRadius: 12,
   },
 });
