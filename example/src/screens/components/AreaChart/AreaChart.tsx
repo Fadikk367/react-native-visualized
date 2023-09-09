@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
-import Slider from '@react-native-community/slider';
 import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
-import Switch from '@/components/Switch';
+import Settings from '@/components/Settings';
+import SlidingSelect from '@/components/SlidingSelect/SlidingSelect';
 import { fonts } from '@/theme/fonts';
+import { throttle } from '@/utils/throttle';
 
-import { datasetA, datasetB, datasetC, datasetD } from './data';
+import { datasetA, datasetB, datasetC } from './data';
 
 const { AreaChart } = Chart;
 
@@ -26,10 +21,17 @@ const AreaChartScreen = () => {
   const [opacity, setOpacity] = useState(1);
   const [stroke, setStroke] = useState(0);
   const [animated, setAnimated] = useState(true);
-  const [data, setData] = useState(datasetA);
+  const [showLegend, setShowLegend] = useState(true);
+  const [axesStrokeWidth, setAxesStrokeWidth] = useState(1);
+  const [axesColor, setAxesColor] = useState('#000000');
+  const [showAxesTicks, setShowAxesTicks] = useState(true);
+  const [data, setData] = useState({ label: 'Data A', value: datasetA });
+  const [legendFontSize, setLegendFontSize] = useState(14);
 
   const xLabels = utils.linspace(0, 4, 1);
   const yLabels = utils.linspace(0, 10, 2);
+
+  console.log('x', data.label);
 
   return (
     <ScreenContainer>
@@ -42,7 +44,7 @@ const AreaChartScreen = () => {
         yTicks={yLabels}
         stacked={stacked}
         normalized={normalized}
-        data={data}
+        data={data.value}
         opacity={opacity}
         stroke={stroke}
         animated={animated}
@@ -50,115 +52,137 @@ const AreaChartScreen = () => {
         gridlines={{
           horizontal: true,
         }}
-        legend={{
-          marker: { width: 30, height: 4, radius: 2, gap: 5 },
-          position: 'top',
-          height: 40,
-          fontSize: 14,
-        }}
+        legend={
+          showLegend
+            ? {
+                marker: { width: 30, height: 4, radius: 2, gap: 5 },
+                position: 'top',
+                height: 40,
+                fontSize: legendFontSize,
+              }
+            : undefined
+        }
         xAxis={{
+          showTicks: showAxesTicks,
           style: {
             line: {
-              strokeWidth: 2,
+              strokeWidth: axesStrokeWidth,
+              color: axesColor,
             },
             labels: {
               fontSize: 16,
+              color: axesColor,
+            },
+            ticks: {
+              color: axesColor,
+              width: axesStrokeWidth,
             },
           },
         }}
         yAxis={{
           width: 20,
+          showTicks: showAxesTicks,
           style: {
             labels: {
               fontSize: 16,
-              color: 'black',
+              color: axesColor,
+            },
+            line: {
+              color: axesColor,
+              strokeWidth: axesStrokeWidth,
+            },
+            ticks: {
+              color: axesColor,
+              width: axesStrokeWidth,
             },
           },
         }}
         font={fonts.Lato}
       />
-      <View style={[styles.setting, styles.row]}>
-        <Text style={styles.switchLabel}>Animated:</Text>
-        <Switch value={animated} onChange={() => setAnimated(prev => !prev)} />
-      </View>
-      <View style={styles.spacer} />
-      <View style={[styles.setting, styles.row]}>
-        <Text style={styles.switchLabel}>Stacked:</Text>
-        <Switch value={stacked} onChange={() => setStacked(prev => !prev)} />
-      </View>
-      <View style={styles.spacer} />
-      <View style={[styles.setting, styles.row]}>
-        <Text style={styles.switchLabel}>Normalize:</Text>
-        <Switch
-          value={normalized}
-          onChange={() => setNormalized(prev => !prev)}
+      <Settings.Stack>
+        <SlidingSelect
+          value={data}
+          options={[
+            { label: 'Data A', value: datasetA },
+            { label: 'Data B', value: datasetB },
+            { label: 'Data C', value: datasetC },
+            // { label: 'Data D', value: datasetD },
+          ]}
+          width={width - 20}
+          onChange={setData}
         />
-      </View>
-      <View style={styles.spacer} />
-      <View style={styles.setting}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Opacity:</Text>
-          <Text style={styles.value}>{opacity.toFixed(2)}</Text>
-        </View>
-        <Slider
-          value={opacity}
-          minimumValue={0}
-          maximumValue={1}
-          step={0.05}
-          onValueChange={v => setOpacity(v)}
-        />
-      </View>
-      <View style={styles.spacer} />
-      <View style={styles.setting}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Stroke:</Text>
-          <Text style={styles.value}>{stroke}</Text>
-        </View>
-        <Slider
-          value={stroke}
-          minimumValue={0}
-          maximumValue={10}
-          step={1}
-          onValueChange={v => setStroke(v)}
-        />
-      </View>
-      <View style={styles.spacer} />
-      <View style={[styles.setting, styles.row]}>
-        <Button title="data A" onPress={() => setData(datasetA)} />
-        <Button title="data B" onPress={() => setData(datasetB)} />
-        <Button title="data C" onPress={() => setData(datasetC)} />
-        <Button title="data D" onPress={() => setData(datasetD)} />
-      </View>
+        <Settings.Group title="General">
+          <Settings.Switch
+            label="Animated"
+            value={animated}
+            onChange={setAnimated}
+          />
+          <Settings.Switch
+            label="Stacked"
+            value={stacked}
+            onChange={setStacked}
+          />
+          <Settings.Switch
+            label="Normalize"
+            value={normalized}
+            onChange={setNormalized}
+          />
+          <Settings.Slider
+            label="Opacity"
+            defaultValue={opacity}
+            min={0}
+            max={1}
+            step={0.05}
+            labelPrecision={2}
+            onValueChange={throttle(setOpacity, 30)}
+          />
+          <Settings.Slider
+            label="Stroke"
+            defaultValue={stroke}
+            min={0}
+            max={10}
+            step={1}
+            onValueChange={throttle(setStroke, 30)}
+          />
+        </Settings.Group>
+        <Settings.Group title="Axes">
+          <Settings.ColorPicker
+            label="Color"
+            color={axesColor}
+            onColorPicked={setAxesColor}
+          />
+          <Settings.Switch
+            label="Show ticks"
+            value={showAxesTicks}
+            onChange={setShowAxesTicks}
+          />
+          <Settings.Slider
+            label="Stroke width"
+            defaultValue={axesStrokeWidth}
+            min={0}
+            max={5}
+            step={1}
+            onValueChange={throttle(setAxesStrokeWidth, 50)}
+          />
+        </Settings.Group>
+        <Settings.Group title="Legend">
+          <Settings.Switch
+            label="Enable"
+            value={showLegend}
+            onChange={setShowLegend}
+          />
+          <Settings.Slider
+            label="Font size"
+            defaultValue={legendFontSize}
+            min={10}
+            max={18}
+            step={1}
+            onValueChange={throttle(setLegendFontSize, 30)}
+          />
+        </Settings.Group>
+      </Settings.Stack>
     </ScreenContainer>
   );
 };
 
 export default AreaChartScreen;
-
-const styles = StyleSheet.create({
-  setting: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  label: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-  value: {
-    fontSize: 20,
-    fontWeight: '800',
-  },
-  spacer: {
-    height: 2,
-    backgroundColor: '#ffffff',
-  },
-  switchLabel: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-});
