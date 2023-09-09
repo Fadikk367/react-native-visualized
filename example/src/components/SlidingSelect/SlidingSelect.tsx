@@ -7,6 +7,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { useTheme } from '@/hooks/useTheme';
+
 import OptionItem from './OptionItem';
 import type { SlidingSelectProps } from './types';
 
@@ -19,6 +21,8 @@ const SlidingSelect = <T,>({
   height = 36,
   onChange,
 }: SlidingSelectProps<T>) => {
+  const theme = useTheme();
+
   const itemSize = width / options.length;
   const animationDuration = 300;
 
@@ -43,12 +47,13 @@ const SlidingSelect = <T,>({
   }));
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.colors.surface }]}>
       <Animated.View
         style={[
           styles.selectIndicator,
           {
             width: itemSize,
+            backgroundColor: theme.colors.primaryDark,
           },
           indicatorStyles,
         ]}
@@ -74,13 +79,11 @@ export default SlidingSelect;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
     borderRadius: 12,
   },
   selectIndicator: {
     position: 'absolute',
     height: ITEM_HEIGHT,
-    backgroundColor: '#4b7853',
     borderRadius: 12,
   },
 });

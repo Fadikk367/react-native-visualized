@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { ThemeProvider } from './contexts/theme';
 import { BottomTabs } from './navigation';
 import { fonts } from './theme/fonts';
 
@@ -13,20 +14,23 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded] = useFonts(fonts);
+  const [isReady, setIsReady] = React.useState(false);
 
-  const onRootViewLayout = React.useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
+  React.useEffect(() => {
+    if (fontsLoaded && isReady) {
+      SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, isReady]);
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <BottomSheetModalProvider>
-        <View style={styles.container} onLayout={onRootViewLayout}>
-          <BottomTabs />
-        </View>
-      </BottomSheetModalProvider>
+      <ThemeProvider>
+        <BottomSheetModalProvider>
+          <View style={styles.container} onLayout={() => setIsReady(true)}>
+            <BottomTabs />
+          </View>
+        </BottomSheetModalProvider>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }

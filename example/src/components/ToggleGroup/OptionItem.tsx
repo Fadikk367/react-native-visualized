@@ -10,9 +10,13 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { useTheme } from '@/hooks/useTheme';
+
 import type { OptionItem } from './types';
 
 const OptionIconButton = ({ icon, isActive, onPress }: OptionItem) => {
+  const { colors } = useTheme();
+
   const progress = useDerivedValue(() =>
     withTiming(Number(isActive), { duration: 200 }),
   );
@@ -21,7 +25,7 @@ const OptionIconButton = ({ icon, isActive, onPress }: OptionItem) => {
     backgroundColor: interpolateColor(
       progress.value,
       [0, 1],
-      ['#cfcfcf', '#4b7853'],
+      [colors.backgroundDark, colors.primaryDark],
     ),
   }));
 
@@ -32,7 +36,7 @@ const OptionIconButton = ({ icon, isActive, onPress }: OptionItem) => {
           // @ts-ignore
           name={icon}
           size={24}
-          color={isActive ? '#fff' : '#000'}
+          color={isActive ? colors.onPrimary : colors.onBackground}
         />
       </Animated.View>
     </TouchableOpacity>
@@ -48,7 +52,5 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9dcb8f',
-    borderColor: '#250d0d',
   },
 });

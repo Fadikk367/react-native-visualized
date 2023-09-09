@@ -8,6 +8,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { useTheme } from '@/hooks/useTheme';
+
 import {
   HIT_SLOPE,
   THUMB_SIZES,
@@ -19,11 +21,13 @@ import type { SwitchProps } from './types';
 const Switch = ({
   value = false,
   size = 'medium',
-  thumbColor = '#ffffff',
-  inactiveColor = '#cecece',
-  activeColor = '#3ea44a',
+  thumbColor,
+  inactiveColor,
+  activeColor,
   onChange,
 }: SwitchProps) => {
+  const { colors } = useTheme();
+
   const thumbSize = THUMB_SIZES[size];
 
   const progress = useDerivedValue(() =>
@@ -44,7 +48,7 @@ const Switch = ({
     backgroundColor: interpolateColor(
       progress.value,
       [0, 1],
-      [inactiveColor, activeColor],
+      [inactiveColor || colors.backgroundDark, activeColor || colors.primary],
     ),
   }));
 
@@ -69,7 +73,7 @@ const Switch = ({
               width: thumbSize,
               height: thumbSize,
               marginTop: TRACK_PADDING,
-              backgroundColor: thumbColor,
+              backgroundColor: thumbColor || colors.surface,
             },
             indicatorStyles,
           ]}

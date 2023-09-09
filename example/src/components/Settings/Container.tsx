@@ -3,6 +3,8 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import { useTheme } from '@/hooks/useTheme';
+
 interface ContainerProps {
   flexDirection?: ViewStyle['flexDirection'];
   children: React.ReactNode;
@@ -14,11 +16,14 @@ const Container = ({
   flexDirection = 'row',
   onPress,
 }: ContainerProps) => {
+  const { colors } = useTheme();
+
   const containerStyles: ViewStyle[] = [
     styles.container,
     {
       flexDirection,
       alignItems: flexDirection === 'row' ? 'center' : 'stretch',
+      backgroundColor: colors.surface,
     },
   ];
 
@@ -42,6 +47,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: '#fff',
   },
 });

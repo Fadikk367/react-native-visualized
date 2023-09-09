@@ -12,14 +12,16 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { useTheme } from '@/hooks/useTheme';
+
 import { THUMB_SIZES } from './constants';
 import type { SliderProps } from './types';
 
 const Slider = ({
   size = 'medium',
-  activeTrackColor = '#3ea44a',
-  inactiveTrackColor = '#cecece',
-  thumbColor = '#ffffff',
+  activeTrackColor,
+  inactiveTrackColor,
+  thumbColor,
   defaultValue = 0,
   step = 1,
   min = 0,
@@ -31,9 +33,12 @@ const Slider = ({
   const thumbSize = THUMB_SIZES[size];
   // FIXME: ensure that width is known at this point
   const [trackWidth, setTrackWidth] = useState(300);
+  const { colors } = useTheme();
+
   const progress = useSharedValue(
     interpolate(defaultValue, [min, max], [0, trackWidth]),
   );
+
   const thumbScale = useSharedValue(1);
 
   useAnimatedReaction(
@@ -73,7 +78,6 @@ const Slider = ({
           progress.value = clamp(progress.value + e.changeX, 0, trackWidth);
         })
         .onEnd(() => {
-          'worklet';
           thumbScale.value = withTiming(1, undefined, () => {
             if (!onSlidingComplete) return;
 
@@ -117,13 +121,13 @@ const Slider = ({
           {
             height: thumbSize / 2,
             borderRadius: thumbSize / 2,
-            backgroundColor: inactiveTrackColor,
+            backgroundColor: inactiveTrackColor || colors.backgroundDark,
           },
         ]}>
         <Animated.View
           style={[
             {
-              backgroundColor: activeTrackColor,
+              backgroundColor: activeTrackColor || colors.primary,
               height: thumbSize / 2,
               borderRadius: thumbSize / 2,
             },
@@ -139,8 +143,8 @@ const Slider = ({
                 borderRadius: thumbSize / 2,
                 width: thumbSize,
                 height: thumbSize,
-                backgroundColor: thumbColor,
-                borderColor: '#226132',
+                backgroundColor: thumbColor || colors.surface,
+                borderColor: colors.primaryDark,
               },
               thumbStyles,
             ]}

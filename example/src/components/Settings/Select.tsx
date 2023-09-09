@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Flex from '@/components/Flex';
 import { useBottomSheet } from '@/hooks/useBottomSheet';
+import { useTheme } from '@/hooks/useTheme';
 
 import Container from './Container';
 import Label from './Label';
@@ -87,7 +88,17 @@ const DefaultCurrentItemPreview = ({ item }: { item: { label: string } }) => (
   <Label>{item.label}</Label>
 );
 
-const ItemSeparator = () => <View style={styles.optionSeparator} />;
+const ItemSeparator = () => {
+  const { colors } = useTheme();
+  return (
+    <View
+      style={[
+        styles.optionSeparator,
+        { backgroundColor: colors.backgroundDark },
+      ]}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   optionLabel: {
@@ -99,6 +110,5 @@ const styles = StyleSheet.create({
   optionSeparator: {
     height: 1,
     marginHorizontal: 10,
-    backgroundColor: '#cecece',
   },
 });

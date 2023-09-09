@@ -3,6 +3,8 @@ import { StyleSheet, Text } from 'react-native';
 
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
+import { useTheme } from '@/hooks/useTheme';
+
 import type { OptionItemProps } from './types';
 
 const OptionItem = ({
@@ -12,6 +14,8 @@ const OptionItem = ({
   height,
   onPress,
 }: OptionItemProps) => {
+  const theme = useTheme();
+
   // FIXME: Examine slow text color animations on Android, even fast phones
   // const transition = useDerivedValue(() =>
   //   withTiming(Number(isActive), { duration: 300 }),
@@ -35,7 +39,7 @@ const OptionItem = ({
         style={[
           styles.label,
           // textStyles,
-          { color: isActive ? 'white' : 'black' },
+          { color: isActive ? theme.colors.onPrimary : theme.colors.onSurface },
         ]}>
         {label}
       </Text>
