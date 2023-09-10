@@ -38,7 +38,7 @@ const LineChartScreen = () => {
   const [showXAxisBaseLine, setShowXAxisBaseLine] = useState(true);
   const [xAxisFontSize, setXAxisFontSize] = useState(16);
   const [xAxisTicksStep, setXAxisTicksStep] = useState(10);
-  const [xAxisColor, setXAxisColor] = useState('##000000');
+  const [xAxisColor, setXAxisColor] = useState('#000000');
 
   // Y Axis
   const [yAxisWidth, setYAxisWidth] = useState(2);

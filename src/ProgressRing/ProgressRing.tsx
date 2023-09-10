@@ -71,4 +71,6 @@ const ProgressRing = ({
   );
 };
 
-export default withPadding(ProgressRing);
+export default withPadding(ProgressRing) as (
+  props: ProgressRingProps,
+) => JSX.Element;
