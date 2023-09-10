@@ -31,8 +31,6 @@ const AreaChartScreen = () => {
   const xLabels = utils.linspace(0, 4, 1);
   const yLabels = utils.linspace(0, 10, 2);
 
-  console.log('x', data.label);
-
   return (
     <ScreenContainer>
       <AreaChart

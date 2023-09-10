@@ -1,4 +1,4 @@
-export const dataset1 = [
+export const line1A = [
   { x: 0, y: 40 },
   { x: 10, y: 22 },
   { x: 20, y: 12 },
@@ -12,7 +12,7 @@ export const dataset1 = [
   { x: 100, y: 53 },
 ];
 
-export const dataset2 = [
+export const line1B = [
   { x: 0, y: 23 },
   { x: 10, y: 34 },
   { x: 20, y: 56 },
@@ -24,4 +24,66 @@ export const dataset2 = [
   { x: 80, y: 48 },
   { x: 90, y: 43 },
   { x: 100, y: 10 },
+];
+
+export const line2A = [
+  { x: 0, y: 23 },
+  { x: 10, y: 32 },
+  { x: 20, y: 49 },
+  { x: 30, y: 39 },
+  { x: 40, y: 29 },
+  { x: 50, y: 27 },
+  { x: 60, y: 25 },
+  { x: 70, y: 36 },
+  { x: 80, y: 45 },
+  { x: 90, y: 56 },
+  { x: 100, y: 73 },
+];
+
+export const line2B = [
+  { x: 0, y: 11 },
+  { x: 10, y: 24 },
+  { x: 20, y: 36 },
+  { x: 30, y: 41 },
+  { x: 40, y: 57 },
+  { x: 50, y: 71 },
+  { x: 60, y: 81 },
+  { x: 70, y: 91 },
+  { x: 80, y: 93 },
+  { x: 90, y: 87 },
+  { x: 100, y: 67 },
+];
+
+export const line3A = [
+  { x: 0, y: 98 },
+  { x: 10, y: 81 },
+  { x: 20, y: 71 },
+  { x: 30, y: 64 },
+  { x: 40, y: 56 },
+  { x: 50, y: 65 },
+  { x: 60, y: 58 },
+  { x: 70, y: 43 },
+  { x: 80, y: 38 },
+  { x: 90, y: 36 },
+  { x: 100, y: 23 },
+];
+
+export const line3B = [
+  { x: 0, y: 50 },
+  { x: 10, y: 48 },
+  { x: 20, y: 35 },
+  { x: 30, y: 39 },
+  { x: 40, y: 33 },
+  { x: 50, y: 41 },
+  { x: 60, y: 59 },
+  { x: 70, y: 63 },
+  { x: 80, y: 49 },
+  { x: 90, y: 43 },
+  { x: 100, y: 30 },
+];
+
+export const datasets = [
+  { lineA: line1A, lineB: line1B },
+  { lineA: line2A, lineB: line2B },
+  { lineA: line3A, lineB: line3B },
 ];
