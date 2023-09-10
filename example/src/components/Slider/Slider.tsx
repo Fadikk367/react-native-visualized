@@ -85,7 +85,7 @@ const Slider = ({
               interpolate(progress.value, [0, trackWidth], [min, max]) / step,
             );
 
-            runOnJS(onSlidingComplete)(nextStep);
+            runOnJS(onSlidingComplete)(nextStep * step);
           });
         }),
     [
