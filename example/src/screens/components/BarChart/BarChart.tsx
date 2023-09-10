@@ -1,47 +1,41 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
-import { Chart } from 'react-native-visualized';
+import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
+import Settings from '@/components/Settings';
+import SlidingSelect from '@/components/SlidingSelect';
+import { getFontOptions } from '@/theme/fonts';
+import { throttle } from '@/utils/throttle';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
-// TODO: Find a way to correctly set an alias like @/assets
-import RobotoMono from '../../../../assets/fonts/RobotoMono.ttf';
 import CustomBar from './CustomBar';
-import { dataset1, dataset2 } from './data';
+import { datasetsWeekly } from './data';
+
+const datasetOptions = [
+  { label: 'Week 1', value: datasetsWeekly[0]! },
+  { label: 'Week 2', value: datasetsWeekly[1]! },
+  { label: 'Week 3', value: datasetsWeekly[2]! },
+];
 
 const BarChart = () => {
-  const [data, setData] = useState(dataset1);
-  const [font, setFont] = useState(RobotoMono);
-  const [isAnimated, setIsAnimated] = useState(false);
-  const [isCustomComponent, setIsCustomComponent] = useState(false);
+  const fontOptions = getFontOptions();
+
   const { width } = useWindowDimensions();
 
-  const toggleData = () => {
-    const newData = data === dataset1 ? dataset2 : dataset1;
-    setData(newData);
-  };
-
-  const toggleFont = () => {
-    const newFont = font === RobotoMono ? LatoRegular : RobotoMono;
-    setFont(newFont);
-  };
-
-  const toggleAnimated = () => {
-    setIsAnimated(!isAnimated);
-  };
-
-  const toggleCustomComponent = () => {
-    setIsCustomComponent(!isCustomComponent);
-  };
+  const [data, setData] = useState(datasetOptions[0]!);
+  const [font, setFont] = useState<(typeof fontOptions)[number]>(
+    fontOptions[3]!,
+  );
+  const [isAnimated, setIsAnimated] = useState(false);
+  const [barColor, setBarColor] = useState('#4ac577');
+  const [isCustomComponent, setIsCustomComponent] = useState(false);
+  const [yTicksStep, setYTicksStep] = useState(2);
+  const [fontSize, setFontSize] = useState(14);
+  const [barRatio, setBarRatio] = useState(0.75);
+  const [barRadius, setBarRadius] = useState(8);
+  const [showTicks, setShowTicks] = useState(false);
+  const [showYAxisLine, setShowYAxisLine] = useState(false);
 
   return (
     <ScreenContainer>
@@ -49,48 +43,109 @@ const BarChart = () => {
         width={width}
         height={420}
         padding={{ top: 20, right: 20, bottom: 10 }}
-        backgroundColor="#e6e6e6"
-        data={data}
+        backgroundColor="#fff"
+        data={data.value}
         yDomain={[-4, 20]}
-        yTicks={[-4, 0, 4, 8, 12, 16, 20]}
+        yTicks={utils.linspace(-4, 20, yTicksStep)}
         showLines
         animated={isAnimated}
-        font={font}
-        fontSize={18}
+        font={font.value}
+        fontSize={fontSize}
         // bars config
-        barRatio={0.8}
-        barColor="#2d74bf"
-        barRadius={7}
+        barRatio={barRatio}
+        barColor={barColor}
+        barRadius={barRadius}
         yAxis={{
-          showLine: false,
-          showTicks: false,
+          showLine: showYAxisLine,
+          showTicks: showTicks,
+          style: {
+            labels: {
+              fontSize,
+            },
+          },
         }}
         renderBar={isCustomComponent ? CustomBar : undefined}
       />
-      <Button title="Change dataset" onPress={toggleData} />
-      <Button title="Change font" onPress={toggleFont} />
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Animated:</Text>
-        <Switch value={isAnimated} onChange={toggleAnimated} />
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Custom Bar component:</Text>
-        <Switch value={isCustomComponent} onChange={toggleCustomComponent} />
-      </View>
+      <Settings.Stack>
+        <SlidingSelect
+          value={data}
+          options={datasetOptions}
+          width={width - 20}
+          onChange={setData}
+        />
+        <Settings.Group title="General">
+          <Settings.Switch
+            label="Animated"
+            value={isAnimated}
+            onChange={setIsAnimated}
+          />
+          <Settings.Slider
+            label="Font size"
+            min={10}
+            max={24}
+            step={2}
+            defaultValue={fontSize}
+            onValueChange={throttle(setFontSize, 50)}
+          />
+          <Settings.FontSelect
+            label="Font"
+            value={font}
+            options={fontOptions}
+            onChange={value => setFont(value)}
+          />
+        </Settings.Group>
+        <Settings.Group title="Bar">
+          <Settings.Slider
+            label="Ratio"
+            min={0.1}
+            max={1}
+            step={0.05}
+            labelPrecision={2}
+            defaultValue={barRatio}
+            onValueChange={throttle(setBarRatio, 50)}
+          />
+          <Settings.Slider
+            label="Border radius"
+            min={0}
+            max={20}
+            step={1}
+            defaultValue={barRadius}
+            onValueChange={throttle(setBarRadius, 50)}
+          />
+          <Settings.ColorPicker
+            color={barColor}
+            label="Color"
+            onColorPicked={setBarColor}
+          />
+          <Settings.Switch
+            label="Custom component"
+            value={isCustomComponent}
+            onChange={setIsCustomComponent}
+          />
+        </Settings.Group>
+        <Settings.Group title="Y Axis">
+          <Settings.Switch
+            label="Show ticks"
+            value={showTicks}
+            onChange={setShowTicks}
+          />
+          <Settings.Switch
+            label="Show Line"
+            value={showYAxisLine}
+            onChange={setShowYAxisLine}
+          />
+          <Settings.Slider
+            label="Ticks step"
+            min={1}
+            max={10}
+            step={1}
+            defaultValue={yTicksStep}
+            onValueChange={throttle(setYTicksStep, 50)}
+          />
+        </Settings.Group>
+      </Settings.Stack>
     </ScreenContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    padding: 20,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  animatedLabel: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-});
 
 export default BarChart;

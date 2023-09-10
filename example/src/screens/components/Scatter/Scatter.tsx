@@ -1,63 +1,69 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
 import { Chart, utils } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer';
+import Settings from '@/components/Settings';
+import SlidingSelect from '@/components/SlidingSelect';
+import { getFontOptions } from '@/theme/fonts';
+import { throttle } from '@/utils/throttle';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import CustomMarker from './CustomMarker';
-import { datasetA } from './data';
+import { datasetCategorical, datasetContinuous } from './data';
+
+const datasetOptions = [
+  { label: 'Categorical', value: datasetCategorical },
+  { label: 'Continuous', value: datasetContinuous },
+];
 
 const { Scatter } = Chart;
 
+type MarkerType = 'dot' | 'cross' | 'square';
+
 const ScatterScreen = () => {
-  const [isCustomComponent, setIsCustomComponent] = useState(false);
-  const [isLegendShown, setIsLegendShown] = useState(false);
+  //General
+  const [dataset, setDataset] = useState<(typeof datasetOptions)[number]>(
+    datasetOptions[0]!,
+  );
+  const fontOptions = getFontOptions();
+  const [legendShown, setLegendShown] = useState(true);
   const [showGridlines, setShowGridlines] = useState(true);
-  const [showContinuousLegend, setShowContinuousLegend] = useState(false);
+  const [font, setFont] = useState<(typeof fontOptions)[number]>(
+    fontOptions[3]!,
+  );
+
+  //Marker
+  const [isCustomComponent, setIsCustomComponent] = useState(false);
+  const [markerType, setMarkerType] = useState<MarkerType>('dot');
+  const [markerSize, setMarkerSize] = useState(7);
+
+  // Axes
+  const [fontSize, setFontSize] = useState(14);
+  const [lineWidth, setLineWidth] = useState(1);
+  const [showTicks, setShowTicks] = useState(true);
+
   const { width } = useWindowDimensions();
 
   const xTicks = utils.linspace(0, 100, 20);
   const yTicks = utils.linspace(0, 100, 20);
 
-  const toggleCustomComponent = () => {
-    setIsCustomComponent(prev => !prev);
-  };
-
-  const toggleLegend = () => {
-    setIsLegendShown(prev => !prev);
-  };
-
-  const toggleGridlines = () => {
-    setShowGridlines(prev => !prev);
-  };
-
-  const toggleShowContinuousLegend = () => {
-    setShowContinuousLegend(prev => !prev);
-  };
-
   const legendConfig = {
     fontSize: 12,
     height: 30,
+    width,
     position: 'top',
+    font: font.value,
     marker: {
-      size: 16,
+      size: 18,
       radius: 8,
     },
     items: [
-      { color: 'yellow', label: 'series A' },
-      { color: 'blue', label: 'series B' },
-      { color: 'red', label: 'series C' },
-      { color: 'green', label: 'series D' },
+      { color: '#df6767', label: 'series A' },
+      { color: '#4fb551', label: 'series B' },
+      { color: '#61a0d8', label: 'series C' },
     ],
-  };
+  } as const;
 
   const gridlinesConfig = {
     vertical: true,
@@ -78,57 +84,136 @@ const ScatterScreen = () => {
         xTicks={xTicks}
         yTicks={yTicks}
         backgroundColor="white"
-        data={datasetA}
+        // @ts-ignore
+        data={dataset.value}
         padding={{
-          top: isLegendShown ? 5 : 20,
+          top: legendShown && dataset.label === 'Categorical' ? 5 : 20,
           right: 20,
           bottom: 20,
           left: 20,
         }}
-        legend={isLegendShown ? legendConfig : undefined}
+        // @ts-ignore
+        legend={
+          legendShown && dataset.label === 'Categorical'
+            ? legendConfig
+            : undefined
+        }
         marker={{
-          variant: 'dot',
-          // color: 'red',
-          size: 7,
+          variant: markerType,
+          size: markerSize,
+        }}
+        xAxis={{
+          showTicks,
+          style: {
+            labels: {
+              fontSize,
+            },
+            line: {
+              strokeWidth: lineWidth,
+            },
+            ticks: {
+              width: lineWidth,
+            },
+          },
+        }}
+        yAxis={{
+          showTicks,
+          style: {
+            labels: {
+              fontSize,
+            },
+            line: {
+              strokeWidth: lineWidth,
+            },
+            ticks: {
+              width: lineWidth,
+            },
+          },
         }}
         renderMarker={isCustomComponent ? CustomMarker : undefined}
         gridlines={showGridlines ? gridlinesConfig : null}
-        showContinuousLegend={showContinuousLegend}
-        font={LatoRegular}
+        showContinuousLegend={legendShown && dataset.label === 'Continuous'}
+        font={font.value}
+        fontSize={fontSize}
       />
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Custom Bar component:</Text>
-        <Switch value={isCustomComponent} onChange={toggleCustomComponent} />
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Show legend:</Text>
-        <Switch value={isLegendShown} onChange={toggleLegend} />
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Show continuous legend:</Text>
-        <Switch
-          value={showContinuousLegend}
-          onChange={toggleShowContinuousLegend}
+      <Settings.Stack>
+        <SlidingSelect
+          width={width - 20}
+          // @ts-ignore
+          value={dataset}
+          // @ts-ignore
+          options={datasetOptions}
+          onChange={setDataset}
         />
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.animatedLabel}>Show gridlines:</Text>
-        <Switch value={showGridlines} onChange={toggleGridlines} />
-      </View>
+        <Settings.Group title="General">
+          <Settings.Switch
+            label="Show gridlines"
+            value={showGridlines}
+            onChange={setShowGridlines}
+          />
+          <Settings.Switch
+            label="Show legend"
+            value={legendShown}
+            onChange={setLegendShown}
+          />
+          <Settings.FontSelect
+            label="Font"
+            value={font}
+            options={fontOptions}
+            onChange={setFont}
+          />
+        </Settings.Group>
+        <Settings.Group title="Marker">
+          <Settings.Switch
+            label="Custom component"
+            value={isCustomComponent}
+            onChange={setIsCustomComponent}
+          />
+          <Settings.ToggleGroup<MarkerType>
+            label="Type"
+            value={markerType}
+            options={[
+              { icon: 'circle', value: 'dot' },
+              { icon: 'plus', value: 'cross' },
+              { icon: 'square', value: 'square' },
+            ]}
+            onChange={setMarkerType}
+          />
+          <Settings.Slider
+            label="Size"
+            defaultValue={markerSize}
+            min={5}
+            max={13}
+            step={2}
+            onValueChange={throttle(setMarkerSize, 50)}
+          />
+        </Settings.Group>
+        <Settings.Group title="Axes">
+          <Settings.Slider
+            label="Font size"
+            defaultValue={fontSize}
+            min={10}
+            max={18}
+            step={1}
+            onValueChange={throttle(setFontSize, 50)}
+          />
+          <Settings.Slider
+            label="Line width"
+            defaultValue={lineWidth}
+            min={0}
+            max={4}
+            step={0.5}
+            onValueChange={throttle(setLineWidth, 50)}
+          />
+          <Settings.Switch
+            label="Show ticks"
+            value={showTicks}
+            onChange={setShowTicks}
+          />
+        </Settings.Group>
+      </Settings.Stack>
     </ScreenContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    padding: 20,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  animatedLabel: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-});
 
 export default ScatterScreen;

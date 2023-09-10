@@ -1,153 +1,147 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
-import Slider from '@react-native-community/slider';
 import { Chart } from 'react-native-visualized';
 
 import ScreenContainer from '@/components/ScreenContainer/ScreenContainer';
+import Settings from '@/components/Settings';
+import SlidingSelect from '@/components/SlidingSelect';
+import { fonts } from '@/theme/fonts';
+import { throttle } from '@/utils/throttle';
 
-import LatoRegular from '../../../../assets/fonts/Lato-Regular.ttf';
 import { ringsA, ringsB, ringsC } from './data';
 
+const datasetOptions = [
+  { label: 'Rings A', value: ringsA },
+  { label: 'Rings B', value: ringsB },
+  { label: 'Rings C', value: ringsC },
+];
+
 const ProgressRing = () => {
-  const [showCenterLabel, setShowCenterLabel] = useState(true);
-  const [data, setData] = useState(ringsA);
+  const { width } = useWindowDimensions();
+  const [dataset, setDataset] = useState(datasetOptions[0]!);
   const [spacing, setSpacing] = useState(4);
   const [ringWidth, setRingWidth] = useState(20);
-  const [startAngle, setStartAngle] = useState(0);
-  const [showLegend, setShowLegend] = useState(true);
 
-  const { width } = useWindowDimensions();
+  // Legend
+  const [legendMarkerSize, setLegendMarkerSize] = useState(24);
+  const [legendMarkerRadius, setLegendMarkerRadius] = useState(6);
+  const [legendGap, setLegendGap] = useState(10);
 
-  const legend = showLegend
-    ? ({
-        height: 30,
-        width,
-        position: 'bottom',
-        gap: 20,
-      } as const)
-    : undefined;
-
-  const centerLabel = showCenterLabel
-    ? {
-        text: '63%',
-        fontSize: 32,
-        color: '#5165f8',
-      }
-    : undefined;
+  // Center Label
+  const [showCenterLabel, setShowCenterLabel] = useState(true);
+  const [centerLabelText, setCenterLabelText] = useState('78%');
+  const [centerLabelFontSize, setCenterLabelFontSize] = useState(24);
+  const [centerLabelColor, setCenterLabelColor] = useState('#000000');
 
   return (
     <ScreenContainer>
       <Chart.ProgressRing
         width={width}
         height={320}
-        data={data}
+        data={dataset.value}
         padding={{ top: 10, left: 10, right: 10, bottom: 10 }}
         ringWidth={ringWidth}
         ringsSpacing={spacing}
-        startAngle={startAngle}
-        legend={legend}
-        centerLabel={centerLabel}
-        font={LatoRegular}
+        legend={{
+          height: 30,
+          width,
+          position: 'bottom',
+          marker: {
+            radius: legendMarkerRadius,
+            size: legendMarkerSize,
+          },
+          gap: legendGap,
+        }}
+        centerLabel={
+          showCenterLabel
+            ? {
+                text: centerLabelText,
+                fontSize: centerLabelFontSize,
+                color: centerLabelColor,
+              }
+            : undefined
+        }
+        font={fonts.Lato}
+        backgroundColor="#fff"
       />
-      <View style={styles.setting}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Dataset:</Text>
-        </View>
-        <View style={styles.row}>
-          <Button title="A" onPress={() => setData(ringsA)} />
-          <Button title="B" onPress={() => setData(ringsB)} />
-          <Button title="C" onPress={() => setData(ringsC)} />
-        </View>
-      </View>
-      <View style={styles.setting}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Ring width:</Text>
-          <Text style={styles.value}>{ringWidth}</Text>
-        </View>
-        <Slider
-          value={ringWidth}
-          minimumValue={0}
-          maximumValue={40}
-          step={1}
-          onValueChange={v => setRingWidth(v)}
+      <Settings.Stack>
+        <SlidingSelect
+          width={width - 20}
+          value={dataset}
+          options={datasetOptions}
+          onChange={setDataset}
         />
-      </View>
-      <View style={styles.spacer} />
-      <View style={styles.setting}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Rings spacing:</Text>
-          <Text style={styles.value}>{spacing}</Text>
-        </View>
-        <Slider
-          value={spacing}
-          minimumValue={0}
-          maximumValue={20}
-          step={1}
-          onValueChange={v => setSpacing(v)}
-        />
-      </View>
-      <View style={styles.spacer} />
-      <View style={styles.setting}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Start angle:</Text>
-          <Text style={styles.value}>{startAngle}</Text>
-        </View>
-        <Slider
-          value={startAngle}
-          minimumValue={0}
-          maximumValue={360}
-          step={5}
-          onValueChange={v => setStartAngle(v)}
-        />
-      </View>
-      <View style={[styles.setting, styles.row]}>
-        <Text style={styles.label}>Center label:</Text>
-        <Switch
-          value={showCenterLabel}
-          onChange={() => setShowCenterLabel(prev => !prev)}
-        />
-      </View>
-      <View style={[styles.setting, styles.row]}>
-        <Text style={styles.label}>Show legend:</Text>
-        <Switch
-          value={showLegend}
-          onChange={() => setShowLegend(prev => !prev)}
-        />
-      </View>
+        <Settings.Group title="General">
+          <Settings.Slider
+            label="Ring width"
+            defaultValue={ringWidth}
+            min={0}
+            max={40}
+            step={1}
+            onValueChange={throttle(setRingWidth, 50)}
+          />
+          <Settings.Slider
+            label="Rings spacing"
+            defaultValue={spacing}
+            min={0}
+            max={20}
+            step={1}
+            onValueChange={throttle(setSpacing, 30)}
+          />
+        </Settings.Group>
+        <Settings.Group title="Center label">
+          <Settings.Switch
+            label="Enable"
+            value={showCenterLabel}
+            onChange={setShowCenterLabel}
+          />
+          <Settings.TextInput
+            label="Content"
+            value={centerLabelText}
+            onChangeText={throttle(setCenterLabelText, 50)}
+          />
+          <Settings.ColorPicker
+            label="Color"
+            color={centerLabelColor}
+            onColorPicked={setCenterLabelColor}
+          />
+          <Settings.Slider
+            label="Font size"
+            min={10}
+            max={32}
+            step={2}
+            defaultValue={centerLabelFontSize}
+            onValueChange={throttle(setCenterLabelFontSize, 50)}
+          />
+        </Settings.Group>
+        <Settings.Group title="legend">
+          <Settings.Slider
+            label="Marker size"
+            min={12}
+            max={32}
+            defaultValue={legendMarkerSize}
+            onValueChange={throttle(setLegendMarkerSize, 50)}
+          />
+          <Settings.Slider
+            label="Marker radius"
+            min={0}
+            max={16}
+            defaultValue={legendMarkerRadius}
+            onValueChange={throttle(setLegendMarkerRadius, 50)}
+          />
+          <Settings.Slider
+            label="Gap"
+            min={0}
+            max={40}
+            step={5}
+            defaultValue={legendGap}
+            onValueChange={throttle(setLegendGap, 50)}
+          />
+        </Settings.Group>
+      </Settings.Stack>
     </ScreenContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  setting: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  value: {
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  spacer: {
-    height: 2,
-    backgroundColor: '#ffffff',
-  },
-});
 
 export default ProgressRing;

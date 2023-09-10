@@ -140,4 +140,6 @@ const Scatter = <T extends ScatterPoint>({
   );
 };
 
-export default withPadding(Scatter);
+export default withPadding(Scatter) as <T extends ScatterPoint>(
+  props: ScatterProps<T>,
+) => JSX.Element;

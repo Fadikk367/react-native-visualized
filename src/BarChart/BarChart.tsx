@@ -138,4 +138,4 @@ const BarChart = ({
   );
 };
 
-export default withPadding(BarChart);
+export default withPadding(BarChart) as (props: BarChartProps) => JSX.Element;
