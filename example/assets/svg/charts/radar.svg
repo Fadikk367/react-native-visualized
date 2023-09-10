@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72.504" height="66.969" viewBox="0 0 72.504 66.969">
+  <g id="Radar" transform="translate(-6.373 -9.5)">
+    <g id="Ellipse_113" data-name="Ellipse 113" transform="translate(11 14)" fill="#fff" stroke="#2a2a2a" stroke-width="1">
+      <circle cx="31" cy="31" r="31" stroke="none"/>
+      <circle cx="31" cy="31" r="30.5" fill="none"/>
+    </g>
+    <path id="Intersection_18" data-name="Intersection 18" d="M1343.624,1256.351l10.784,14.4,3.028,4.046,0,0Zm0,0,19.184-6.057,3.963-1.248a24.542,24.542,0,0,1-9.292,25.72ZM1343.624,1256.351Z" transform="translate(-1301 -1210)" fill="#fff" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    <circle id="Ellipse_125" data-name="Ellipse 125" cx="17.5" cy="17.5" r="17.5" transform="translate(24.5 27.5)" fill="#fff" stroke="#2a2a2a" stroke-width="1"/>
+    <g id="Ellipse_114" data-name="Ellipse 114" transform="translate(17 20)" fill="none" stroke="#2a2a2a" stroke-width="1">
+      <circle cx="25" cy="25" r="25" stroke="none"/>
+      <circle cx="25" cy="25" r="24.5" fill="none"/>
+    </g>
+    <path id="Intersection_12" data-name="Intersection 12" d="M1169.687,1250.3a17.506,17.506,0,0,1,16.992-13.3c.209,0,.417,0,.625.011v18.841Z" transform="translate(-1144.679 -1209.5)" fill="#d9f3f4" stroke="#2a2a2a" stroke-width="1"/>
+    <path id="Intersection_7" data-name="Intersection 7" d="M1328.5,1255a24.537,24.537,0,0,1,.821-6.313l3.093.978,21.211,6.687-14.448,18.88A24.474,24.474,0,0,1,1328.5,1255Z" transform="translate(-1311 -1210)" fill="#fff" stroke="#2a2a2a" stroke-width="1"/>
+    <path id="Intersection_9" data-name="Intersection 9" d="M1343.125,1243.77v-3.263a24.511,24.511,0,0,1,23.178,18.665l-23.178,7.179Z" transform="translate(-1300.5 -1220)" fill="#ffac46" stroke="#2a2a2a" stroke-width="1"/>
+    <path id="Intersection_17" data-name="Intersection 17" d="M1181.125,1237a17.506,17.506,0,0,1,16.472,13.739l-16.472,5.1Z" transform="translate(-1138.5 -1209.492)" fill="#ffac46" stroke="#2a2a2a" stroke-width="1"/>
+    <path id="Intersection_6" data-name="Intersection 6" d="M1343.591,1279.757l10.035-13.406-10.185,13.309a17.529,17.529,0,0,1-7.433-18.863l17.617,5.554-10.031,13.408Zm10.035-32.246v0Z" transform="translate(-1311 -1220)" fill="#fff" stroke="#2a2a2a" stroke-width="1"/>
+    <g id="Polar_Chart" data-name="Polar Chart">
+      <g id="Group_6" data-name="Group 6" transform="translate(7 10)">
+        <g id="Group_134" data-name="Group 134">
+          <path id="Path_32" data-name="Path 32" d="M32,8V44.351" transform="translate(3.625 -8)" fill="none" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+          <path id="Path_33" data-name="Path 33" d="M6,26.33l2.8.877,11.619,3.672,21.211,6.687" transform="translate(-6 -1.214)" fill="none" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+          <path id="Path_34" data-name="Path 34" d="M15.93,63.948,20.1,58.385l7.07-9.441L37.949,34.53" transform="translate(-2.324 1.821)" fill="none" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+          <path id="Path_35" data-name="Path 35" d="M54.019,63.948l-3.165-4.234-8.07-10.783L32,34.53" transform="translate(3.625 1.821)" fill="none" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+          <path id="Path_36" data-name="Path 36" d="M67.625,26.33l-2.74.863-13.7,4.316L32,37.566" transform="translate(3.625 -1.214)" fill="none" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+    <path id="Intersection_21" data-name="Intersection 21" d="M2560.856,556.229l17.769-23.879-10.785,14.414-7.052,9.418h0l17.838-23.831,10.783,14.4,6.623,8.85a30.514,30.514,0,0,1-35.175.628Z" transform="translate(-2536 -486)" fill="#24313d" stroke="#2a2a2a" stroke-width="1"/>
+    <path id="Intersection_20" data-name="Intersection 20" d="M2558.442,545.41l14.183-19.06-10.784,14.414-3.452,4.61,0,0,14.238-19.023,10.783,14.4,3.028,4.046a24.512,24.512,0,0,1-27.994.612Z" transform="translate(-2530 -480)" fill="#24313d" stroke="#2a2a2a" stroke-width="1"/>
+    <path id="Intersection_19" data-name="Intersection 19" d="M2559.024,532.283l10-13.432-10.031,13.409,0,0,10.035-13.407,9.615,12.841a17.511,17.511,0,0,1-19.61.59Z" transform="translate(-2526.395 -472.5)" fill="#24313d" stroke="#2a2a2a" stroke-width="1"/>
+  </g>
+</svg>

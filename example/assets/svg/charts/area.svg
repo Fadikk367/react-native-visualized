@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="71.3" height="72" viewBox="0 0 71.3 72">
+  <g id="Area_Chart" data-name="Area Chart" transform="translate(-11.214 -15.954)">
+    <path id="Path_24" data-name="Path 24" d="M314.5,563.88V536.593l16.144-22.907,16.144,9.126L371,500V563.88" transform="translate(-296.318 -482.102)" fill="#d9f3f4" stroke="#202020" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" stroke-width="1" fill-rule="evenodd"/>
+    <path id="Path_19" data-name="Path 19" d="M314.5,548.376V527.711l16.144-17.347,16.144,6.911L371,500v48.379" transform="translate(-296.318 -466.599)" fill="#ffac46" stroke="#202020" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" stroke-width="1" fill-rule="evenodd"/>
+    <path id="Path_20" data-name="Path 20" d="M371,952.364H314.5v-14.28l16.144-14.28,16.144,7.8L371,916.664v35.7" transform="translate(-296.321 -870.587)" fill="#233444" stroke="#202020" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" stroke-width="1" fill-rule="evenodd"/>
+    <g id="Arrow" transform="translate(11.214 15.954)">
+      <path id="Path_21" data-name="Path 21" d="M93.74,191.743,91.619,187.5,89.5,191.743Z" transform="translate(-89.497 -187.5)" fill="#202020" fill-rule="evenodd"/>
+      <path id="Path_22" data-name="Path 22" d="M1864.5,1962.5l4.279,2.14-4.279,2.14Z" transform="translate(-1797.479 -1894.78)" fill="#202020" fill-rule="evenodd"/>
+      <path id="Path_23" data-name="Path 23" d="M189.5,347.5v66.449h66.449" transform="translate(-187.375 -344.088)" fill="none" stroke="#202020" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" stroke-width="1" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

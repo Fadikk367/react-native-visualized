@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="69.97" viewBox="0 0 70 69.97">
+  <g id="Pie_Chart" data-name="Pie Chart" transform="translate(-6.001 -6)">
+    <path id="Path_6" data-name="Path 6" d="M67.026,30.675h-27.3a1.437,1.437,0,0,1-1.438-1.437A28.739,28.739,0,0,1,67.026.5a1.437,1.437,0,0,1,1.437,1.437v27.3A1.437,1.437,0,0,1,67.026,30.675Z" transform="translate(-28.914 6)" fill="#ffac46" stroke="#2a2a2a" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_8" data-name="Path 8" d="M42.767,35.237h27.3a1.437,1.437,0,0,1,1.007,2.442L51.761,56.992A1.436,1.436,0,0,1,49.73,57l-.009-.008A28.564,28.564,0,0,1,41.33,36.674,1.437,1.437,0,0,1,42.767,35.237Z" transform="translate(-34.829 4.312)" fill="#d9f3f4" stroke="#2a2a2a" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_10" data-name="Path 10" d="M23.241,34.675V7.978a1.436,1.436,0,0,1,1.437-1.436A31.611,31.611,0,1,1,.883,58.93a1.437,1.437,0,0,1,0-1.954Z" transform="translate(19.182 5.707)" fill="#233444" stroke="#2a2a2a" stroke-miterlimit="10" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="62.215" viewBox="0 0 70 62.215">
+  <g id="Vertical_Bar_Chart" data-name="Vertical Bar Chart" transform="translate(-8.096 -14.357)">
+    <path id="Path_14" data-name="Path 14" d="M124.6-252.948h-69v-61.2" transform="translate(-47 329)" fill="none" stroke="#2a2a2a" stroke-linecap="round" stroke-width="1"/>
+    <path id="Path_11" data-name="Path 11" d="M28,11H39.992V69.478H28Z" transform="translate(9.418 6.593)" fill="#233444" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_12" data-name="Path 12" d="M54.992,61.476H43V27H54.992Z" transform="translate(14.919 14.595)" fill="#d9f3f4" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_13" data-name="Path 13" d="M24.992,63.472H13V23H24.992Z" transform="translate(3.916 12.599)" fill="#ffac46" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+  </g>
+</svg>
