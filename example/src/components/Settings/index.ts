@@ -5,6 +5,7 @@ import Select from './Select';
 import Slider from './Slider';
 import Stack from './Stack';
 import Switch from './Switch';
+import TextInput from './TextInput';
 import ToggleGroup from './ToggleGroup';
 
 export default {
@@ -15,5 +16,6 @@ export default {
   Slider,
   Stack,
   Switch,
+  TextInput,
   ToggleGroup,
 };
