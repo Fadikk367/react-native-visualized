@@ -8,6 +8,7 @@ import { Chart } from 'react-native-visualized';
 import ScreenContainer from '@/components/ScreenContainer';
 import { fonts } from '@/theme/fonts';
 
+import ActivityRings from './components/ActivityRings';
 import Card from './components/Card';
 import { useHealthData } from './useHealthData';
 import { formatTimeLabel } from './utils';
@@ -16,9 +17,8 @@ const HealthApp = () => {
   const [date, setDate] = useState(new Date());
   const { heartRate, activity, sleep } = useHealthData(date);
   const { width } = useWindowDimensions();
-
-  const activityCompletion =
-    activity.reduce((acc, curr) => acc + curr.value / curr.full, 0) / 3;
+  // 40 For screen and Card margins and padding
+  const chartWidth = width - 40;
 
   return (
     <ScreenContainer>
@@ -137,37 +137,7 @@ const HealthApp = () => {
           fontSize={10}
         />
       </Card>
-      <Card title="Activity">
-        <Chart.ProgressRing
-          data={activity}
-          width={width - 40}
-          height={140}
-          ringWidth={12}
-          padding={{ top: 8 }}
-          centerLabel={{
-            fontSize: 14,
-            text: `${(activityCompletion * 100).toFixed(0)}%`,
-          }}
-          ringsSpacing={2}
-          legend={{
-            position: 'right',
-            height: 80,
-            width: 150,
-            gap: 0,
-            fontSize: 12,
-            marker: { size: 16, radius: 6 },
-            formatLabel: (value, extras) => {
-              // FIXME: Deliberate casting due to typing bug in react-native-visualized
-              const castedExtras = extras! as { value: number; full: number };
-              return `${value} (${castedExtras.value.toFixed(
-                0,
-              )}/${castedExtras.full.toFixed(0)})`;
-            },
-          }}
-          font={fonts.OpenSans}
-          fontSize={12}
-        />
-      </Card>
+      <ActivityRings data={activity} width={chartWidth} />
       <Card title="Sleep [ h ]">
         <Chart.Bar
           animated
