@@ -10,8 +10,8 @@ import { fonts } from '@/theme/fonts';
 
 import ActivityRings from './components/ActivityRings';
 import Card from './components/Card';
+import HeartRateChart from './components/HeartRateChart';
 import { useHealthData } from './useHealthData';
-import { formatTimeLabel } from './utils';
 
 const HealthApp = () => {
   const [date, setDate] = useState(new Date());
@@ -80,64 +80,9 @@ const HealthApp = () => {
           />
         </TouchableOpacity>
       </View>
-      <Card title="Heart Rate [ bpm ]">
-        <Chart.AreaChart
-          animated
-          data={[
-            {
-              points: heartRate,
-              color: '#c85151',
-              label: 'HR',
-              stroke: 4,
-              opacity: 0.8,
-              fill: {
-                colors: ['#ffffff', '#d86c6c'],
-                positions: [0.3, 0.9],
-                start: { x: 0, y: 160 },
-                end: { x: 0, y: 0 },
-              },
-            },
-          ]}
-          xTicks={[0, 6, 12, 18, 24]}
-          yTicks={[40, 80, 120, 160]}
-          xDomain={[0, 24]}
-          yDomain={[20, 180]}
-          width={width - 40}
-          height={140}
-          font={fonts.OpenSans}
-          padding={{ left: 10, right: 20 }}
-          gridlines={{
-            horizontal: true,
-            opacity: 0.2,
-            lineWidth: 0,
-          }}
-          xAxis={{
-            formatLabel: formatTimeLabel,
-            style: {
-              labels: {
-                fontSize: 10,
-              },
-              line: {
-                color: '#909090',
-                strokeWidth: 2,
-              },
-            },
-            showTicks: false,
-          }}
-          yAxis={{
-            showLine: false,
-            style: {
-              labels: {
-                fontSize: 12,
-                color: '#909090',
-              },
-            },
-            showTicks: false,
-          }}
-          fontSize={10}
-        />
-      </Card>
+
       <ActivityRings data={activity} width={chartWidth} />
+      <HeartRateChart data={heartRate} width={chartWidth} />
       <Card title="Sleep [ h ]">
         <Chart.Bar
           animated

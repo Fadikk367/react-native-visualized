@@ -1,13 +1,6 @@
 import { WEEK_DAYS } from './constants';
 import type { BarData, PointData, RingData } from './types';
 
-export const formatTimeLabel = (hour: number): string => {
-  if (hour % 24 === 0) return `12 AM`;
-  else if (hour % 12 === 0) return '12 PM';
-  else if (hour > 12) return `${hour - 12} PM`;
-  else return `${hour} AM`;
-};
-
 export const generateHeartRate = (): PointData[] => {
   return Array.from({ length: 24 }).map((_, i) => ({
     x: i + 1,
