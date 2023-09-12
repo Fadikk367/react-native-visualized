@@ -1,5 +1,6 @@
-import { WEEK_DAYS } from './constants';
 import type { BarData, PointData, RingData } from './types';
+
+export const WEEK_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 export const generateHeartRate = (): PointData[] => {
   return Array.from({ length: 24 }).map((_, i) => ({
@@ -15,7 +16,7 @@ export const generateActivityData = (): RingData[] => {
 
   return [
     {
-      color: '#4af34d',
+      color: '#31df33',
       label: 'Steps',
       value: steps,
       full: 8000,
