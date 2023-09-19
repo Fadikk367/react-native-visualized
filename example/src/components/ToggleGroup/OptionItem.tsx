@@ -25,7 +25,7 @@ const OptionIconButton = ({ icon, isActive, onPress }: OptionItem) => {
     backgroundColor: interpolateColor(
       progress.value,
       [0, 1],
-      [colors.backgroundDark, colors.primaryDark],
+      [colors.background, colors.primary],
     ),
   }));
 

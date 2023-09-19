@@ -53,7 +53,7 @@ const SlidingSelect = <T,>({
           styles.selectIndicator,
           {
             width: itemSize,
-            backgroundColor: theme.colors.primaryDark,
+            backgroundColor: theme.colors.primary,
           },
           indicatorStyles,
         ]}

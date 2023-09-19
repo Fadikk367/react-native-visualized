@@ -94,7 +94,7 @@ const ItemSeparator = () => {
     <View
       style={[
         styles.optionSeparator,
-        { backgroundColor: colors.backgroundDark },
+        { backgroundColor: colors.backgroundLight },
       ]}
     />
   );

@@ -19,7 +19,7 @@ const Ring = ({
   const pathStart = Math.min((start || 0) / full, 1);
   const pathEnd = useTiming(
     { from: prevValue.current, to: value / full },
-    { duration: 1000 },
+    { duration: 300 },
   );
 
   useEffect(() => {

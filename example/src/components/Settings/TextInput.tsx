@@ -27,7 +27,7 @@ const TextInput = ({ label, onBlur, ...inputProps }: TextInputProps) => {
         style={[
           styles.input,
           {
-            backgroundColor: colors.backgroundDark,
+            backgroundColor: colors.background,
             borderBottomColor: colors.onBackground,
             color: colors.onBackground,
           },

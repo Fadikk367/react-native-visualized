@@ -2,6 +2,7 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { useTheme } from '@/hooks/useTheme';
 import AreaChart from '@/screens/components/AreaChart';
 import BarChart from '@/screens/components/BarChart';
 import Catalogue from '@/screens/components/Catalogue';
@@ -16,8 +17,15 @@ import type { ComponentsStackParams } from './types';
 const Stack = createNativeStackNavigator<ComponentsStackParams>();
 
 const ComponentsStack = () => {
+  const { colors } = useTheme();
+
   return (
-    <Stack.Navigator initialRouteName="Catalogue">
+    <Stack.Navigator
+      initialRouteName="Catalogue"
+      screenOptions={{
+        headerTintColor: colors.secondary,
+        headerTitleStyle: { color: colors.onSurface },
+      }}>
       <Stack.Screen
         name="Catalogue"
         /* For some reason <navigation> prop is typed as any and Catalogue uses it as typed navigation prop */

@@ -48,7 +48,7 @@ const Switch = ({
     backgroundColor: interpolateColor(
       progress.value,
       [0, 1],
-      [inactiveColor || colors.backgroundDark, activeColor || colors.primary],
+      [inactiveColor || colors.background, activeColor || colors.primary],
     ),
   }));
 

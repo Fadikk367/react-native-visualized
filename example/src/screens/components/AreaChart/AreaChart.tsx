@@ -34,6 +34,7 @@ const AreaChartScreen = () => {
   return (
     <ScreenContainer>
       <AreaChart
+        backgroundColor="#ffffff"
         width={width}
         height={320}
         xDomain={[0, 4]}

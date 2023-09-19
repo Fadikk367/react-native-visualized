@@ -121,13 +121,13 @@ const Slider = ({
           {
             height: thumbSize / 2,
             borderRadius: thumbSize / 2,
-            backgroundColor: inactiveTrackColor || colors.backgroundDark,
+            backgroundColor: inactiveTrackColor || colors.background,
           },
         ]}>
         <Animated.View
           style={[
             {
-              backgroundColor: activeTrackColor || colors.primary,
+              backgroundColor: activeTrackColor || colors.secondary,
               height: thumbSize / 2,
               borderRadius: thumbSize / 2,
             },
@@ -144,7 +144,7 @@ const Slider = ({
                 width: thumbSize,
                 height: thumbSize,
                 backgroundColor: thumbColor || colors.surface,
-                borderColor: colors.primaryDark,
+                borderColor: colors.primary,
               },
               thumbStyles,
             ]}

@@ -14,7 +14,8 @@ const ScreenContainer = ({ style, children }: ScreenContainerProps) => {
   return (
     // Until all screens are displayed with bottom tabs navigation and header top and bottom insets are handled by them
     <SafeAreaView edges={['left', 'right']} style={[styles.flex, style]}>
-      <ScrollView style={[styles.flex, { backgroundColor: colors.background }]}>
+      <ScrollView
+        style={[styles.flex, { backgroundColor: colors.backgroundLight }]}>
         {children}
       </ScrollView>
     </SafeAreaView>
