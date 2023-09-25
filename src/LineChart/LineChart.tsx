@@ -1,26 +1,23 @@
 import React from 'react';
 
-import { Path } from '@shopify/react-native-skia';
-
 import BaseLineChart from '../core/BaseLineChart';
 import type { RenderPath } from '../core/BaseLineChart/types';
+import AnimatedLine from './AnimatedLine';
+import Line from './Line';
 import type { LineChartProps, LineData } from './types';
-import { buildPath } from './utils';
 
-const LineChart = ({ ...baseLineChartProps }: LineChartProps) => {
+const LineChart = ({
+  animated = true,
+  ...baseLineChartProps
+}: LineChartProps) => {
+  const LineComponent = animated ? AnimatedLine : Line;
+
   const renderPath: RenderPath<LineData> = (data, _, mapDomainToCanvas) => {
-    const { label, points, color, strokeWidth } = data;
-    const path = buildPath(points, mapDomainToCanvas);
-
     return (
-      <Path
-        key={label}
-        path={path}
-        color={color}
-        strokeWidth={strokeWidth}
-        style="stroke"
-        strokeCap="round"
-        strokeJoin="round"
+      <LineComponent
+        key={data.label}
+        data={data}
+        mapDomainToCanvas={mapDomainToCanvas}
       />
     );
   };

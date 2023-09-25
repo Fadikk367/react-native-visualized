@@ -1,3 +1,5 @@
+import type { SkPoint } from '@shopify/react-native-skia';
+
 import type { BaseLineChartProps } from '../core/BaseLineChart/types';
 
 export interface LineData {
@@ -8,4 +10,11 @@ export interface LineData {
 }
 
 export interface LineChartProps
-  extends Omit<BaseLineChartProps<LineData>, 'renderPath'> {}
+  extends Omit<BaseLineChartProps<LineData>, 'renderPath'> {
+  animated?: boolean;
+}
+
+export interface LineProps {
+  data: LineData;
+  mapDomainToCanvas(p: SkPoint): SkPoint;
+}

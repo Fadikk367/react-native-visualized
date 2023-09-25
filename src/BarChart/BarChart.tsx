@@ -7,7 +7,7 @@ import YAxis from '../core/Axes/YAxis';
 import withPadding from '../core/withPadding';
 import AnimatedBar from './AnimatedBar';
 import Bar from './Bar';
-import BarLabel from './BarLabel';
+import BarLabels from './BarLabels';
 import LabelsLines from './LabelsLines';
 import type { BarChartProps } from './types';
 
@@ -21,7 +21,7 @@ const BarChart = ({
   barRatio = 0.9,
   showLines = false,
   font,
-  fontSize = 18,
+  fontSize = 12,
   barColor,
   barRadius,
   yAxis,
@@ -83,20 +83,6 @@ const BarChart = ({
     </Group>
   ));
 
-  const barLabels = data.map(({ label }, index) => {
-    return (
-      <Group key={label} transform={[{ translateX: barSpace * index }]}>
-        <BarLabel
-          label={label}
-          space={barSpace}
-          height={29}
-          font={font}
-          fontSize={fontSize}
-        />
-      </Group>
-    );
-  });
-
   return (
     <>
       <YAxis
@@ -132,7 +118,12 @@ const BarChart = ({
           { translateX: yAxisWidth },
           { translateY: chartContentHeight },
         ]}>
-        {barLabels}
+        <BarLabels
+          data={data}
+          fontSize={fontSize}
+          font={font}
+          barSpace={barSpace}
+        />
       </Group>
     </>
   );

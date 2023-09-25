@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, useFont } from '@shopify/react-native-skia';
+import { Text } from '@shopify/react-native-skia';
 
 import type { BarLabelProps } from './types';
 
@@ -8,11 +8,9 @@ const BarLabel = ({
   label,
   space,
   height,
-  font: fontSource,
+  font,
   fontSize = 18,
 }: BarLabelProps) => {
-  const font = useFont(fontSource, fontSize);
-
   if (!font) return null;
 
   const textWidth = font?.getTextWidth(label);

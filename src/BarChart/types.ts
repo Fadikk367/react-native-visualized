@@ -1,4 +1,4 @@
-import type { DataSourceParam } from '@shopify/react-native-skia';
+import type { DataSourceParam, SkFont } from '@shopify/react-native-skia';
 
 import type { YAxisConfig } from '../core/Axes/types';
 import type { ChartBaseProps } from '../types';
@@ -37,7 +37,7 @@ export interface BarLabelProps {
   space: number;
   height: number;
   fontSize?: number;
-  font: DataSourceParam;
+  font: SkFont | null;
 }
 
 export interface LabelsLinesProps {
