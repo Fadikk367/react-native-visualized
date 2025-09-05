@@ -8,19 +8,28 @@ Skia based library for creating delightful and high performance charts
 npm install react-native-visualized
 ```
 
-## Usage
+## Examples
 
-```js
-import { multiply } from 'react-native-visualized';
+### Bar chart 
+![Bar Chart](./images/bar-chart.png)
 
-// ...
+### Line chart 
+![Line Chart](./images/line-chart.png)
 
-const result = await multiply(3, 7);
-```
+### Area chart 
+![Area Chart](./images/area-chart.png)
 
-## Contributing
+### Scatter
+![Scatter Chart](./images/scatter.png)
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+### Pie Chart
+![Pie Chart](./images/pie-chart.png)
+
+### Activity Rings
+![Activity Rings](./images/activity-ring.png)
+
+### Radar Chart
+![Radar Chart](./images/radar-chart.png)
 
 ## License
 
