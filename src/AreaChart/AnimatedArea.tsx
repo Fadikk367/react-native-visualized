@@ -1,14 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
 
+import { Group, Path, SkPath, Skia } from '@shopify/react-native-skia';
 import {
-  Group,
-  Path,
-  SkPath,
-  Skia,
-  runTiming,
-  useComputedValue,
-  useValue,
-} from '@shopify/react-native-skia';
+  useDerivedValue,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { buildPath } from '../LineChart/utils';
 import AreaFill from './AreaFill';
@@ -30,7 +27,7 @@ export const AnimatedArea = ({
     [points, yDomain, stroke, mapDomainToCanvas],
   );
 
-  const state = useValue<{
+  const state = useSharedValue<{
     current: [SkPath, SkPath | null];
     next: [SkPath, SkPath | null];
   }>({
@@ -38,33 +35,33 @@ export const AnimatedArea = ({
     next: [areaPath, linePath],
   });
 
-  const transition = useValue(0);
+  const transition = useSharedValue(0);
 
   useEffect(() => {
-    state.current = {
-      current: state.current.next,
+    state.value = {
+      current: state.value.next,
       next: [areaPath, linePath],
     };
-    transition.current = 0;
-    runTiming(transition, { from: 0, to: 1 }, { duration: 300 });
+    transition.value = 0;
+    transition.value = withTiming(1, { duration: 300 });
   }, [state, transition, areaPath, linePath]);
 
-  const interpolatedArea = useComputedValue(() => {
-    const [start] = state.current.current;
-    const [end] = state.current.next;
+  const interpolatedArea = useDerivedValue(() => {
+    const [start] = state.value.current;
+    const [end] = state.value.next;
 
-    return end.interpolate(start, transition.current) ?? end;
+    return end.interpolate(start, transition.value) ?? end;
   }, [state, transition]);
 
-  const interpolatedLine = useComputedValue(() => {
-    const [, start] = state.current.current;
-    const [, end] = state.current.next;
+  const interpolatedLine = useDerivedValue(() => {
+    const [, start] = state.value.current;
+    const [, end] = state.value.next;
 
     if (!start && !!end) return end;
 
     if (!start || !end) return Skia.Path.Make();
 
-    return end.interpolate(start, transition.current) ?? end;
+    return end.interpolate(start, transition.value) ?? end;
   }, [state, transition]);
 
   return (
