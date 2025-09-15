@@ -30,8 +30,8 @@ const BaseLineChart = <T extends { label: string; color: string }>({
   // FIXME: Fix when working on simple layout engine - at this point we should not care about the marker
   // @ts-expect-error
   const legendConfig = ensureDefaults(customLegendConfig, defaultLegendConfig);
-  const xAxisHeight = xAxis?.height || 30;
-  const yAxisWidth = yAxis?.width || 30;
+  const xAxisHeight = xAxis?.height ?? 30;
+  const yAxisWidth = yAxis?.width ?? 30;
   const contentWidth = width - yAxisWidth;
   const contentHeight = height - (xAxisHeight + legendConfig.height);
   const yDomainSize = Math.abs(yDomain[1] - yDomain[0]);
