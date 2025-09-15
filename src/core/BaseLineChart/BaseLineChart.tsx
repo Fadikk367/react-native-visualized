@@ -7,6 +7,7 @@ import YAxis from '../Axes/YAxis';
 import Gridlines from '../Gridlines';
 import Legend from '../Legend';
 import { defaultLegendConfig } from '../Legend/constants';
+import { MapDomainToCanvasContext } from '../MapDomainToCanvasContext';
 import Translate from '../Translate/Translate';
 import { ensureDefaults, getIsWithinDomain } from '../utils';
 import withPadding from '../withPadding';
@@ -26,6 +27,7 @@ const BaseLineChart = <T extends { label: string; color: string }>({
   data,
   legend: customLegendConfig,
   renderPath,
+  children,
 }: BaseLineChartProps<T>) => {
   // FIXME: Fix when working on simple layout engine - at this point we should not care about the marker
   // @ts-expect-error
@@ -52,8 +54,8 @@ const BaseLineChart = <T extends { label: string; color: string }>({
   );
 
   return (
-    <>
-      {customLegendConfig && (
+    <MapDomainToCanvasContext.Provider value={mapDomainToCanvas}>
+      {customLegendConfig ? (
         <Translate x={yAxisWidth}>
           <Legend
             {...legendConfig}
@@ -64,7 +66,7 @@ const BaseLineChart = <T extends { label: string; color: string }>({
             position="top"
           />
         </Translate>
-      )}
+      ) : null}
       <Translate y={legendConfig.height}>
         <Translate x={yAxisWidth}>
           <Gridlines
@@ -76,6 +78,7 @@ const BaseLineChart = <T extends { label: string; color: string }>({
             mapDomainToCanvas={mapDomainToCanvas}
           />
           <Group clip={rect(0, 0, contentWidth, contentHeight)}>{paths}</Group>
+          {children}
         </Translate>
         <YAxis
           ticks={yTicksWithinDomain}
@@ -96,7 +99,7 @@ const BaseLineChart = <T extends { label: string; color: string }>({
           />
         </Translate>
       </Translate>
-    </>
+    </MapDomainToCanvasContext.Provider>
   );
 };
 

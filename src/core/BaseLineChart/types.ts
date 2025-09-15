@@ -24,6 +24,7 @@ export interface BaseLineChartProps<T> extends ChartBaseProps {
   xAxis?: XAxisConfig;
   yAxis?: YAxisConfig;
   legend?: LineChartLegendConfig;
+  children?: React.ReactNode;
 }
 
 export type RenderPath<T> = (
